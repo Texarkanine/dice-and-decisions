@@ -83,3 +83,15 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - No fixes required — review came back clean
 * Insights
     - The excerpt/appendix coupling is a maintenance point: any future spec-example edit must touch both the section example and Appendix A together (flag for reflection)
+
+## 2026-06-11 - REFLECT (L3) - COMPLETE
+
+* Work completed
+    - Full lifecycle review written to `memory-bank/active/reflection/reflection-m1-game-md-format-spec.md`
+    - Persistent files reconciled — no updates needed beyond those already made in build step 4
+* Decisions made
+    - Identity-block refinements (title-block position, `**Randomizer:**` field) judged the right granularity to leave to build — constraints on record were sufficient to decide them without creative re-entry
+* Insights
+    - Self-testing spec pattern (appendix passes its own checklist) caught a real cross-section gap (reactive reroll → turn-report grammar) before M2; carries a maintenance obligation to re-verify excerpt/appendix sync on every spec edit
+    - Documentary acceptance checks written at plan time are TDD-for-prose; reuse the shape for M2
+    - Absorption-diff procedure beat its own candidate list — trust procedures over enumerations for content-migration steps
