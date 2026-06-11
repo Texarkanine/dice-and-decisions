@@ -44,7 +44,7 @@ A toolkit for playing, playtesting, and publishing **lite RPGs** — tabletop ga
 
 | Game | Status | Notes |
 | --- | --- | --- |
-| Cannonball Rally | First target; rules exist in `TTRPG - Cannonball Rally.odt` + oral tradition | Coast-to-coast outlaw racing, 2–6 players, d6; signature real-weather external data hook with offline fallback table; win = lowest total hours once every racer has finished or been jailed |
+| Cannonball Rally | First target; rules exist in `TTRPG - Cannonball Rally.odt` + oral tradition | Coast-to-coast outlaw racing, 2–6 players, d6; signature real-weather external data hook (stage weather = real forecast for the stage's reference city, each stage offset +2hr into the future for a fancy GM) with offline fallback table; win = lowest total hours once every racer has finished or been jailed |
 | Carnival ticket-hustling game | Notebook only | Future `author` target |
 | Caribbean sea-survival game | Drawings only | Future `author` target |
 

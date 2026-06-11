@@ -101,13 +101,13 @@ The spec IS a new public contract — the engine/content boundary itself. No exi
         - *Worked example* (preflight amendment): one deliberately trivial **toy game** (not Cannonball Rally — the rally stays M2's proving ground) provides every per-section example; the complete assembled toy GAME.md appears as an appendix and must itself pass the spec's validation checklist (self-test). A single coherent example cannot hide cross-section contradictions the way scattered snippets can, and it becomes the template M2/M11/M12 copy and the canonical drafting example for `author` (M10). Clearly marked illustrative, preserving engine/content separation.
         - *Validation checklist*: one checkable item per normative rule above.
     - Creative ref: `creative-game-md-anchoring.md` (conventions), `creative-repo-layout.md` (location).
-2. **Update README.md**
+2. ✅ **Update README.md**
     - Files: `README.md`
     - Changes: add repo layout section (`skills/` convention, engine vs game directories), link the format spec, game-library placeholder listing Cannonball Rally as in-progress.
-3. **Retire VISION.md**
+3. ✅ **Retire VISION.md**
     - Files: `VISION.md` (delete)
     - Changes: diff its content against memory bank + spec; absorb anything unique (candidates: six-unwritten-rules anecdote → spec preamble or productContext; "glossed over on purpose" list → already in productContext); then delete.
-4. **Update persistent memory bank**
+4. ✅ **Update persistent memory bank**
     - Files: `memory-bank/systemPatterns.md`, `memory-bank/techContext.md`
     - Changes: systemPatterns — record realized repo layout (skills/, repo-root-as-plugin-root, spec location) and drop/adjust the pre-implementation status note's coverage of the format; techContext — add `skills/` layout convention under Repo Conventions.
 
@@ -130,6 +130,6 @@ No new technology — validation not required. (Plugin-discovery facts for the l
 - [x] Test planning complete (TDD — documentary acceptance checks; no code in milestone)
 - [x] Implementation plan complete
 - [x] Technology validation complete (N/A — no new technology)
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA

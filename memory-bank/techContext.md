@@ -16,5 +16,6 @@ No test infrastructure exists yet. When shell scripts land, they are written and
 
 ## Repo Conventions
 
+- All deliverables (engine skills and game directories alike) live in the single top-level `skills/` directory; the repo root doubles as the future plugin root for both Cursor and Claude Code. Naming: kebab-case skill directories, uppercase well-known files (`GAME.md`, `SKILL.md`), lowercase ordinary references. The GAME.md format spec is at `skills/author/references/game-format.md`.
 - `.cursor/{rules,skills,commands}/shared/` are vendored by [`ai-rizz`](https://github.com/Texarkanine/.cursor-rules) as configured in `ai-rizz.skbd` — do not hand-edit; change upstream instead.
 - `TTRPG - Cannonball Rally.odt` (LibreOffice) is the original human-written source for the first game's rules; it is input material, not a maintained artifact.

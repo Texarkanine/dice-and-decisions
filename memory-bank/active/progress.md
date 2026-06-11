@@ -57,3 +57,18 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - Innovation amendment applied to plan: per-section examples replaced by one coherent **toy game** threaded through the spec, assembled as an appendix that must pass the spec's own validation checklist (self-test); toy game is deliberately not Cannonball Rally so M2 remains the true proving ground
 * Insights
     - A single coherent worked example cannot hide cross-section contradictions the way scattered snippets can — it is the cheapest possible pre-M2 integration test of the format
+
+## 2026-06-11 - BUILD (L3) - COMPLETE (PASS)
+
+* Work completed
+    - Authored `skills/author/references/game-format.md`: preamble, document conventions (canonical H2 vocabulary + order, extension rule, single-source rule, randomizer neutrality), per-section rules for all 9 sections (purpose / required content / conventions / example each), validation checklist, and Appendix A — the assembled Lemonade Stand toy game
+    - Updated `README.md` with repo layout section, spec links, and current status
+    - Deleted `VISION.md` after absorption diff (anecdote → spec preamble; +2hr weather offset → productContext; persona purpose + mixed-tables-last rationale → systemPatterns)
+    - Updated `systemPatterns.md` (realized layout pattern, realized GAME.md vocabulary, adjusted status note) and `techContext.md` (skills/ convention)
+* Decisions made
+    - Toy game: Lemonade Stand — trivial but exercises every section, including a reactive reroll perk that stresses the turn-report grammar
+    - Identity & flavor realized as a title block (bold-label fields + pitch between H1 and first H2); field named `**Randomizer:**` for neutrality
+    - Canonical section order normative; `### Setup`/`### Round` canonical H3s; hooks own what/how while procedure steps own when; extension H2s only after GM Guidance
+* Insights
+    - The reroll perk proved the turn-report completeness rule immediately: the grammar needed `[ then <m>]` to express a legal reactive action — exactly the kind of gap the format exists to surface
+    - All 13 documentary acceptance checks pass; Appendix A passes the spec's own validation checklist (self-test held)

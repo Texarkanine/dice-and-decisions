@@ -1,6 +1,6 @@
 # System Patterns
 
-> **Status note:** the codebase is pre-implementation. This file records the *designed* architecture (absorbed from the founding vision document, since deleted). As code lands, reconcile each pattern against reality and drop this note when the system exists.
+> **Status note:** the engine skills are pre-implementation; this file records the *designed* architecture for them (absorbed from the founding vision document, since deleted). The repo layout and the GAME.md format are now real — the format spec lives at `skills/author/references/game-format.md`. As engine code lands, reconcile each remaining pattern against reality and drop this note when the system exists.
 
 ## How This System Works
 
@@ -8,17 +8,21 @@ The system is a family of **agent skills** (agentskills.io format: `SKILL.md` + 
 
 - **Engine skills**, each independently activatable:
   - `gm` — the referee. Reads a `GAME.md`, owns session state, announces conditions, presents choices, applies mechanics, narrates *briefly* (flavor in one sentence, math in full). Resolves external data hooks (e.g. weather lookup) when the harness has network; falls back to the game's declared offline table otherwise.
-  - `player` — an AI player. Given rules, character, visible state, and a persona, returns one structured decision plus a line of table talk. Personas come from a small shipped roster (assigned, randomized, or custom).
+  - `player` — an AI player. Given rules, character, visible state, and a persona, returns one structured decision plus a line of table talk. Personas come from a small shipped roster (assigned, randomized, or custom); their purpose is coverage of the strategy space during playtests and color at human tables.
   - `table` — the orchestrator and the skill users actually invoke ("run Cannonball Rally with me and four AI players"). Sets up the session (game, seats, which are human, who GMs) and routes each decision to the right seat.
   - `playtest` — the batch harness. N unattended AI-only games with varied seeds, personas, and rule parameters; emits a balance report. The only skill allowed to *require* a filesystem.
   - `author` — the game writer's assistant: drafts `GAME.md` from notes, validates against the format, interrogates for unwritten rules.
-- **Game content**: each game is a directory whose `references/GAME.md` the engine consumes. Build order is dependency-driven: format + Cannonball Rally first, then `gm`, then `player`+`table` (solo), then `playtest`, then mixed tables, then more games + plugin packaging.
+- **Game content**: each game is a directory whose `references/GAME.md` the engine consumes. Build order is dependency-driven: format + Cannonball Rally first, then `gm`, then `player`+`table` (solo), then `playtest`, then mixed tables (deliberately last among the modes: their round-summary needs are best learned from dozens of solo sessions), then more games + plugin packaging.
 
 The load-bearing assumption underneath everything: **the conversation, not the filesystem, is the working memory.** Violating that breaks portability to disk-free harnesses (Claude.ai web sandboxes can be recycled mid-conversation). The patterns below exist to protect it.
 
 ## GAME.md: one document, two audiences
 
-`SKILL.md` is to agents what `GAME.md` is to tables. Each game's `GAME.md` is simultaneously the printable rulebook and the machine-readable spec — a structured Markdown document with required sections defined by the format reference in the engine: identity & flavor; core procedure (the turn loop as an explicit algorithm); resolution (dice, modifier stacking, ties); scoring & end state; content tables (print cleanly *and* parse unambiguously); optional external data hooks (declared real-world inputs, each with an offline fallback); GM guidance. If an AI needs something the paper doesn't say, the paper is incomplete — fix the paper, never the engine.
+`SKILL.md` is to agents what `GAME.md` is to tables. Each game's `GAME.md` is simultaneously the printable rulebook and the machine-readable spec — pure structured Markdown (no frontmatter, no hidden annotations) with an exact H2 section vocabulary defined by `skills/author/references/game-format.md`: title block (bold-label identity fields + pitch); core procedure (the turn loop as an explicit algorithm); resolution (randomizer, modifier stacking, ties, simultaneity); scoring & end state; parameters (named tunable scalars — the contract that makes `playtest` sweeps mechanical); content tables (GFM pipe tables that print cleanly *and* parse unambiguously); optional external data hooks (declared real-world inputs, each with a roll-on-table offline fallback); turn report (per-game one-line declaration grammar); GM guidance. The spec carries its own validation checklist (the seed of `author`'s mechanical validation) and an assembled toy-game example that passes it. If an AI needs something the paper doesn't say, the paper is incomplete — fix the paper, never the engine.
+
+## Repo layout: one `skills/`, repo root = plugin root
+
+All deliverables — engine skills and game directories alike — live in a single top-level `skills/` directory, because games *are* skills (next pattern) and both target plugin ecosystems (Cursor, Claude Code) auto-discover a plugin's root-level `skills/`. The repo root therefore doubles as the future plugin root: packaging (M13) is a thin manifest wrapper with zero file moves. Naming: kebab-case skill directories (`cannonball-rally`); uppercase well-known files (`GAME.md`, `SKILL.md`); lowercase ordinary references (`game-format.md`). The format spec lives at `skills/author/references/game-format.md` — `author` is its runtime consumer; the directory is reference-only until `author`'s `SKILL.md` lands. (Decision record: `memory-bank/active/creative/creative-repo-layout.md`, archived with M1.)
 
 ## Game-directory-as-skill (the portability trick)
 

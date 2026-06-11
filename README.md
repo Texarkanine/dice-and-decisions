@@ -14,7 +14,7 @@ And once AI can playtest a game, it can also *play* one with you: solo sessions 
 
 ## How it works
 
-- **One document, two audiences.** Each game is a `GAME.md`: simultaneously the printable rulebook humans run at the table and the machine-readable spec AI reads. Same file, unmodified. If the AI needs something the paper doesn't say, the paper is incomplete — fix the paper.
+- **One document, two audiences.** Each game is a `GAME.md`: simultaneously the printable rulebook humans run at the table and the machine-readable spec AI reads. Same file, unmodified. If the AI needs something the paper doesn't say, the paper is incomplete — fix the paper. The format is defined in the [GAME.md format specification](skills/author/references/game-format.md).
 - **Skills, not servers.** Everything ships as [agentskills.io](https://agentskills.io/specification)-compatible skills. No backend, no custom tooling — runnable anywhere skills install (Cursor, Claude Code, and in principle Claude.ai on the web).
 - **The engine is generic; games are content.** Adding a game means writing a document, not writing code.
 - **Dice are rolled by script, never by the model.** LLMs are biased dice. A tiny bundled roller uses real RNG, supports seeding, and logs every roll.
@@ -37,6 +37,24 @@ And once AI can playtest a game, it can also *play* one with you: solo sessions 
 | Carnival ticket hustle | Work the midway, run the games, fleece the rubes | Notebook |
 | Caribbean sea survival | Stay alive, stay afloat | Sketches |
 
+## Repo layout
+
+Everything installable lives in one place: `skills/`. Engine skills and games are the same kind of artifact — every game directory is itself a valid [agent skill](https://agentskills.io/specification) — so they share a single home, and the repo root doubles as the future plugin root (both Cursor and Claude Code auto-discover a plugin's root-level `skills/`).
+
+```text
+skills/
+├── author/
+│   └── references/
+│       └── game-format.md    # the GAME.md format specification (skill itself: planned)
+├── cannonball-rally/         # first game directory (planned next)
+├── gm/                       # engine skills (planned)
+├── player/
+├── table/
+└── playtest/
+```
+
+Each game directory ships as `skills/<game>/` with a `SKILL.md` pitch, its rulebook at `references/GAME.md`, and printables in `assets/`.
+
 ## Status
 
-Pre-alpha. The current work is formalizing the `GAME.md` format with Cannonball Rally as its proving ground, then building the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).
+Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written; the current work is formalizing Cannonball Rally against it as the format's proving ground, then building the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).
