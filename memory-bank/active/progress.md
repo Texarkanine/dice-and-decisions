@@ -25,3 +25,14 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - Naming: kebab-case skill dirs; uppercase well-known files (`GAME.md`); lowercase ordinary references
 * Insights
     - Games-are-skills is load-bearing: a `games/` split would fight the one-install-mechanism portability trick and surface packaging pain only at M13
+
+## 2026-06-11 - CREATIVE (Q2: GAME.md machine-anchoring) - COMPLETE (RESOLVED)
+
+* Work completed
+    - Architecture exploration of GAME.md anchoring strategy: pure Markdown vs YAML frontmatter vs hidden HTML-comment anchors, evaluated against single-source-of-truth, print parity, machine consumption, authorability
+    - Decision documented in `memory-bank/active/creative/creative-game-md-anchoring.md`
+* Decisions made
+    - Pure structured Markdown: strict H2 section vocabulary, bold-label identity fields, GFM pipe tables, structured hook subsections, turn-report grammar as template + normative examples
+    - New spec requirement discovered: a named **Parameters table** for tunable rule values — makes M7 sweeps mechanical and forces explicit values
+* Insights
+    - The machine reader is an LLM: explicit, named, tabulated values anchor the format better than serialization formats; the same discipline makes a better paper rulebook (the audiences converge — this is why invariant 6 works)
