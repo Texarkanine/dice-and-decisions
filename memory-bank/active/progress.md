@@ -29,3 +29,15 @@ Build the lite-rpg toolkit from scratch per `memory-bank/active/projectbrief.md`
     - Plugin packaging (M13) deliberately last, after engine and game library exist
 * Insights
     - No milestone estimated above L3, so no further decomposition needed
+
+## 2026-06-11 - PREFLIGHT (L4) - COMPLETE (PASS)
+
+* Work completed
+    - Validated milestone list: TDD encoding, convention compliance, dependency impact, conflict detection, completeness (all 6 requirements and 5 acceptance criteria map to milestones with no gaps or overlap)
+    - Amended invariants: added invariant 8 (test-first wherever code exists, in any milestone)
+    - Amended M4: the hand-played validation session is recorded as a golden transcript fixture for M5–M7 regression use
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Repo layout (where engine skills and game directories live) deferred to M1 as a design decision
+* Insights
+    - M5 (`player`) consumes the turn-brief/state-table contract M4 defines; serial execution handles this, but parallel execution of M4/M5 would require pinning that contract first
