@@ -1,15 +1,14 @@
 # Active Context
 
-## Current Task: m1-game-md-format-spec
-**Phase:** REFLECT - COMPLETE
+## Current Task: m2-cannonball-rally-game
+**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
 
 ## What Was Done
 
-- Full lifecycle review written to `memory-bank/active/reflection/reflection-m1-game-md-format-spec.md`
-- Verdict: milestone succeeded — single-pass build, clean QA, no negative cross-phase chains
-- Persistent files reconciled: no further updates needed (build step 4 already realigned `productContext.md`, `systemPatterns.md`, `techContext.md`)
-- Key insights captured: the self-testing spec pattern (appendix must pass its own checklist) and its excerpt/appendix sync-check obligation; reactive actions as the stress point for turn-report grammars (M2 should test the rally's abilities against this); documentary acceptance checks as TDD-for-prose (reuse for M2); absorption-diff procedure beats candidate enumeration
+- Advanced L4 milestone list: M1 (GAME.md format spec) checked off, sub-run ephemeral state cleared
+- Classified milestone M2 as **Level 2 (Simple Enhancement)**
+- Rationale: authoring one game directory (skill wrapper + `references/GAME.md`) against the completed format spec; self-contained content work with no engine code and no architectural decisions (repo layout and format anchoring settled in M1). Spec-gap fixes, if any surface, are contained edits to `skills/author/references/game-format.md`.
 
 ## Next Step
 
-- M1 sub-run complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M2: Cannonball Rally, or M3: dice roller — both unblocked once M1 is checked off; M2 is the dependency-order next)
+- Load the Level 2 workflow (`.cursor/skills/shared/niko/references/level2/level2-workflow.md`) and execute its first phase (Plan)
