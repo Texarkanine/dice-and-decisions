@@ -72,3 +72,14 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
 * Insights
     - The reroll perk proved the turn-report completeness rule immediately: the grammar needed `[ then <m>]` to express a legal reactive action — exactly the kind of gap the format exists to surface
     - All 13 documentary acceptance checks pass; Appendix A passes the spec's own validation checklist (self-test held)
+
+## 2026-06-11 - QA (L3) - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review against the plan: KISS (no over-engineering; vocabulary kept to exactly the planned 9 units), DRY (excerpt/appendix duplication is the planned structure; verified in sync), YAGNI (no speculative sections; extension rule covers the future without speccing it), Completeness (4/4 steps, 13/13 acceptance checks, no stubs), Regression (naming conventions hold; vendored `.cursor/` dirs untouched), Integrity (no debris), Documentation (README + persistent memory bank updated alongside)
+    - Mechanical spot-checks: all 9 per-section examples are verbatim substrings of Appendix A; appendix H2s exactly match the canonical vocabulary in canonical order
+    - Wrote `.qa-validation-status`: PASS
+* Decisions made
+    - No fixes required — review came back clean
+* Insights
+    - The excerpt/appendix coupling is a maintenance point: any future spec-example edit must touch both the section example and Appendix A together (flag for reflection)
