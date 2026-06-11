@@ -47,3 +47,13 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - Spec content scope: preamble + per-section rules (9 sections incl. Parameters) + validation checklist; examples illustrative only (no M2 scope creep)
 * Insights
     - The spec's validation checklist doubles as the seed for `author`'s (M10) mechanical validation; the resolution-completeness questions seed its interrogation mode
+
+## 2026-06-11 - PREFLIGHT (L3) - COMPLETE (PASS)
+
+* Work completed
+    - Validated plan: TDD encoding (prose-only milestone, acceptance checks precede build; guard rail recorded for unexpected code), convention compliance (spec location matches designed architecture; layout verified against both plugin ecosystems), dependency impact (grep confirms no in-repo VISION.md references outside memory bank), conflict detection (greenfield, no collisions), completeness (every milestone deliverable maps to a concrete step and acceptance check)
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Innovation amendment applied to plan: per-section examples replaced by one coherent **toy game** threaded through the spec, assembled as an appendix that must pass the spec's own validation checklist (self-test); toy game is deliberately not Cannonball Rally so M2 remains the true proving ground
+* Insights
+    - A single coherent worked example cannot hide cross-section contradictions the way scattered snippets can — it is the cheapest possible pre-M2 integration test of the format

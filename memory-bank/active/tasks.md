@@ -75,6 +75,7 @@ The spec IS a new public contract — the engine/content boundary itself. No exi
 - Spec defines turn-report format rules → per-game grammar as template line + normative examples; sized for a printed reference card (~a dozen words per player per round budget stated).
 - Spec defines resolution completeness → enumerated questions every Resolution section must answer (dice, modifier stacking order, ties, simultaneity).
 - Spec includes a validation checklist → mechanically derivable from the section rules (seed for `author`, M10).
+- Spec includes a coherent worked example → one toy game supplies all per-section examples; its assembled appendix GAME.md passes the spec's own validation checklist (preflight amendment).
 - Spec stays game-agnostic → no rules of any specific game appear normatively (edge: rally examples are illustrative only and marked as such).
 - Spec does not preclude non-d6 randomizers → dice declaration is per-game; spec language is randomizer-neutral (edge case check).
 - `VISION.md` is deleted → every unique fact in it is traceable to the memory bank or the spec before deletion (edge: the six-unwritten-rules anecdote, build-order rationale, glossed-over list).
@@ -96,7 +97,8 @@ The spec IS a new public contract — the engine/content boundary itself. No exi
     - Files: `skills/author/references/game-format.md` (new)
     - Changes: full spec per creative Q2 conventions —
         - *Preamble*: purpose, the two audiences, paper-first parity rule ("if the AI needs something the paper doesn't say, fix the paper"), document-level conventions (H2 vocabulary, extension rule for unknown sections, identity bold-label fields).
-        - *Per-section rules* for: Identity & Flavor; Parameters; Core Procedure (numbered algorithm, who acts, inputs/outputs per step); Resolution (completeness questions; randomizer-neutral); Scoring & End State; Content Tables (GFM conventions); Turn Report (grammar template + normative examples + word budget); External Data Hooks (optional; required fields + table-based offline fallback); GM Guidance. Each with an inline mini-example (illustrative, game-agnostic or marked rally-flavored).
+        - *Per-section rules* for: Identity & Flavor; Parameters; Core Procedure (numbered algorithm, who acts, inputs/outputs per step); Resolution (completeness questions; randomizer-neutral); Scoring & End State; Content Tables (GFM conventions); Turn Report (grammar template + normative examples + word budget); External Data Hooks (optional; required fields + table-based offline fallback); GM Guidance.
+        - *Worked example* (preflight amendment): one deliberately trivial **toy game** (not Cannonball Rally — the rally stays M2's proving ground) provides every per-section example; the complete assembled toy GAME.md appears as an appendix and must itself pass the spec's validation checklist (self-test). A single coherent example cannot hide cross-section contradictions the way scattered snippets can, and it becomes the template M2/M11/M12 copy and the canonical drafting example for `author` (M10). Clearly marked illustrative, preserving engine/content separation.
         - *Validation checklist*: one checkable item per normative rule above.
     - Creative ref: `creative-game-md-anchoring.md` (conventions), `creative-repo-layout.md` (location).
 2. **Update README.md**
