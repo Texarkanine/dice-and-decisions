@@ -93,7 +93,7 @@ The spec IS a new public contract — the engine/content boundary itself. No exi
 
 ## Implementation Plan
 
-1. **Author the format spec** (the bulk of the milestone)
+1. ✅ **Author the format spec** (the bulk of the milestone)
     - Files: `skills/author/references/game-format.md` (new)
     - Changes: full spec per creative Q2 conventions —
         - *Preamble*: purpose, the two audiences, paper-first parity rule ("if the AI needs something the paper doesn't say, fix the paper"), document-level conventions (H2 vocabulary, extension rule for unknown sections, identity bold-label fields).
