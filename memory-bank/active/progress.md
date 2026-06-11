@@ -163,3 +163,16 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - M1's "reactive actions break grammars" lesson fired exactly as predicted — but on a *choice* (the Detour), not a reaction; optionality of any kind is the grammar stressor
     - The unified police check (one roll, bar = tier + suspicion) replaced four divergent per-card police clauses — formalization didn't just record the design, it simplified it; the operator drove the simplification when the contradiction surfaced
     - Interrogation worked best with concrete worked examples ("walk me through one Sedan turn in NYC") and forced-choice questions — field notes for `author`'s interrogation mode (M10)
+
+## 2026-06-11 - QA (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review against the plan: KISS (unified police check is *simpler* than the source's four divergent clauses; no over-engineering), DRY (all rule values live once — parameters by name, tiers in one table; content-cell constants are rows, allowed), YAGNI (every parameter has a consumer; no speculative sections), Completeness (5/5 steps, all 8 acceptance checks, no stubs), Regression (kebab-case dir, uppercase well-known files, vendored dirs untouched), Integrity (one debris finding, fixed), Documentation (README + both persistent memory bank files updated alongside)
+    - Spec validation checklist re-walked on the final document: all items pass
+    - Wrote `.qa-validation-status`: PASS
+* Decisions made
+    - Trivial fix: LibreOffice lock file (`.~lock.*#`) had been committed — untracked and gitignored
+    - Trivial fix: Vehicle Modifiers column relabeled `Modifier` → `Effect` — the column mixes signed numerics with textual effects ("Halved for you"), and the spec's sign rule binds columns *labeled* Modifier
+    - The 8 drafted-content flags are design decisions for the author, not QA defects — explicitly carried to operator review (the build report surfaced them)
+* Insights
+    - The spec's sign-rule-by-column-label turned out to be a useful escape hatch: mixed modifier/effect columns are legal under a different label, no spec amendment needed

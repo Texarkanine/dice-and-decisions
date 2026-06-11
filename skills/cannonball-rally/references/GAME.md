@@ -192,10 +192,10 @@ allowed.
 
 Each row is one standing modifier. *Applies to* names the condition (a road
 property, a weather category from the Weather table's *Counts as* column, or
-police rolls); *Modifier* is the effect — hours add to stage time, roll
-modifiers add to the named roll.
+police rolls); *Effect* is what happens — hours add to stage time, roll
+modifiers add to the named roll, and signed values always carry their sign.
 
-| Vehicle | Applies to | Modifier |
+| Vehicle | Applies to | Effect |
 | --- | --- | --- |
 | Ambulance | Police rolls, while Lights & Sirens are OFF | +1 to the roll |
 | Ambulance | High-grade roads | +1 hr |

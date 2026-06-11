@@ -86,4 +86,4 @@ No new technology - validation not required.
 - [x] Technology validation complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA — PASS (2 trivial fixes: LibreOffice lock-file debris untracked + gitignored; Vehicle Modifiers column relabeled `Modifier` → `Effect` to honor the spec's sign rule for its mixed numeric/textual cells). The 8 drafted-content flags in `activeContext.md` are design content awaiting author sign-off, not QA defects — carried forward to operator review.
