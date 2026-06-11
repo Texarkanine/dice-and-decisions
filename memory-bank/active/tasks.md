@@ -2,4 +2,36 @@
 
 **Complexity:** Level 3
 
-*(Stub — task checklists are populated by the level-specific planning phase.)*
+*(Plan phase in progress — component analysis and open questions below; full plan populated at end of plan phase.)*
+
+## Component Analysis (draft)
+
+### Affected Components
+
+- **GAME.md format spec** (new): engine reference defining required sections, content-table conventions, external data hooks with offline fallbacks, turn-report format rules. Consumed by M2, M4, M5, M10.
+- **Repo layout skeleton** (new): directory structure for engine skills and game directories — design decision deferred from L4 preflight to M1.
+- **`VISION.md`** (retired): seed material already absorbed into memory bank; deleted once spec lands.
+- **`README.md`** (updated): point at the spec and layout.
+- **`memory-bank/systemPatterns.md` / `techContext.md`** (updated): record layout decision once made.
+
+### Cross-Module Dependencies
+
+- Format spec → every game document (M2, M11, M12): games must satisfy it.
+- Format spec → `gm` (M4): defines what the GM parses (sections, tables, hooks, turn reports).
+- Format spec → `author` (M10): validation checklist must be mechanically derivable from the spec.
+- Repo layout → plugin packaging (M13): layout must package cleanly for Cursor and Claude.
+
+### Invariants & Constraints (from L4 milestone list)
+
+1. Paper-first parity — GAME.md is printable and playable with paper, pencils, and a d6.
+2. GAME.md is the single source of truth — one document, two audiences; no separate machine spec.
+3. Engine/content separation — the spec is engine; no game-specific rules in it.
+4. Skills-only core — layout must be agentskills.io-compatible.
+5. Vendored rules untouched — nothing under `.cursor/{rules,skills,commands}/shared/`.
+
+## Open Questions
+
+- [x] **Q1: Repo layout** → Resolved: single top-level `skills/` directory for engine skills AND game directories; repo root doubles as plugin root (both Cursor and Claude plugins auto-discover root `skills/`); format spec lives at `skills/author/references/game-format.md` (author is its runtime owner; SKILL.md arrives in M10). (see `memory-bank/active/creative/creative-repo-layout.md`)
+- [ ] **Q2: Machine-anchoring strategy for GAME.md** — How are sections, content tables, external-data hooks, and turn-report declarations made unambiguously parseable while the document remains a beautiful printable rulebook?
+    - *Why ambiguous:* viable alternatives include strict required heading names (pure Markdown, maximal print parity), YAML frontmatter for identity metadata plus headings for the rest, and structured declaration blocks for hooks/turn-reports. Two engineers would build different formats.
+    - *Constraints:* paper-first parity (print output must not show machine scaffolding awkwardly); single source of truth (no parallel machine spec); content tables must print cleanly AND parse unambiguously; format must not preclude non-d6 dice/cards (explicitly out of scope to build, but must not be precluded).

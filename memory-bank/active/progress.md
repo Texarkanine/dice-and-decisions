@@ -12,3 +12,16 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - L3 rationale: foundational spec with multiple interlocking design decisions (section schema, content-table conventions, external-data hooks, turn-report format) plus the repo-layout decision deferred from L4 preflight; milestone-scoped, not system-wide
 * Insights
     - The spec is consumed by every later milestone (M2, M4, M5, M10 directly); design decisions here set the contract for the whole engine/content boundary
+
+## 2026-06-11 - CREATIVE (Q1: repo layout) - COMPLETE (RESOLVED)
+
+* Work completed
+    - Architecture exploration of repo layout: 3 options evaluated against portability, simplicity, extensibility, discoverability
+    - Verified plugin facts: Claude Code plugins auto-discover root `skills/<name>/SKILL.md` (official docs); Cursor plugin cache shows identical shape
+    - Decision documented in `memory-bank/active/creative/creative-repo-layout.md`
+* Decisions made
+    - Single top-level `skills/` for engine skills and games; repo root = future plugin root (zero-move M13 packaging)
+    - Format spec home: `skills/author/references/game-format.md` — author is the spec's runtime consumer; reference-only directory until M10
+    - Naming: kebab-case skill dirs; uppercase well-known files (`GAME.md`); lowercase ordinary references
+* Insights
+    - Games-are-skills is load-bearing: a `games/` split would fight the one-install-mechanism portability trick and surface packaging pain only at M13
