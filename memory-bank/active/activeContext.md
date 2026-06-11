@@ -1,15 +1,14 @@
 # Active Context
 
 ## Current Task: lite-rpg-toolkit
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
 
-- Initialized persistent memory bank (`productContext.md`, `systemPatterns.md`, `techContext.md`) by absorbing `VISION.md` (which is destined for deletion once its seed work is underway)
-- Wrote `README.md` sales pitch with "aspirational / under construction" disclaimer
-- Intent validated with operator: build the full toolkit per the vision's dependency-driven build order
-- Complexity determined: **Level 4 (Complex System)** — an entire multi-subsystem toolkit built from scratch (format spec, five engine skills, games, orchestration modes, plugin packaging), with architectural implications throughout
+- L4 milestone list generated: **13 milestones** (M1–M13) in dependency order with parallelization flowchart, written to `memory-bank/active/milestones.md`
+- 7 cross-milestone invariants recorded (paper-first parity, skills-only core, engine/content separation, script-rolled dice, disk-free baseline, GAME.md single source of truth, vendored rules untouched)
+- Per-milestone L1/L2/L3 estimates recorded inline with rationale (no milestone estimated L4)
 
 ## Next Step
 
-- Load the Level 4 workflow and begin its first phase (L4 planning → `milestones.md`)
+- Preflight to validate the milestone list (`niko-preflight` skill)
