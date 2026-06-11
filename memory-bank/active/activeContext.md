@@ -1,14 +1,17 @@
 # Active Context
 
 ## Current Task: m2-cannonball-rally-game
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN - COMPLETE
 
 ## What Was Done
 
-- Advanced L4 milestone list: M1 (GAME.md format spec) checked off, sub-run ephemeral state cleared
-- Classified milestone M2 as **Level 2 (Simple Enhancement)**
-- Rationale: authoring one game directory (skill wrapper + `references/GAME.md`) against the completed format spec; self-contained content work with no engine code and no architectural decisions (repo layout and format anchoring settled in M1). Spec-gap fixes, if any surface, are contained edits to `skills/author/references/game-format.md`.
+- Full L2 plan written to `tasks.md`: source inventory (ODT stages + 6 vehicles; oral-tradition facts from productContext), 8 documentary acceptance checks (TDD-for-prose, reusing the M1 shape), 5-step implementation plan, challenges & mitigations
+- Key plan decisions:
+    - Step 1 ends with a **batched operator interrogation** for the oral rules (core loop, speeding, obstacles, police mechanics, Detour!, grade/bank) — the author's rules are not invented
+    - ODT must be re-extracted structurally (table markup, not flattened paragraphs) — the naive extraction scrambled vehicle bonus/penalty cells
+    - Spec-gap foldback is an explicit conditional step with the M1 excerpt/appendix sync check
+- No new technology; no code anticipated (guard rail: STOP and re-plan if a script becomes necessary)
 
 ## Next Step
 
-- Load the Level 2 workflow (`.cursor/skills/shared/niko/references/level2/level2-workflow.md`) and execute its first phase (Plan)
+- Preflight validation (`niko-preflight` skill)
