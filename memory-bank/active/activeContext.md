@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m2-cannonball-rally-game
-**Phase:** BUILD - COMPLETE
+**Phase:** REFLECT - COMPLETE
 
 ## What Was Done
 
@@ -31,6 +31,13 @@
     7. Title block Time: "about an hour" (estimate)
     8. Forecast interpretation tie-break: "pick the row whose Counts-as list is shorter" (invented)
 
+## Reflection
+
+- Full review written to `memory-bank/active/reflection/reflection-m2-cannonball-rally-game.md`
+- Verdict: milestone succeeded and exceeded its brief — format proven with zero amendments; the interrogation improved the game's design (deterministic map, unified police check)
+- Persistent files reconciled: no further updates needed (build step 5 already realigned them)
+- The 8 drafted-content flags above await author sign-off — review them in the GAME.md whenever convenient; tuning them is content editing, not engine work
+
 ## Next Step
 
-- QA (`niko-qa` skill)
+- M2 sub-run complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M3: dice roller is the dependency-order next; M10: author skill is also unblocked)

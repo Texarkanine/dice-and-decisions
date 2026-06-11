@@ -176,3 +176,15 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - The 8 drafted-content flags are design decisions for the author, not QA defects — explicitly carried to operator review (the build report surfaced them)
 * Insights
     - The spec's sign-rule-by-column-label turned out to be a useful escape hatch: mixed modifier/effect columns are legal under a different label, no spec amendment needed
+
+## 2026-06-11 - REFLECT (L2) - COMPLETE
+
+* Work completed
+    - Full lifecycle review written to `memory-bank/active/reflection/reflection-m2-cannonball-rally-game.md`
+    - Persistent files reconciled — no updates needed beyond those already made in build step 5
+* Decisions made
+    - The 8 drafted-content flags remain open for author sign-off as content edits; they do not block the milestone (the document is complete and self-consistent with the drafted values)
+* Insights
+    - Optionality (the Detour choice), not just reactivity, is what breaks turn-report grammars — generalizes M1's lesson
+    - Formalization improved the design rather than just recording it (deterministic map, unified police check) — expect the same from `author` (M10)
+    - The threshold/suspicion/magnitude kernel looks like the seed of a reusable house system for future games
