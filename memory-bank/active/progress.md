@@ -26,3 +26,13 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
 * Insights
     - The step-1 interrogation doubles as a live rehearsal of the `author` skill's interrogation mode (M10) — worth noting what works
     - Acceptance check 2 (enumerate every legal action × turn-report grammar) operationalizes M1's "reactive actions are where grammars break" insight
+
+## 2026-06-11 - PREFLIGHT (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Validated plan: TDD encoding (prose-only; acceptance checks written at plan time, run per-section during build; code guard rail present), convention compliance (`skills/cannonball-rally/` matches kebab-case + game-directory-as-skill pattern; no deviations), dependency impact (grep confirms all Cannonball touchpoints — README, productContext, game-format illustration text — are either planned doc updates or no-ops), conflict detection (greenfield directory; `skills/` contains only `author/`; no overlap), completeness (every milestone deliverable maps to a step and an acceptance check)
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Innovation amendment applied to plan step 1: preserve the operator interrogation transcript verbatim in the build record — founding field data for the `author` skill's interrogation mode (M10)
+* Insights
+    - The spec's illustrative Cannonball mentions in `game-format.md` are deliberately rule-free, so M2 cannot contradict them — the format's "no game rules in the spec" discipline pays off here
