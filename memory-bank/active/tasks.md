@@ -70,12 +70,20 @@ No new technology - validation not required.
 - **Reactive abilities vs turn-report budget** (M1 reflection flagged this as the grammar's stress point): Double Down and Gun It are mid-resolution reactions. → Acceptance check 2 enumerates every action explicitly; if the budget can't hold, the fix is the game's report format (per spec), and if the *spec's* grammar rules are insufficient, step 4 amends them.
 - **Scope creep into engine concerns**: the temptation to specify GM behavior (turn briefs, state tables) in the game doc. → The game owns only what the spec's sections own; engine behavior stays out (spec's Turn Report conventions already draw this line).
 
+## Implementation Step Tracking
+
+- [x] Step 1: Source extraction + operator interrogation (4 rounds, transcripts in `progress.md`)
+- [x] Step 2: `skills/cannonball-rally/references/GAME.md` drafted, acceptance checks 1–5, 7 run
+- [x] Step 3: `skills/cannonball-rally/SKILL.md` authored, acceptance check 6 run
+- [x] Step 4: Spec foldback — **no amendments needed**; format held against the rally (check 8: spec untouched, excerpt/appendix sync n/a)
+- [x] Step 5: Docs — `README.md`, `productContext.md`, `systemPatterns.md` updated
+
 ## Status
 
 - [x] Initialization complete
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA

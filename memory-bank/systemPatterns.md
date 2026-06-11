@@ -1,6 +1,6 @@
 # System Patterns
 
-> **Status note:** the engine skills are pre-implementation; this file records the *designed* architecture for them (absorbed from the founding vision document, since deleted). The repo layout and the GAME.md format are now real — the format spec lives at `skills/author/references/game-format.md`. As engine code lands, reconcile each remaining pattern against reality and drop this note when the system exists.
+> **Status note:** the engine skills are pre-implementation; this file records the *designed* architecture for them (absorbed from the founding vision document, since deleted). The repo layout and the GAME.md format are real, and the format is proven by its first game (`skills/cannonball-rally/` — wrapper `SKILL.md` + `references/GAME.md`, the first instance of the game-directory-as-skill pattern). As engine code lands, reconcile each remaining pattern against reality and drop this note when the system exists.
 
 ## How This System Works
 
