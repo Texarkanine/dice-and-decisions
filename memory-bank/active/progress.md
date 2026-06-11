@@ -36,3 +36,14 @@ L4 sub-run for milestone M1 of `lite-rpg-toolkit`: author the GAME.md format spe
     - New spec requirement discovered: a named **Parameters table** for tunable rule values — makes M7 sweeps mechanical and forces explicit values
 * Insights
     - The machine reader is an LLM: explicit, named, tabulated values anchor the format better than serialization formats; the same discipline makes a better paper rulebook (the audiences converge — this is why invariant 6 works)
+
+## 2026-06-11 - PLAN (L3) - COMPLETE
+
+* Work completed
+    - Full L3 plan written to `tasks.md`: component analysis (6 components), cross-module dependency map (spec → M2/M4/M7/M10/M13), invariants, 12 documentary acceptance checks, 4-step implementation plan, challenges & mitigations
+    - Both open questions resolved via creative phase (see creative entries above)
+* Decisions made
+    - No executable code in M1 → TDD test-first cycle inapplicable; validation is documentary acceptance checks at QA, with M2 as the format's proving milestone (per L4 invariant 8)
+    - Spec content scope: preamble + per-section rules (9 sections incl. Parameters) + validation checklist; examples illustrative only (no M2 scope creep)
+* Insights
+    - The spec's validation checklist doubles as the seed for `author`'s (M10) mechanical validation; the resolution-completeness questions seed its interrogation mode
