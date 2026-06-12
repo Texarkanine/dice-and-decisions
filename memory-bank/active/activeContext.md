@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m3-dice-roller-script
-**Phase:** BUILD - COMPLETE (PASS)
+**Phase:** REFLECT - COMPLETE
 
 ## What Was Done
 
@@ -40,6 +40,12 @@
 - Observation (not a deviation): file execute bits aren't tracked (Windows-mounted
   drive); scripts run via `sh`/shebang. Noted in techContext.
 
+## Reflection
+
+- Reflection written to `memory-bank/active/reflection/reflection-m3-dice-roller-script.md`
+- Persistent files reconciled: `systemPatterns.md` + `techContext.md` updated in build; `productContext.md` unaffected (its script-rolled-dice principle was already stated and is now fulfilled)
+
 ## Next Step
 
-- QA review (runs automatically next per the L2 workflow)
+- M3 sub-run complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M4: the `gm` skill — depends on M1, M2, M3, all now done)
+

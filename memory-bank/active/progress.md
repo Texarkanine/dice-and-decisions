@@ -69,3 +69,14 @@ L4 sub-run for milestone M3 of `lite-rpg-toolkit`: build the seedable dice-rolle
 * Insights
     - The pinned-hash test fixture (a hardcoded constant) is exactly where a "magic number" is legitimate — it locks an external algorithm (cksum) against silent drift, the opposite of a shortcut
 
+## 2026-06-12 - REFLECT (L2) - COMPLETE
+
+* Work completed
+    - Reflection written to `memory-bank/active/reflection/reflection-m3-dice-roller-script.md`
+    - Persistent files reconciled — `systemPatterns.md` + `techContext.md` already updated in build; `productContext.md` unaffected (script-rolled-dice principle was already stated, now fulfilled)
+* Decisions made
+    - None beyond those already recorded
+* Insights
+    - The label-as-nonce kernel (caller-supplied context string IS the RNG nonce) is reusable: any later engine script needing replayable RNG without disk should adopt it rather than an internal counter
+    - Preflight's accretive-change prompt has concrete ROI when the deliverable is a contract for a later milestone (pinning the log grammar now saves M4 reverse-engineering it)
+
