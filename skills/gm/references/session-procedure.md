@@ -65,6 +65,7 @@ sh scripts/roll.sh --seed <session-seed> --label <label> [--sides N] [--count N]
 - **Label grammar:** `<stage>-<actor>-<purpose>`, all lowercase-kebab — `<stage>` is the round's in-fiction identity (the stage, the day), `<actor>` the seat (or `gm` for GM rolls such as hook fallbacks), `<purpose>` what the roll decides. Example: `day1-ana-customers`.
 - **Labels are unique per roll within the session.** A roll is a pure function of `(seed, label, sides)`, so a reused label silently repeats a face. When the same seat rolls for the same purpose again in one round, disambiguate in the purpose (`…-reroll`, `…-2`).
 - **Multiple dice at once:** use `--count N` — the roller suffixes `#1…#N` to the label itself; never hand-craft `#i` suffixes.
+- **What to roll** comes from the game: its title block declares the randomizer (which sets `--sides`; the roller defaults to d6, the toolkit's house die) and its Resolution section says what is rolled, when, and by whom.
 - Roll only what the game calls for: an action with no roll gets no roll.
 
 **Physical mode.** Humans roll their own dice and report faces (at the table or via Turn Report lines). The GM transcribes each reported face in the standard line shape with `seed=physical`:

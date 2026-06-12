@@ -75,7 +75,7 @@ One round of **Lemonade Stand** (the format spec's illustration game, two player
 ## Round 1: Day 1
 
 **Announcement.** No network at the table, so the *Tomorrow's Forecast*
-fallback rolls on the Weather table: a 6 — a Hot day, +2 to every
+fallback rolls on the Weather table: a 4 — a Sunny day, +1 to every
 customer roll today.
 
 **Declarations.**
@@ -86,25 +86,25 @@ customer roll today.
 **Rolls.**
 
 ```
-roll seed=1209 label=day1-weather-fallback die=d6 => 6
+roll seed=1209 label=day1-gm-weather die=d6 => 4
 roll seed=1209 label=day1-ana-customers die=d6 => 6
 roll seed=1209 label=day1-ben-customers die=d6 => 3
 ```
 
 **Resolution.**
 
-- Ana: roll 6, weather +2 (Hot), location +1 (Park), price 0 (regular)
-  = 9 customers served. Earnings 9 × $1 = $9.
-- Ben: roll 3 + 2 (Megaphone) = 5, weather +2 (Hot), location +2 (Beach
-  on a Hot day), price -2 (premium) = 7 customers served.
-  Earnings 7 × $2 = $14. Megaphone spent.
+- Ana: roll 6, weather +1 (Sunny), location +1 (Park), price 0 (regular)
+  = 8 customers served. Earnings 8 × $1 = $8.
+- Ben: roll 3 + 2 (Megaphone) = 5, weather +1 (Sunny), location +2
+  (Beach on a Sunny day), price -2 (premium) = 6 customers served.
+  Earnings 6 × $2 = $12. Megaphone spent.
 
 **State.**
 
 | Player | Money | Customers | Perk |
 | --- | --- | --- | --- |
-| Ben | $14 | 7 | Megaphone (spent) |
-| Ana | $9 | 9 | Megaphone (held) |
+| Ben | $12 | 6 | Megaphone (spent) |
+| Ana | $8 | 8 | Megaphone (held) |
 
 Days remaining: 4.
 ````

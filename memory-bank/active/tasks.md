@@ -207,7 +207,7 @@ the prose analog of tests-before-code.
       what it needs (a game's GAME.md path), session start steps, the loop in summary,
       explicit non-goals (no seat routing/personas — that's `table`/`player`), pointers to
       the two references; no `compatibility` disk requirement.
-5. **Self-validation walkthroughs** (fix gaps before the human session)
+5. ✅ **Self-validation walkthroughs** (fix gaps before the human session)
     - Files: the three gm documents (revisions); no new files.
     - Changes: (a) spec cross-check — walk `game-format.md`'s required sections and confirm
       each has a consuming gm behavior; (b) genericity check — dry-run one Lemonade Stand
