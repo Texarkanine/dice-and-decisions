@@ -162,7 +162,7 @@ Each row is one kind of racing weather. *Roll* is used by the *Stage Weather* fa
 
 ### Vehicles
 
-Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or police rolls); *Effect* is what happens — hours add to stage time, roll modifiers add to the named roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** resolves at its trigger, separate from and ignoring the stage police bar. Abilities marked *Suspect* raise your police bar by *Suspicion Step*.
+Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or police rolls); *Effect* is what happens — hours add to stage time, roll modifiers add to the named roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** resolves at its trigger, separate from and ignoring the stage police bar. Abilities marked *Suspect* count as suspect things for the police check (see Resolution).
 
 **Card schema:** pitch sentence; effects table (`Applies to | Effect`); abilities (zero or more), each as `**Name** *(Type[, Suspect])* — effect`.
 

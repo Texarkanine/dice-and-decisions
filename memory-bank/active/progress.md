@@ -241,3 +241,14 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
 * Insights
     - The collection convention let the Detour vanish as a mechanic — slot multiplicity *is* the choice; good structure deletes rules
     - Verbatim-match editing detects out-of-band operator edits for free — the failed StrReplace was the tripwire
+
+## 2026-06-11 - QA (L2 REWORK) - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review: KISS (the convention deleted a mechanic — the Detour; minimal normative surface), DRY (one finding, fixed), YAGNI (no route presets, no n=100 provisions), Completeness (4/4 rework requirements), Regression (self-test discipline intact, H2 vocabulary untouched, checklist one-rule-per-item style held), Integrity (clean tree), Documentation (systemPatterns aligned; README/techContext verified unaffected)
+    - Re-ran mechanical checks post-fix: excerpt/appendix sync PASS, no dangling references
+    - Wrote `.qa-validation-status`: PASS
+* Decisions made
+    - Trivial fix: Vehicles-collection intro deferred the Suspect rule to Resolution instead of restating it (rule duplication, the in-document single-source discipline)
+* Insights
+    - Collection intros are a new temptation surface for rule duplication — schema semantics belong in the intro, game rules belong in Resolution; worth a watchful eye in `author`'s validator

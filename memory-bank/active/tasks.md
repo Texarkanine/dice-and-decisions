@@ -87,4 +87,4 @@ No new technology - validation not required.
 - [x] Technology validation complete
 - [x] Preflight
 - [x] Build
-- [ ] QA
+- [x] QA — PASS (1 trivial fix: Vehicles-collection intro restated the Suspect→*Suspicion Step* rule already owned by Resolution; intro now defers to Resolution)
