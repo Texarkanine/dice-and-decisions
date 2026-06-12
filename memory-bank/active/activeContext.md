@@ -1,29 +1,51 @@
 # Active Context
 
-## Current Task: m2-cannonball-rally-game (rework: card sections)
-**Phase:** REFLECT - COMPLETE (rework: card collections delivered)
+## Current Task: m3-dice-roller-script
+**Phase:** REFLECT - COMPLETE
 
 ## What Was Done
 
-- Rework initiated on the M2 sub-run from operator design review (see Rework section of `projectbrief.md`)
-- Classified the rework as **Level 2 (Simple Enhancement)**
-- Rationale: two coupled but contained edits — a card/collection convention added to the format spec, and the rally's vehicle/stage content restructured into cards within `GAME.md`. The architectural questions (separate files vs. one file, print mechanism) were already decided by the operator in design discussion; no creative phase needed. The spec's excerpt/appendix self-test discipline bounds the spec edit.
+- Built the seedable dice roller via shell TDD (all 7 plan steps), tests-first
+- 15-test shunit2 suite: red against stubs → green after implementation
+- Green under both `sh` and `dash`; `shellcheck -s sh` clean on all four files
+- Documentation updated alongside code (techContext, systemPatterns, README)
 
-## Build Results
+## Files Created / Modified
 
-- Files modified: `skills/author/references/game-format.md` (one-file principle, collection convention, Perks→cards, checklist +3/±2), `skills/cannonball-rally/references/GAME.md` (Vehicles 6-card + Stages 7-card collections, generic slot rule, all prose re-pointed), `memory-bank/systemPatterns.md`
-- Key decisions during build:
-    - Matched the operator's unwrapped-line prose style (they reflowed `GAME.md`/`SKILL.md` between sessions; their `SKILL.md` copy edits preserved)
-    - Stage cards drop the "Detour:" name prefix — slot sharing alone defines the choice; "the famous Detour" survives as flavor in the Round preamble
-    - Turn-report example names the full stage card (`via Southwest Desert`) for machine-unambiguous matching
-- All 9 acceptance checks pass; mechanical verification of excerpt/appendix sync, dangling references, ability census, and slot coverage
+- `skills/gm/scripts/roll.sh` (new) — the roller
+- `skills/gm/scripts/tests/common.sh` (new) — `source_script` helper
+- `skills/gm/scripts/tests/run.sh` (new) — aggregate runner
+- `skills/gm/scripts/tests/unit/roll_test.sh` (new) — 15-test suite
+- `skills/gm/scripts/tests/vendor/shunit2` (new) — vendored framework (v2.1.8)
+- `memory-bank/techContext.md` — Testing Process: shunit2 vendored, run instructions
+- `memory-bank/systemPatterns.md` — Script-rolled dice pattern + status note updated
+- `README.md` — layout tree (`gm/scripts/roll.sh`) + Status line
+
+## Key Implementation Decisions
+
+- `face = (cksum("<seed>:<label>:<sides>") % sides) + 1`; double-mod keeps the
+  result in [1,sides] even under hypothetical narrow/signed integer shells
+- Pinned values locked by tests: `hash_to_int("lock-test") = 1159130431`;
+  `(42,unit,6) → 5`. Distribution test asserts all faces over labels 1..60 (cover
+  is reached by label 9 — wide margin, fully deterministic, never flaky)
+- `set -eu` deliberately NOT global (sourcing-safe per shell-tdd); errors handled
+  explicitly so malformed CLI yields friendly messages, not unbound-var aborts
+- Unseeded mode: `/dev/urandom` (4 bytes via `od`) with a clock/PID fallback that
+  still reports a replayable seed
+
+## Deviations from Plan
+
+- None functionally. Lint cleanup during step 6: dropped the `CDPATH=` cd-prefix
+  (SC1007) and replaced one `expr` with `$(( ))` (SC2003) in test scaffolding.
+- Observation (not a deviation): file execute bits aren't tracked (Windows-mounted
+  drive); scripts run via `sh`/shebang. Noted in techContext.
 
 ## Reflection
 
-- Rework review written to `memory-bank/active/reflection/reflection-m2-cannonball-rally-game-rework.md` (original M2 reflection also retained)
-- Persistent files reconciled: no updates needed beyond build's `systemPatterns.md` alignment
-- Standing operator review items: the 8 drafted-content flags from the original M2 build (recorded in the first reflection's pointer and the M2 build report)
+- Reflection written to `memory-bank/active/reflection/reflection-m3-dice-roller-script.md`
+- Persistent files reconciled: `systemPatterns.md` + `techContext.md` updated in build; `productContext.md` unaffected (its script-rolled-dice principle was already stated and is now fulfilled)
 
 ## Next Step
 
-- M2 sub-run (including rework) complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M3: dice roller is the dependency-order next)
+- M3 sub-run complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M4: the `gm` skill — depends on M1, M2, M3, all now done)
+

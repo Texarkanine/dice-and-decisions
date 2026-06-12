@@ -1,6 +1,6 @@
 # System Patterns
 
-> **Status note:** the engine skills are pre-implementation; this file records the *designed* architecture for them (absorbed from the founding vision document, since deleted). The repo layout and the GAME.md format are real, and the format is proven by its first game (`skills/cannonball-rally/` — wrapper `SKILL.md` + `references/GAME.md`, the first instance of the game-directory-as-skill pattern). As engine code lands, reconcile each remaining pattern against reality and drop this note when the system exists.
+> **Status note:** the engine skills are mostly pre-implementation; this file records the *designed* architecture for them (absorbed from the founding vision document, since deleted). What is real today: the repo layout, the GAME.md format (proven by its first game `skills/cannonball-rally/` — wrapper `SKILL.md` + `references/GAME.md`, the first game-directory-as-skill), and the **dice roller** (`skills/gm/scripts/roll.sh`, the first engine code — see *Script-rolled dice*). As more engine code lands, reconcile each remaining pattern against reality and drop this note when the system exists.
 
 ## How This System Works
 
@@ -42,7 +42,9 @@ Where a filesystem exists, sessions append a transcript (every announcement, dec
 
 ## Script-rolled dice
 
-The engine bundles a tiny roller in `scripts/` using real RNG: seedable (reproducible playtest batches), every roll logged with context. Models never improvise randomness. Humans at physical tables may roll and report instead — declared at setup, transcribed either way.
+The engine bundles a tiny roller — real, implemented at `skills/gm/scripts/roll.sh` (owned by `gm`, its first consumer). Models never improvise randomness; humans at physical tables may roll and report instead, declared at setup and transcribed either way.
+
+The roller's load-bearing design choice: **a roll is a pure deterministic function of `(seed, label, sides)`** — `face = (cksum("<seed>:<label>:<sides>") % sides) + 1`. The per-roll *label* is simultaneously the logged context **and** the reproducibility nonce, so an entire session replays from a single seed with **no on-disk state** (this is what lets reproducibility coexist with the disk-free baseline and the conversation-as-working-memory rule — labels must be unique per roll, by the GM's `<stage>-<actor>-<purpose>` naming). Unseeded runs draw a seed from `/dev/urandom` and report it for replay. The roller has *two* interfaces: stdout (the face value) and a stable stderr log line — `roll seed=<s> label=<l> die=d<n> => <r>` — which is a deliberate contract, the seed of `gm`'s transcript-journal record (M4). POSIX `sh`, shunit2-tested.
 
 ## Turn report: the human-sync protocol
 

@@ -1,83 +1,167 @@
-# Task: M2 rework — card/collection sections for GAME.md
+# Task: Seedable dice-roller script
 
-* Task ID: m2-cannonball-rally-game (rework)
+* Task ID: m3-dice-roller-script
 * Complexity: Level 2
-* Type: Simple enhancement (spec amendment + content restructure)
+* Type: Simple enhancement (first executable deliverable)
 
-Add a **card/collection convention** to the GAME.md format spec, then restructure Cannonball Rally's vehicles and stages as cards within `GAME.md`. One file stays the rule — the operator named it the creativity-breeding constraint — and stage cards carry a slot field so future route assembly is additive content.
+Build the engine's randomness primitive: a small, seedable dice-roller script with
+real RNG, per-roll context logging, and reproducible-by-seed output, developed with
+full shell TDD (shunit2). This is the roll source mandated by L4 invariant 4 (models
+never roll dice) and the dice contract that the `gm` skill (M4) will consume.
 
-## Design Decisions (settled by operator; this plan implements them)
+## Key Design Decisions
 
-- Everything stays in `GAME.md`; no per-object files, no `assets/` work (M8), no n=100 scaling provisions
-- Cards exist for *collections*: vehicles now; stages now (slot-structured); obstacle sets are an anticipated future use
-- A multi-card slot **is** the Detour — per-slot choice should fall out as the generic rule, not a special case
-- Print formatting is a non-concern
+- **Location:** `skills/gm/scripts/roll.sh`. The roller is the engine randomness
+  primitive owned by `gm` (its first consumer, M4) per `systemPatterns.md` ("the
+  engine bundles a tiny roller in `scripts/`"). M3 establishes `skills/gm/scripts/`
+  with the roller + tests only; M4 adds `gm/SKILL.md` and the rest. ⚑ *Consequence:*
+  `skills/gm/` exists with no `SKILL.md` during the M3→M4 window — harmless (not yet
+  an activatable skill), flagged for operator awareness.
+- **Language:** POSIX `sh` (`#!/bin/sh`), governed by `shell-posix-style.mdc`, for
+  maximum harness portability (invariant 2: validated in Claude Code; disk-free
+  sandboxes). shunit2 is POSIX-compatible.
+- **Reproducibility contract — the central design:** a roll is a *pure deterministic
+  function of `(seed, label, sides)`*: `face = (cksum("<seed>:<label>:<sides>") %
+  sides) + 1`. The per-roll **label** is simultaneously (a) the context that gets
+  logged and (b) the nonce that makes the roll reproducible. Same seed + same labels
+  → same rolls, with **no counter/disk state** — honoring the disk-free baseline and
+  conversation-as-working-memory pattern. This unifies "per-roll context logging" and
+  "reproducible seeds" into one mechanism. Labels must be unique per roll within a
+  session (the GM's naming convention: stage/actor/purpose).
+- **Seed handling:** `--seed` is optional. When omitted, a seed is drawn from
+  `/dev/urandom` (real entropy) and reported in the log, so any unseeded session is
+  replayable by re-supplying its reported seed.
+- **"Real RNG" reconciliation:** entropy for unseeded sessions comes from
+  `/dev/urandom`; given a seed, the roller is a deterministic PRNG (which *is* the
+  reproducibility requirement). The model never improvises — the script computes.
+- **Hash choice:** `cksum` (POSIX, always present, deterministic 32-bit CRC). Modulo
+  bias into small dice (d2–d100) is negligible; documented, not rejection-sampled.
+
+## Interface
+
+```
+roll.sh --label TEXT [--seed SEED] [--sides N] [--count N]
+```
+
+- `--label TEXT` — **required**; the per-roll context (also the reproducibility nonce)
+- `--seed SEED` — optional; if omitted, generated from `/dev/urandom` and logged
+- `--sides N` — optional, default `6`; positive integer
+- `--count N` — optional, default `1`; positive integer (for `NdS`; internal label
+  is salted per die as `<label>#<i>`)
+- **stdout:** face value(s), space-separated, single line (clean for capture)
+- **stderr:** one structured log line per roll, in an **exact, stable `key=value`
+  grammar** (a deliberate contract — the seed of M4's transcript-journal record):
+  `roll seed=<seed> label=<label> die=d<sides> => <result>`
 
 ## Test Plan (TDD)
 
-Prose deliverable — documentary acceptance checks, run as each step lands and re-verified at QA. No code anticipated (same guard rail as before).
+### Behaviors to Verify
 
-### Behaviors to Verify (acceptance checks)
-
-1. **Spec self-test holds**: after amendment, every per-section example in `game-format.md` is a verbatim substring of Appendix A, and Appendix A passes the spec's own (updated) validation checklist → mechanical substring + checklist walk.
-2. **Convention completeness**: the collection convention defines (a) how a collection declares its card schema, (b) one H4 per card, (c) reference-by-name for collections and cards, (d) guidance on table vs. collection (homogeneous rows vs. structured instances) → read the convention against this list.
-3. **Spec exercises its own convention**: Lemonade Stand contains at least one collection (Perks converted to cards) so the self-test appendix proves the new rules → check appendix.
-4. **One-file principle recorded**: the spec's preamble/conventions state that a game fits reasonably in one `GAME.md` → grep.
-5. **Rally conformance**: restructured `GAME.md` passes the updated validation checklist → item-by-item walk.
-6. **Content preservation**: every vehicle modifier, ability (with its Type and Suspect marking), and stage condition present before the rework appears after it → diff inventory against the pre-rework tables (git HEAD).
-7. **No dangling references**: no prose in the rally or spec still references the removed `Vehicle Modifiers` / `Abilities` / `Route` tables → grep.
-8. **Generic slot rule**: the Detour is expressed only as two stage cards sharing a slot plus one generic "multi-card slot = racer's choice" rule — no Detour-specific mechanics → read Core Procedure.
-9. **Single-source intact**: no rule value duplicated between cards and prose; parameters still referenced by name → spot-check.
+- Determinism: `roll_die <seed> <label> <sides>` called twice → identical result
+- Range: result ∈ [1, sides] for sides ∈ {2, 6, 20, 100}
+- Label independence: two distinct labels (same seed/sides) can differ (sanity)
+- Seed independence: two distinct seeds (same label/sides) can differ (sanity)
+- `hash_to_int` lock: known string → known fixed integer (pins the algorithm)
+- Seed reporting + replay: with `--seed` omitted, a seed is generated and appears in
+  the log; re-running with that reported seed reproduces the stdout result
+- Distribution sanity (deterministic, not random): with a fixed seed and labels
+  `1..N`, every face `1..sides` appears at least once for a tuned N (no flakiness —
+  the sequence is fully determined by the fixed seed)
+- CLI happy path: `--seed S --sides 6 --label X` → single integer 1–6 on stdout; log
+  line on stderr matches the **exact grammar** `roll seed=S label=X die=d6 => <result>`
+  (pins the log format as an M4-facing contract, not just a "contains" check)
+- Count: `--count 3` → three in-range values on stdout, deterministic per (seed,label)
+- Entry-point protection: sourcing `roll.sh` produces no output / does not run main
+- Validation (each → nonzero exit, stderr message, no stdout result):
+  `--sides 0`, `--sides -1`, `--sides abc`, `--count 0`, missing `--label`
 
 ### Test Infrastructure
 
-- Framework: none (prose) — documentary acceptance checks per established precedent.
-- New test files: none.
+- Framework: **shunit2 v2.1.8**, vendored at `skills/gm/scripts/tests/vendor/shunit2`
+  (not installed system-wide; fetch validated — fetches and runs clean)
+- Test location: `skills/gm/scripts/tests/`
+- Conventions (per `shell-tdd.mdc`): functions are sourced (entry-point protected),
+  return codes not `exit`, parameterized I/O, `common.sh` helper sources the script
+  under test, every test ends `return 0`
+- Layout / new files:
+  - `skills/gm/scripts/tests/common.sh` — `source_script` helper
+  - `skills/gm/scripts/tests/vendor/shunit2` — vendored framework
+  - `skills/gm/scripts/tests/unit/roll_test.sh` — the suite
+  - `skills/gm/scripts/tests/run.sh` — runs all unit suites
 
 ## Implementation Plan
 
-1. **Amend the format spec** (`skills/author/references/game-format.md`)
-   - Add the one-file principle to *Why This Format*.
-   - In the *Content Tables* section, add the **collection convention**: an H3 may be a collection — an intro defining the card schema, then one H4 per card; cards may hold bold-label fields, one small table, and short labeled prose entries; use tables for homogeneous rows, collections for structured instances.
-   - *(Preflight amendment)* The schema declaration is a **normative bold-label line** (`**Card schema:** …`) in the collection's intro, naming the required fields/parts in order — making `author`'s (M10) card validation mechanical instead of inferential, the same trick the Parameters table pulled for `playtest`.
-   - Convert Lemonade Stand's Perks to a 3-card collection in **both** the section example and Appendix A (self-test discipline); update the Resolution excerpt + appendix wording that referenced Perks columns (`When`/`Effect` columns → card fields).
-   - Extend the validation checklist with collection items (schema declared; every card matches it; H4s only inside collections).
-   - Run acceptance checks 1–4.
-2. **Restructure rally vehicles** (`skills/cannonball-rally/references/GAME.md`)
-   - Replace `### Vehicles` + `### Vehicle Modifiers` + `### Abilities` with one `### Vehicles` collection: per-vehicle H4 card = pitch line, effects table (`Applies to | Effect`), abilities as labeled entries (`**Split the Lanes** *(Action)* — …`, Suspect marked inline).
-   - Update all prose references (Core Procedure step 2, Resolution police/traffic bullets, Weather table intro, Abilities-table mentions).
-   - Run acceptance checks 6–7 (vehicle half).
-3. **Restructure rally stages** (same file)
-   - Replace `### Route` with a `### Stages` collection: per-stage H4 card with `**Slot:**`, `**Weather City:**`, `**Traffic:**`, `**Police:**`, `**Roads:**`, `**Grade:**`, `**Bank:**` fields.
-   - Add the generic slot rule to Core Procedure (race runs slots in order; a slot holding multiple cards is a racer's choice — the classic route's slot 5 is the Detour); adjust the Round and Turn Report wording (`via <stage>`).
-   - Run acceptance checks 5, 6–9 (full).
-4. **Documentation alignment**
-   - `memory-bank/systemPatterns.md`: the GAME.md vocabulary paragraph gains collections; `README.md`: no change expected (verify).
-   - Re-run check 1 (spec sync) once everything has settled.
+1. **Vendor shunit2 + scaffold tests.**
+   - Files: `skills/gm/scripts/tests/vendor/shunit2`, `tests/common.sh`, `tests/run.sh`
+   - Changes: download shunit2 v2.1.8; `common.sh` provides `source_script`; `run.sh`
+     iterates `tests/unit/*_test.sh`.
+2. **Stub `roll.sh` interface + stub the test suite (no impl).**
+   - Files: `skills/gm/scripts/roll.sh`, `tests/unit/roll_test.sh`
+   - Changes: POSIX header + documented empty function signatures (`hash_to_int`,
+     `roll_die`, `generate_seed`, `validate_positive_int`, `log_roll`, `main`) with
+     entry-point guard; empty test cases for every behavior above.
+3. **Implement test bodies; run → all fail (red).**
+   - Files: `tests/unit/roll_test.sh`
+   - Changes: fill assertions; confirm they fail against the stubs.
+4. **Implement `hash_to_int` + `roll_die`; make determinism/range/lock tests pass.**
+   - Files: `skills/gm/scripts/roll.sh`
+   - Changes: `cksum`-based hash → `(n % sides) + 1`.
+5. **Implement `validate_positive_int`, `generate_seed`, `log_roll`, `main` (arg
+   parse, count loop with per-die label salt, seed default-from-urandom + report);
+   make CLI/validation/seed-replay/count tests pass.**
+   - Files: `skills/gm/scripts/roll.sh`
+6. **Refactor + lint; tune distribution-sanity N; full suite green; shellcheck clean.**
+   - Files: all of the above
+   - Changes: `shellcheck -s sh roll.sh`; final `tests/run.sh` green.
+7. **Documentation.**
+   - Files: `memory-bank/techContext.md` (Testing Process: shunit2 vendored, how to
+     run `tests/run.sh`), `memory-bank/systemPatterns.md` (Script-rolled dice pattern:
+     roller now real at `skills/gm/scripts/roll.sh`, (seed,label,sides) contract, and
+     the stderr log line documented as the seed of M4's transcript-journal record),
+     `README.md` (Repo layout tree: add `gm/scripts/roll.sh`; Status line: dice roller
+     done, next is the `gm` skill)
 
 ## Technology Validation
 
-No new technology - validation not required.
+- shunit2 v2.1.8 — not installed; **vendored**. PoC: fetched from
+  `raw.githubusercontent.com/kward/shunit2/v2.1.8/shunit2` and ran a trivial test
+  (`Ran 1 test. OK`, exit 0). ✅
+- `cksum` deterministic int confirmed (`"7:stage3-police-Dana:6"` → `2729685472`). ✅
+- `/dev/urandom` readable; `od` available for byte→int. ✅
+- `shellcheck` available (`/usr/bin/shellcheck`) for static analysis. ✅
 
 ## Dependencies
 
-- Pre-rework `GAME.md` at git HEAD (content-preservation diff baseline)
-- Operator design decisions recorded in `projectbrief.md` Rework section
+- POSIX `sh`, `cksum`, `od`, `/dev/urandom` (runtime — all present)
+- shunit2 (test-only, vendored), `shellcheck` (dev-only)
+- Upstream: M1 (format spec) + M2 (rally) complete; M4 (gm) consumes this roller
 
 ## Challenges & Mitigations
 
-- **Excerpt/appendix sync is the riskiest seam**: converting Perks touches the Content Tables example, the Resolution example, and Appendix A simultaneously. → Edit Appendix A first, then re-derive every excerpt from it verbatim; finish with the mechanical substring check.
-- **Suspect marking loses its table column**: it must stay machine-findable inside card prose. → Fixed inline form `*(Action — Suspect)*` declared in the collection's schema intro; checklist item enforces it.
-- **Checklist bloat**: each new checklist item must restate exactly one normative rule. → Add the minimum set (3 items) and review against the existing one-rule-per-item style.
-- **Scope creep into route presets**: multiple routes/maps are future content. → Only the classic route ships; the slot rule is the entire assembly mechanism.
+- **shunit2 absent:** vendor v2.1.8 in-repo (validated). Mitigated.
+- **cksum modulo bias:** negligible for small dice; documented, not rejection-sampled.
+- **Distribution test flakiness:** none — tests are seed-deterministic; tune N so all
+  faces appear and the result is permanently fixed.
+- **POSIX vs bash conveniences:** write strict POSIX `sh`; lint `shellcheck -s sh`.
+- **`/dev/urandom` missing in some sandbox:** affects only unseeded mode; fall back to
+  a `date`/`$$`-derived seed with a stderr warning, still reported for replay.
+- **`skills/gm/` half-skill window:** documented decision; M4 completes the skill.
 
-## Implementation Step Tracking
+## Preflight Amendments (2026-06-12)
 
-- [x] Step 1: Spec amended — one-file principle, collection convention (`**Card schema:**` normative line), Perks converted to cards in section example + Appendix A, 3 checklist items added, 2 items generalized
-- [x] Step 2: Rally vehicles → 6-card collection (pitch + effects table + inline abilities); `Vehicles`/`Vehicle Modifiers`/`Abilities` tables retired; prose references updated
-- [x] Step 3: Rally stages → 7-card collection with `**Slot:**` fields; generic multi-card-slot rule; Detour reduced to a parenthetical name for slot 5's choice; turn report `via <stage>`
-- [x] Step 4: `systemPatterns.md` aligned; README verified (no change needed)
-- All 9 acceptance checks pass (excerpt/appendix sync mechanically verified; ability census 5 Action / 4 Passive / 3 Reaction, 4 Suspect; slots 1–6 with 5 doubled)
+- **[convention, low — applied]** Renamed `roll.bash` → `roll.sh`: the script is POSIX
+  `sh` (`#!/bin/sh`), so the `.bash` extension and a bash entry-point guard were
+  inconsistent. `roll.sh` matches the POSIX choice, the shell-tdd examples, and the
+  POSIX entry-point idiom `[ "${0##*/}" = "roll.sh" ]`.
+- **[completeness, low — applied]** Made the `README.md` update concrete: add
+  `gm/scripts/roll.sh` to the Repo layout tree and advance the Status line (the README
+  already advertises the bundled roller and tracks per-skill status).
+- **[advisory — applied, within L2/scope]** Elevated the stderr log line to an exact,
+  pinned `key=value` grammar and a format-matching test, and documented it as the seed
+  of M4's transcript-journal record. The log is the roller's second interface (after
+  stdout); pinning it now makes M4's parser a contract, not a guess.
+- **[dependency, informational — carried]** `skills/gm/` exists without a `SKILL.md`
+  during the M3→M4 window; harmless, completed by M4. No action.
 
 ## Status
 
@@ -87,4 +171,4 @@ No new technology - validation not required.
 - [x] Technology validation complete
 - [x] Preflight
 - [x] Build
-- [x] QA — PASS (1 trivial fix: Vehicles-collection intro restated the Suspect→*Suspicion Step* rule already owned by Resolution; intro now defers to Resolution)
+- [x] QA
