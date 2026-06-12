@@ -180,7 +180,7 @@ the prose analog of tests-before-code.
     - Files: `skills/gm/SKILL.md`, `skills/gm/references/session-procedure.md`,
       `skills/gm/references/journal-format.md`
     - Changes: create with frontmatter/headings and one-line purpose statements only.
-2. **Author `references/journal-format.md`** — the contract first, since the session
+2. ✅ **Author `references/journal-format.md`** — the contract first, since the session
    procedure references it
     - Files: `skills/gm/references/journal-format.md`
     - Changes: the normative skeleton from the creative decision — file naming and
