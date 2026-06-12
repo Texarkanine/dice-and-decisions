@@ -197,3 +197,12 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - Print formatting explicitly a non-concern; no assets work in this rework
     - Decision: card sections *within* GAME.md for collections (vehicles, stages, future obstacle sets); stage cards structured so route assembly is future-additive ("even 5 more stages = combinatorially many routes"); spec amendment required
 * Rework scope appended to `projectbrief.md`; sub-run ephemeral state cleared for re-classification
+
+## 2026-06-11 - COMPLEXITY-ANALYSIS (REWORK) - COMPLETE
+
+* Work completed
+    - Classified the M2 rework as Level 2 (Simple Enhancement)
+* Decisions made
+    - L2 rationale: spec amendment (card/collection convention) + one-document content restructure; architectural decisions already made by operator (one file wins; cards within GAME.md; stage cards carry a slot/band field; no assets work)
+* Insights
+    - The rework's riskiest seam is the spec's self-test discipline: a new convention needs a Lemonade Stand example, and section excerpts must stay verbatim substrings of Appendix A
