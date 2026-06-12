@@ -201,7 +201,7 @@ the prose analog of tests-before-code.
       (source attempt, deterministic interpretation, fallback roll, say the ruling);
       roll-label discipline (`<stage>-<actor>-<purpose>`, uniqueness, `#i` multi-die);
       human-reported dice; conduct (narration budget, default rulings, note-for-author).
-4. **Author `skills/gm/SKILL.md`** — lean activation layer
+4. ✅ **Author `skills/gm/SKILL.md`** — lean activation layer
     - Files: `skills/gm/SKILL.md`
     - Changes: frontmatter (name `gm`, description covering when to activate); body: role,
       what it needs (a game's GAME.md path), session start steps, the loop in summary,
