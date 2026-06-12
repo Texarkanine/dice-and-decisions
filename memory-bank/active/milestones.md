@@ -37,7 +37,7 @@ flowchart TD
 
 - [x] M1: Author the GAME.md format specification as an engine reference (required sections, content-table conventions, external data hooks with offline fallbacks, turn-report format rules) and retire VISION.md — est. L3: foundational spec with multiple interlocking design decisions
 - [x] M2: Formalize Cannonball Rally as a complete game directory (valid skill wrapper + `references/GAME.md`), proving the format and fixing any spec gaps it surfaces — est. L2: authoring one document against the new spec, self-contained
-- [ ] M3: Build the seedable dice-roller script (real RNG, per-roll context logging, reproducible seeds) with full shell TDD — est. L2: single script plus test suite, self-contained
+- [x] M3: Build the seedable dice-roller script (real RNG, per-roll context logging, reproducible seeds) with full shell TDD — est. L2: single script plus test suite, self-contained
 - [ ] M4: Build the `gm` skill (mechanics applier, restated state table, turn-brief distillation, external-data hook resolution with fallback, transcript journal where disk exists), validated by a human playing all seats of Cannonball Rally and recording that session as a golden transcript fixture for later milestones — est. L3: complete feature with several coupled components
 - [ ] M5: Build the `player` skill (structured single-decision output plus table talk, consuming turn brief + state table) with the shipped persona roster — est. L2: single skill with a contained decision interface
 - [ ] M6: Build the `table` skill in solo mode (session setup: game/seats/humans/GM, then round-robin loop routing decisions to seats) for one human + N AI players — est. L3: orchestrator integrating gm, player, and a human seat
