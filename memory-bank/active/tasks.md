@@ -170,5 +170,5 @@ roll.sh --label TEXT [--seed SEED] [--sides N] [--count N]
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Preflight
-- [ ] Build
+- [x] Build
 - [ ] QA

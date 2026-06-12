@@ -12,7 +12,7 @@ None. There is no package manager, compiler, or bundler. Plugin packaging manife
 
 ## Testing Process
 
-No test infrastructure exists yet. When shell scripts land, they are written and tested per the workspace shell rules (`.cursor/rules/shared/shell-tdd.mdc`, `bash-style.mdc` / `shell-posix-style.mdc`); expect `bats` or equivalent to be introduced alongside the first script.
+Shell scripts are written and tested per the workspace shell rules (`.cursor/rules/shared/shell-tdd.mdc`, `bash-style.mdc` / `shell-posix-style.mdc`). The chosen framework is **shunit2**, vendored per-skill rather than installed system-wide (e.g. `skills/gm/scripts/tests/vendor/shunit2`, pinned to v2.1.8). Each script's suite lives beside it under `tests/` with a `common.sh` helper, `unit/*_test.sh` files, and a `run.sh` aggregate runner — run a suite with `sh skills/<skill>/scripts/tests/run.sh`. Scripts target POSIX `sh` for harness portability and are validated under both `sh` and `dash`; static analysis is `shellcheck -s sh`. (Note: the repo is checked out on a Windows-mounted drive, so file execute bits are not reliably tracked — invoke scripts via `sh <script>` or their shebang, not by relying on the `+x` bit.)
 
 ## Repo Conventions
 

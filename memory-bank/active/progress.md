@@ -43,3 +43,18 @@ L4 sub-run for milestone M3 of `lite-rpg-toolkit`: build the seedable dice-rolle
     - The roller has two interfaces, not one: stdout (the face) and the stderr log (the journal record). Treating the log as a contract now is what makes M4's scribe/journal a parse, not a guess
     - `skills/gm/` will be a half-skill (no SKILL.md) until M4 — acceptable; flagged
 
+## 2026-06-12 - BUILD (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Built `skills/gm/scripts/roll.sh` and its shunit2 suite via TDD (7 plan steps, tests-first): 15 tests went red against stubs, then green after implementation
+    - Vendored shunit2 v2.1.8; suite green under both `sh` and `dash`; `shellcheck -s sh` clean on all four files
+    - Documentation updated alongside code: `techContext.md` (Testing Process), `systemPatterns.md` (Script-rolled dice pattern + status note), `README.md` (layout tree + status line)
+* Decisions made
+    - `face = (cksum("<seed>:<label>:<sides>") % sides) + 1` with a double-mod guard for narrow/signed-integer shells; pinned by tests (`hash_to_int("lock-test")=1159130431`, `(42,unit,6)=5`)
+    - `set -eu` deliberately not global (sourcing-safe per shell-tdd); explicit validation gives friendly CLI errors instead of unbound-variable aborts
+    - Distribution test is deterministic (seeded) over labels 1..60 — coverage reached by label 9, so the wide margin can never be flaky
+    - Lint cleanup: dropped the `CDPATH=` cd-prefix (SC1007), one `expr`→`$(())` (SC2003)
+* Insights
+    - The label-as-nonce design delivered exactly as planned: reproducibility with zero on-disk state, validated by the seed-replay test
+    - File execute bits aren't tracked on this Windows-mounted checkout; scripts are invoked via `sh`/shebang (noted in techContext) — a portability fact future scripts inherit
+
