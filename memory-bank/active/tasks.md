@@ -11,7 +11,7 @@ never roll dice) and the dice contract that the `gm` skill (M4) will consume.
 
 ## Key Design Decisions
 
-- **Location:** `skills/gm/scripts/roll.bash`. The roller is the engine randomness
+- **Location:** `skills/gm/scripts/roll.sh`. The roller is the engine randomness
   primitive owned by `gm` (its first consumer, M4) per `systemPatterns.md` ("the
   engine bundles a tiny roller in `scripts/`"). M3 establishes `skills/gm/scripts/`
   with the roller + tests only; M4 adds `gm/SKILL.md` and the rest. ⚑ *Consequence:*
@@ -40,7 +40,7 @@ never roll dice) and the dice contract that the `gm` skill (M4) will consume.
 ## Interface
 
 ```
-roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
+roll.sh --label TEXT [--seed SEED] [--sides N] [--count N]
 ```
 
 - `--label TEXT` — **required**; the per-roll context (also the reproducibility nonce)
@@ -49,8 +49,9 @@ roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
 - `--count N` — optional, default `1`; positive integer (for `NdS`; internal label
   is salted per die as `<label>#<i>`)
 - **stdout:** face value(s), space-separated, single line (clean for capture)
-- **stderr:** one structured log line per roll, e.g.
-  `roll seed=<s> label=<l> die=d<sides> => <result>`
+- **stderr:** one structured log line per roll, in an **exact, stable `key=value`
+  grammar** (a deliberate contract — the seed of M4's transcript-journal record):
+  `roll seed=<seed> label=<label> die=d<sides> => <result>`
 
 ## Test Plan (TDD)
 
@@ -67,9 +68,10 @@ roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
   `1..N`, every face `1..sides` appears at least once for a tuned N (no flakiness —
   the sequence is fully determined by the fixed seed)
 - CLI happy path: `--seed S --sides 6 --label X` → single integer 1–6 on stdout; log
-  line on stderr contains seed, label, sides, result
+  line on stderr matches the **exact grammar** `roll seed=S label=X die=d6 => <result>`
+  (pins the log format as an M4-facing contract, not just a "contains" check)
 - Count: `--count 3` → three in-range values on stdout, deterministic per (seed,label)
-- Entry-point protection: sourcing `roll.bash` produces no output / does not run main
+- Entry-point protection: sourcing `roll.sh` produces no output / does not run main
 - Validation (each → nonzero exit, stderr message, no stdout result):
   `--sides 0`, `--sides -1`, `--sides abc`, `--count 0`, missing `--label`
 
@@ -93,8 +95,8 @@ roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
    - Files: `skills/gm/scripts/tests/vendor/shunit2`, `tests/common.sh`, `tests/run.sh`
    - Changes: download shunit2 v2.1.8; `common.sh` provides `source_script`; `run.sh`
      iterates `tests/unit/*_test.sh`.
-2. **Stub `roll.bash` interface + stub the test suite (no impl).**
-   - Files: `skills/gm/scripts/roll.bash`, `tests/unit/roll_test.sh`
+2. **Stub `roll.sh` interface + stub the test suite (no impl).**
+   - Files: `skills/gm/scripts/roll.sh`, `tests/unit/roll_test.sh`
    - Changes: POSIX header + documented empty function signatures (`hash_to_int`,
      `roll_die`, `generate_seed`, `validate_positive_int`, `log_roll`, `main`) with
      entry-point guard; empty test cases for every behavior above.
@@ -102,20 +104,22 @@ roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
    - Files: `tests/unit/roll_test.sh`
    - Changes: fill assertions; confirm they fail against the stubs.
 4. **Implement `hash_to_int` + `roll_die`; make determinism/range/lock tests pass.**
-   - Files: `skills/gm/scripts/roll.bash`
+   - Files: `skills/gm/scripts/roll.sh`
    - Changes: `cksum`-based hash → `(n % sides) + 1`.
 5. **Implement `validate_positive_int`, `generate_seed`, `log_roll`, `main` (arg
    parse, count loop with per-die label salt, seed default-from-urandom + report);
    make CLI/validation/seed-replay/count tests pass.**
-   - Files: `skills/gm/scripts/roll.bash`
+   - Files: `skills/gm/scripts/roll.sh`
 6. **Refactor + lint; tune distribution-sanity N; full suite green; shellcheck clean.**
    - Files: all of the above
-   - Changes: `shellcheck -s sh roll.bash`; final `tests/run.sh` green.
+   - Changes: `shellcheck -s sh roll.sh`; final `tests/run.sh` green.
 7. **Documentation.**
    - Files: `memory-bank/techContext.md` (Testing Process: shunit2 vendored, how to
      run `tests/run.sh`), `memory-bank/systemPatterns.md` (Script-rolled dice pattern:
-     roller now real at `skills/gm/scripts/roll.bash`, (seed,label,sides) contract),
-     `README.md` (layout/status if it tracks per-skill state — verify during build)
+     roller now real at `skills/gm/scripts/roll.sh`, (seed,label,sides) contract, and
+     the stderr log line documented as the seed of M4's transcript-journal record),
+     `README.md` (Repo layout tree: add `gm/scripts/roll.sh`; Status line: dice roller
+     done, next is the `gm` skill)
 
 ## Technology Validation
 
@@ -143,12 +147,28 @@ roll.bash --label TEXT [--seed SEED] [--sides N] [--count N]
   a `date`/`$$`-derived seed with a stderr warning, still reported for replay.
 - **`skills/gm/` half-skill window:** documented decision; M4 completes the skill.
 
+## Preflight Amendments (2026-06-12)
+
+- **[convention, low — applied]** Renamed `roll.bash` → `roll.sh`: the script is POSIX
+  `sh` (`#!/bin/sh`), so the `.bash` extension and a bash entry-point guard were
+  inconsistent. `roll.sh` matches the POSIX choice, the shell-tdd examples, and the
+  POSIX entry-point idiom `[ "${0##*/}" = "roll.sh" ]`.
+- **[completeness, low — applied]** Made the `README.md` update concrete: add
+  `gm/scripts/roll.sh` to the Repo layout tree and advance the Status line (the README
+  already advertises the bundled roller and tracks per-skill status).
+- **[advisory — applied, within L2/scope]** Elevated the stderr log line to an exact,
+  pinned `key=value` grammar and a format-matching test, and documented it as the seed
+  of M4's transcript-journal record. The log is the roller's second interface (after
+  stdout); pinning it now makes M4's parser a contract, not a guess.
+- **[dependency, informational — carried]** `skills/gm/` exists without a `SKILL.md`
+  during the M3→M4 window; harmless, completed by M4. No action.
+
 ## Status
 
 - [x] Initialization complete
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
+- [x] Preflight
 - [ ] Build
 - [ ] QA

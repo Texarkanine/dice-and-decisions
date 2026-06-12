@@ -30,3 +30,16 @@ L4 sub-run for milestone M3 of `lite-rpg-toolkit`: build the seedable dice-rolle
     - Folding "per-roll context logging" and "reproducible seeds" into one mechanism (the label = nonce) is the design's keystone — it's what lets reproducibility survive without a filesystem
     - This script sets the shell-TDD + vendored-shunit2 precedent for every later script (playtest, etc.)
 
+## 2026-06-12 - PREFLIGHT (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Validated plan vs. codebase: TDD encoding (tests stubbed + written red before any production code, per-unit ordering explicit — PASS), convention compliance, dependency impact, conflict detection (no existing roller; `skills/` holds only author + cannonball-rally), completeness (all 4 milestone requirements map to steps + tests)
+    - Confirmed README already advertises the bundled roller and tracks per-skill layout/status — folded concrete README edits into build step 7
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Amendment (convention): `roll.bash` → `roll.sh` — the script is POSIX `sh`, so a `.bash` extension + bash entry-point guard were inconsistent; `roll.sh` matches the POSIX idiom and shell-tdd examples
+    - Amendment (advisory, applied within scope): pin the stderr log line to an exact `key=value` grammar with a format test, documented as the seed of M4's transcript-journal record — the log is the roller's second interface and deserves contract status
+* Insights
+    - The roller has two interfaces, not one: stdout (the face) and the stderr log (the journal record). Treating the log as a contract now is what makes M4's scribe/journal a parse, not a guess
+    - `skills/gm/` will be a half-skill (no SKILL.md) until M4 — acceptable; flagged
+
