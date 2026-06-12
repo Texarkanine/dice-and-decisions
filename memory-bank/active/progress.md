@@ -217,3 +217,13 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - Appendix-first editing for the spec: excerpts re-derived verbatim from Appendix A, then mechanically checked
 * Insights
     - Converting Lemonade Stand's Perks into cards is what makes the self-test prove the new convention — the toy game grows exactly as much as the format does
+
+## 2026-06-11 - PREFLIGHT (L2 REWORK) - COMPLETE (PASS)
+
+* Work completed
+    - Validated plan: TDD encoding (checks precede build, per-step execution, code guard rail), convention compliance (in-place edits, self-test discipline explicit), dependency impact (grep: removed table names exist only in the target document and memory-bank history), conflict detection (none), completeness (all 4 rework requirements map to steps)
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Innovation amendment: collection schemas are declared via a normative `**Card schema:**` line — machine-parseable for `author` (M10), mirroring the Parameters-table trick for `playtest`
+* Insights
+    - None beyond the amendment

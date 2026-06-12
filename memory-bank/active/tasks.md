@@ -39,6 +39,7 @@ Prose deliverable — documentary acceptance checks, run as each step lands and 
 1. **Amend the format spec** (`skills/author/references/game-format.md`)
    - Add the one-file principle to *Why This Format*.
    - In the *Content Tables* section, add the **collection convention**: an H3 may be a collection — an intro defining the card schema, then one H4 per card; cards may hold bold-label fields, one small table, and short labeled prose entries; use tables for homogeneous rows, collections for structured instances.
+   - *(Preflight amendment)* The schema declaration is a **normative bold-label line** (`**Card schema:** …`) in the collection's intro, naming the required fields/parts in order — making `author`'s (M10) card validation mechanical instead of inferential, the same trick the Parameters table pulled for `playtest`.
    - Convert Lemonade Stand's Perks to a 3-card collection in **both** the section example and Appendix A (self-test discipline); update the Resolution excerpt + appendix wording that referenced Perks columns (`When`/`Effect` columns → card fields).
    - Extend the validation checklist with collection items (schema declared; every card matches it; H4s only inside collections).
    - Run acceptance checks 1–4.
