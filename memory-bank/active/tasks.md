@@ -191,7 +191,7 @@ the prose analog of tests-before-code.
       discipline `game-format.md` uses (every normative format ships an example that
       passes it).
     - Creative ref: `memory-bank/active/creative/creative-transcript-journal-format.md`
-3. **Author `references/session-procedure.md`** — the full GM procedure
+3. ✅ **Author `references/session-procedure.md`** — the full GM procedure
     - Files: `skills/gm/references/session-procedure.md`
     - Changes: session setup (game load + conformance expectations, seats, dice mode, seed
       declaration, initial state per the game's Setup); turn-brief distillation rules (what
