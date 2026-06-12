@@ -227,3 +227,17 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - Innovation amendment: collection schemas are declared via a normative `**Card schema:**` line — machine-parseable for `author` (M10), mirroring the Parameters-table trick for `playtest`
 * Insights
     - None beyond the amendment
+
+## 2026-06-11 - BUILD (L2 REWORK) - COMPLETE (PASS)
+
+* Work completed
+    - Spec: one-file principle in *Why This Format*; collection convention in *Content Tables* (normative `**Card schema:**` line, H4 cards, table-vs-collection guidance); Lemonade Stand Perks converted to a 3-card collection in section example + Appendix A; validation checklist +3 collection items, 2 generalized
+    - Rally: Vehicles 6-card collection (pitch + effects table + inline abilities, Suspect inline), Stages 7-card collection (Slot fields; generic multi-card-slot rule replaces Detour mechanics), all prose references re-pointed, turn report `via <stage>`
+    - `systemPatterns.md` GAME.md vocabulary paragraph aligned; README verified unchanged
+    - All 9 acceptance checks pass; excerpt/appendix sync mechanically verified
+* Decisions made
+    - Matched operator's unwrapped-line style (they reflowed the rally docs between sessions — discovered via a failed exact-match edit)
+    - Stage cards drop the "Detour:" prefix; slot-sharing alone defines the choice
+* Insights
+    - The collection convention let the Detour vanish as a mechanic — slot multiplicity *is* the choice; good structure deletes rules
+    - Verbatim-match editing detects out-of-band operator edits for free — the failed StrReplace was the tripwire

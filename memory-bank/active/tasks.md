@@ -71,12 +71,20 @@ No new technology - validation not required.
 - **Checklist bloat**: each new checklist item must restate exactly one normative rule. → Add the minimum set (3 items) and review against the existing one-rule-per-item style.
 - **Scope creep into route presets**: multiple routes/maps are future content. → Only the classic route ships; the slot rule is the entire assembly mechanism.
 
+## Implementation Step Tracking
+
+- [x] Step 1: Spec amended — one-file principle, collection convention (`**Card schema:**` normative line), Perks converted to cards in section example + Appendix A, 3 checklist items added, 2 items generalized
+- [x] Step 2: Rally vehicles → 6-card collection (pitch + effects table + inline abilities); `Vehicles`/`Vehicle Modifiers`/`Abilities` tables retired; prose references updated
+- [x] Step 3: Rally stages → 7-card collection with `**Slot:**` fields; generic multi-card-slot rule; Detour reduced to a parenthetical name for slot 5's choice; turn report `via <stage>`
+- [x] Step 4: `systemPatterns.md` aligned; README verified (no change needed)
+- All 9 acceptance checks pass (excerpt/appendix sync mechanically verified; ability census 5 Action / 4 Passive / 3 Reaction, 4 Suspect; slots 1–6 with 5 doubled)
+
 ## Status
 
 - [x] Initialization complete
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
-- [ ] Build
+- [x] Preflight
+- [x] Build
 - [ ] QA

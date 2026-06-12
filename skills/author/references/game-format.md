@@ -19,6 +19,8 @@ This reference defines the format: the required sections, the conventions inside
 
 **Explicitness is the whole game.** An illustration: formalizing Cannonball Rally, this toolkit's first game, surfaced six rules that lived only in the author's head — the base stage time, the speeding option, how weather resolves, what counts as an obstacle, which die to use, and the win condition. The game had been played happily for years; the paper just didn't say. This format exists to force that interrogation up front. (Cannonball Rally appears in this spec only as illustration; no game's rules are part of the format.)
 
+**One file is the game.** A game fits, reasonably, in one `GAME.md`. This is a creative constraint, not a storage decision: having to fit the whole game in a single printable document breeds tight design, and it keeps "print the rulebook" a one-step act. For structured content sets — vehicles, character options, stage libraries — the collection convention (see Content Tables) keeps growth organized *inside* the document; the format deliberately does not provide a way to split a game across files.
+
 ## Document Conventions
 
 These rules govern the whole document:
@@ -161,9 +163,9 @@ decide how many customers show up. Most money when the week ends wins.
   (Weather table), then location (Locations table), then price (0 for regular;
   *Premium Penalty* for premium). With addition the order never changes the
   result; it is fixed so totals are always read out the same way.
-- **Perks:** a declared Perk applies exactly as its Effect column says, at the
-  moment its When column names. If a Perk changes a roll or a modifier,
-  recompute customers served with the changed value.
+- **Perks:** a declared Perk applies exactly as its card's **Effect:** field
+  says, at the moment its **When:** field names. If a Perk changes a roll or
+  a modifier, recompute customers served with the changed value.
 - **Ties:** not applicable during play — players' rolls are never compared
   against each other. Final-score ties are settled in Scoring & End State.
 - **Simultaneity:** all players' sales resolve simultaneously; no player's
@@ -241,18 +243,28 @@ decide how many customers show up. Most money when the week ends wins.
 
 **Required content:**
 
-- Every table sits under its own H3 inside this section, named for the one concept it holds.
-- **One concept per table.** Locations and perks never share a table.
-- Each table is introduced by a sentence (or two) defining what each column means — column semantics are never left to inference.
+- Every content unit — a table or a collection — sits under its own H3 inside this section, named for the one concept it holds.
+- **One concept per unit.** Locations and perks never share a table or a collection.
+- Each table is introduced by a sentence (or two) defining what each column means — column semantics are never left to inference. (Inside a collection, the intro defines the semantics once for every card.)
 
-**Conventions:**
+**Tables or collections.** A concept whose instances are homogeneous rows belongs in a table. A concept whose instances each carry *structure* — identity fields, their own small table, labeled prose entries like abilities — belongs in a **collection**: the H3 introduces the set and declares its card schema, then one H4 per **card**. Cards are how a player's "character sheet" lives inside the one document: each card reads, and prints, as a self-contained unit.
+
+**Collection rules:**
+
+- The collection's intro contains a normative `**Card schema:**` line naming each card's required parts, in order. Every card follows it exactly.
+- Each card is an H4 named for its instance. H4 headings appear in the document only as cards inside collections.
+- A card may contain bold-label fields, at most one table, and labeled prose entries — per its schema.
+- Prose elsewhere refers to the collection by its H3 name and to cards by name ("the Perks collection", "the Megaphone Perk").
+- Cards are content, like rows: they may be added, removed, or rebalanced without touching the rules text.
+
+**Table conventions:**
 
 - **Roll tables** (tables a randomizer selects rows from) put the selector in the first column, labeled `Roll` (or `Draw` for cards), covering the declared randomizer's full range with no gaps and no overlaps. Ranges are written `low–high` (en dash preferred, hyphen accepted).
 - **Modifier columns** are labeled `Modifier` and every value carries an explicit sign (`+1`, `-2`); only `0` may be unsigned. Conditional modifiers spell out their condition in the cell.
 - Prose elsewhere refers to tables by their H3 names ("the Weather table").
 - Rows are content, so unlike parameters they may be added, removed, or rebalanced without touching the rules text.
 
-**Example:**
+**Example** (a table, then a collection):
 
 ```markdown
 ### Weather
@@ -268,6 +280,21 @@ customer roll that day.
 | 3 | Cloudy | 0 |
 | 4–5 | Sunny | +1 |
 | 6 | Hot | +2 |
+```
+
+```markdown
+### Perks
+
+Each card is one Perk. Each player picks one at setup; each Perk is usable
+once per game.
+
+**Card schema:** `**When:**` (when to declare it); `**Effect:**` (what it
+does).
+
+#### Megaphone
+
+**When:** With your declarations
+**Effect:** +2 to today's roll
 ```
 
 ### External Data Hooks
@@ -425,11 +452,14 @@ A conforming `GAME.md` passes every item. Each item restates exactly one normati
 
 ### Content Tables
 
-- [ ] Every table sits under its own H3 inside `## Content Tables`.
-- [ ] One concept per table.
-- [ ] Each table is introduced by a sentence defining its column semantics.
+- [ ] Every content unit (table or collection) sits under its own H3 inside `## Content Tables`.
+- [ ] One concept per table or collection.
+- [ ] Each table is introduced by a sentence defining its column semantics (a collection's intro covers its cards' tables).
 - [ ] Roll-table selector columns cover the declared randomizer's full range with no gaps or overlaps.
 - [ ] Modifier values carry explicit signs (only `0` may be unsigned).
+- [ ] Every collection's intro contains a `**Card schema:**` line naming each card's required parts in order.
+- [ ] Every card is an H4 inside a collection and follows its collection's schema exactly.
+- [ ] H4 headings appear only as cards inside collections.
 
 ### External Data Hooks (if present)
 
@@ -472,8 +502,8 @@ decide how many customers show up. Most money when the week ends wins.
 
 1. **GM** draws a score sheet: one row per player, with columns for money
    (starting at $0), total customers served (starting at 0), and Perk.
-2. **Each player**, in seat order, picks one Perk from the Perks table and
-   records it. More than one player may pick the same Perk.
+2. **Each player**, in seat order, picks one Perk from the Perks collection
+   and records it. More than one player may pick the same Perk.
 3. **Table** agrees on a home town if using the *Tomorrow's Forecast* hook;
    otherwise skip this step.
 
@@ -504,9 +534,9 @@ decide how many customers show up. Most money when the week ends wins.
   (Weather table), then location (Locations table), then price (0 for regular;
   *Premium Penalty* for premium). With addition the order never changes the
   result; it is fixed so totals are always read out the same way.
-- **Perks:** a declared Perk applies exactly as its Effect column says, at the
-  moment its When column names. If a Perk changes a roll or a modifier,
-  recompute customers served with the changed value.
+- **Perks:** a declared Perk applies exactly as its card's **Effect:** field
+  says, at the moment its **When:** field names. If a Perk changes a roll or
+  a modifier, recompute customers served with the changed value.
 - **Ties:** not applicable during play — players' rolls are never compared
   against each other. Final-score ties are settled in Scoring & End State.
 - **Simultaneity:** all players' sales resolve simultaneously; no player's
@@ -560,14 +590,26 @@ customer roll that day.
 
 ### Perks
 
-Each row is one Perk. Each player picks one at setup; each Perk is usable
-once per game. *When* says when to declare it; *Effect* says what it does.
+Each card is one Perk. Each player picks one at setup; each Perk is usable
+once per game.
 
-| Perk | When | Effect |
-| --- | --- | --- |
-| Megaphone | With your declarations | +2 to today's roll |
-| Loyal Customers | After seeing your roll | Reroll; keep the new result |
-| Ice Machine | With your declarations | Today's weather modifier is 0 for you |
+**Card schema:** `**When:**` (when to declare it); `**Effect:**` (what it
+does).
+
+#### Megaphone
+
+**When:** With your declarations
+**Effect:** +2 to today's roll
+
+#### Loyal Customers
+
+**When:** After seeing your roll
+**Effect:** Reroll; keep the new result
+
+#### Ice Machine
+
+**When:** With your declarations
+**Effect:** Today's weather modifier is 0 for you
 
 ## External Data Hooks
 
