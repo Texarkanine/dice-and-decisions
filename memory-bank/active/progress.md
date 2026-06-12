@@ -252,3 +252,14 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - Trivial fix: Vehicles-collection intro deferred the Suspect rule to Resolution instead of restating it (rule duplication, the in-document single-source discipline)
 * Insights
     - Collection intros are a new temptation surface for rule duplication — schema semantics belong in the intro, game rules belong in Resolution; worth a watchful eye in `author`'s validator
+
+## 2026-06-11 - REFLECT (L2 REWORK) - COMPLETE
+
+* Work completed
+    - Rework reflection written to `memory-bank/active/reflection/reflection-m2-cannonball-rally-game-rework.md`
+    - Persistent files reconciled — no updates needed beyond build's `systemPatterns.md` alignment
+* Decisions made
+    - Rework cycle judged the right sequencing: the collection convention's shape was only findable against a real game; M1's toy game couldn't have surfaced it
+* Insights
+    - Good structure deletes rules (Detour → slot multiplicity)
+    - Re-read before editing files the operator has open; verbatim-match edits are the tripwire

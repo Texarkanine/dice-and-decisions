@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m2-cannonball-rally-game (rework: card sections)
-**Phase:** BUILD - COMPLETE
+**Phase:** REFLECT - COMPLETE (rework: card collections delivered)
 
 ## What Was Done
 
@@ -18,6 +18,12 @@
     - Turn-report example names the full stage card (`via Southwest Desert`) for machine-unambiguous matching
 - All 9 acceptance checks pass; mechanical verification of excerpt/appendix sync, dangling references, ability census, and slot coverage
 
+## Reflection
+
+- Rework review written to `memory-bank/active/reflection/reflection-m2-cannonball-rally-game-rework.md` (original M2 reflection also retained)
+- Persistent files reconciled: no updates needed beyond build's `systemPatterns.md` alignment
+- Standing operator review items: the 8 drafted-content flags from the original M2 build (recorded in the first reflection's pointer and the M2 build report)
+
 ## Next Step
 
-- QA (`niko-qa` skill)
+- M2 sub-run (including rework) complete through Reflect. Run `/niko` to advance the L4 milestone list and start the next milestone (M3: dice roller is the dependency-order next)
