@@ -188,3 +188,12 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - Optionality (the Detour choice), not just reactivity, is what breaks turn-report grammars — generalizes M1's lesson
     - Formalization improved the design rather than just recording it (deterministic map, unified police check) — expect the same from `author` (M10)
     - The threshold/suspicion/magnitude kernel looks like the seed of a reusable house system for future games
+
+## 2026-06-11 - REWORK INITIATED
+
+* Operator feedback (design review of the delivered GAME.md)
+    - Amalgamated vehicle tables don't match the ODT's per-vehicle cards; a vehicle should read as a character sheet
+    - Separate files per vehicle/stage considered and rejected by the operator: the one-file constraint is the creativity-breeding constraint of the format; authors maintain one document
+    - Print formatting explicitly a non-concern; no assets work in this rework
+    - Decision: card sections *within* GAME.md for collections (vehicles, stages, future obstacle sets); stage cards structured so route assembly is future-additive ("even 5 more stages = combinatorially many routes"); spec amendment required
+* Rework scope appended to `projectbrief.md`; sub-run ephemeral state cleared for re-classification
