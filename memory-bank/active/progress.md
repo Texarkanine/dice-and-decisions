@@ -58,3 +58,14 @@ L4 sub-run for milestone M3 of `lite-rpg-toolkit`: build the seedable dice-rolle
     - The label-as-nonce design delivered exactly as planned: reproducibility with zero on-disk state, validated by the seed-replay test
     - File execute bits aren't tracked on this Windows-mounted checkout; scripts are invoked via `sh`/shebang (noted in techContext) — a portability fact future scripts inherit
 
+## 2026-06-12 - QA (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review against the plan and the 7 constraints (KISS/DRY/YAGNI/Completeness/Regression/Integrity/Documentation) — no defects, no trivial fixes required
+    - Mechanical re-confirmation: full suite green under `sh`, `shellcheck -s sh` clean on all four files, working tree clean
+    - Wrote `.qa-validation-status`: PASS
+* Decisions made
+    - `--help` kept despite not being in the plan's interface list: a trivial, standard usage affordance that serves both human and agent callers; judged a deliberate minimal feature, not a YAGNI violation
+* Insights
+    - The pinned-hash test fixture (a hardcoded constant) is exactly where a "magic number" is legitimate — it locks an external algorithm (cksum) against silent drift, the opposite of a shortcut
+
