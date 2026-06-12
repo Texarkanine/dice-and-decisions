@@ -33,7 +33,7 @@ And once AI can playtest a game, it can also *play* one with you: solo sessions 
 
 | Game | Pitch | Status |
 | --- | --- | --- |
-| **Cannonball Rally** | Coast-to-coast outlaw racing for 2–6 players. Speed and risk jail time, or play it safe and watch the leaderboard pull away. Stage weather comes from the *real forecast* — the rally plays differently in January than July. | Being formalized |
+| **Cannonball Rally** | Coast-to-coast outlaw racing for 2–6 players. Speed and risk jail time, or play it safe and watch the leaderboard pull away. Stage weather comes from the *real forecast* — the rally plays differently in January than July. | [Playable on paper](skills/cannonball-rally/references/GAME.md) |
 | Carnival ticket hustle | Work the midway, run the games, fleece the rubes | Notebook |
 | Caribbean sea survival | Stay alive, stay afloat | Sketches |
 
@@ -46,7 +46,7 @@ skills/
 ├── author/
 │   └── references/
 │       └── game-format.md    # the GAME.md format specification (skill itself: planned)
-├── cannonball-rally/         # first game directory (planned next)
+├── cannonball-rally/         # the first game: SKILL.md + references/GAME.md
 ├── gm/                       # engine skills (planned)
 ├── player/
 ├── table/
@@ -57,4 +57,4 @@ Each game directory ships as `skills/<game>/` with a `SKILL.md` pitch, its ruleb
 
 ## Status
 
-Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written; the current work is formalizing Cannonball Rally against it as the format's proving ground, then building the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).
+Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written and [Cannonball Rally](skills/cannonball-rally/references/GAME.md) is formalized against it — the format's first real proof. Next: the dice roller and the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).

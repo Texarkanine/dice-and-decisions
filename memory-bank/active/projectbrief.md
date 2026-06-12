@@ -45,6 +45,21 @@ Build in dependency order (per the original vision, now absorbed into the persis
 ## Acceptance Criteria
 
 1. Cannonball Rally exists as a complete, valid `GAME.md` that a human can print and run with zero computers, with no rules left in the author's head.
+
+## Rework (M2 sub-run, 2026-06-11)
+
+The original M2 brief above stands; this rework refines the delivered format and document based on operator design review.
+
+### Operator feedback
+
+The amalgamated Vehicle Modifiers / Abilities tables are machine-handy but don't match the ODT's per-vehicle "cards" — a player should be able to treat their vehicle as a character sheet. Separate files per vehicle were considered and **rejected**: the one-file constraint ("you've got to be able to fit your whole game in 1 file reasonably") is the creativity-breeding constraint, and real authors maintain one document. Print formatting is a non-concern (printing a Markdown table is fine; the game is 1–2 pages).
+
+### Rework requirements
+
+1. **Spec amendment** (`skills/author/references/game-format.md`): add a card/collection convention — a content H3 may be a repeated structured unit ("card") with a declared field schema, one H3 per instance, for collections like vehicles, stages, and obstacle sets. Keep the spec's excerpt/appendix self-test discipline intact.
+2. **Rally restructure** (`skills/cannonball-rally/references/GAME.md`): vehicles become per-vehicle cards (pitch + modifiers + abilities together, like the ODT); stages become cards with a slot/band field so future route assembly (combinatorial routes, per-slot detour choices, house-rule custom stages) is additive content, not structural change. Ship only the current classic route.
+3. **One-file principle recorded** where it belongs (spec preamble/conventions) as a design constraint, not folklore.
+4. No separate card files, no `assets/` work (that remains M8), no scaling provisions beyond ~tens of cards ("we don't need to scale to n=100").
 2. A solo session ("run Cannonball Rally with me and four AI players") runs end-to-end: AI GM, AI players with personas, script-rolled dice, restated state table after every recomputation.
 3. `playtest` produces a balance report across a rule-parameter sweep, sufficient to answer the 2hr base-stage-time question with data.
 4. Mixed-table play works with the scribe protocol staying under ~a dozen typed words per player per round.
