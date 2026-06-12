@@ -227,7 +227,7 @@ A near bird's-eye view from this luxurious 8-seater boat of a car. A V8 guzzles 
 
 #### 2-door Supercar
 
-Low, aerodynamic, brightly painted and loud. Easily six figures — it screams "look at me" and "catch me if you can!"
+Low to the ground, aerodynamic curves, with a bright coat of paint and a loud engine. Easily a six-figure vehicle, it screams "look at me" and "catch me if you can!"
 
 | Applies to | Effect |
 | --- | --- |
@@ -241,7 +241,7 @@ Low, aerodynamic, brightly painted and loud. Easily six figures — it screams "
 
 #### 4-door Sedan
 
-Average height, average engine, paint in every shade of black, white, gray — maybe beige. The base model, and it's everywhere.
+Dealerships fling these off the lot by the millions! Average height, average fuel economy, an average engine, and paint available in every shade of black, white, and gray. Maybe beige, too. These are all over the road – and you'd better believe it's the base model!
 
 | Applies to | Effect |
 | --- | --- |
