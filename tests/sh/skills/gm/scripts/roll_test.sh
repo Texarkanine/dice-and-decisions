@@ -1,14 +1,14 @@
 #!/bin/sh
 #
 # Unit tests for roll.sh (the engine dice roller).
-# Run directly (`sh roll_test.sh`) or via tests/run.sh.
+# Run directly (`sh roll_test.sh`) or via `tests/sh/run.sh`.
 
 TEST_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
 
-# shellcheck source=../common.sh
-. "${TEST_DIR}/../common.sh"
+# shellcheck source=../../../common.sh
+. "${TEST_DIR}/../../../common.sh"
 
-ROLL_SH="${TEST_DIR}/../../roll.sh"
+ROLL_SH="${TEST_DIR}/../../../../../skills/gm/scripts/roll.sh"
 
 # Source the script under test so its functions can be exercised in-process.
 # The entry-point guard must keep this from running main (verified separately).
@@ -137,6 +137,7 @@ test_cli_count_rolls_multiple() {
 
 # Entry-point protection: sourcing roll.sh runs no main, prints nothing.
 test_sourcing_does_not_run_main() {
+	# shellcheck disable=SC1090
 	tp_out=$(. "${ROLL_SH}"; echo SOURCED_OK)
 	assertEquals "sourcing must not emit main output" "SOURCED_OK" "${tp_out}"
 	return 0
@@ -180,5 +181,5 @@ test_cli_rejects_missing_label() {
 	return 0
 }
 
-# shellcheck source=../vendor/shunit2
-. "${TEST_DIR}/../vendor/shunit2"
+# shellcheck source=../../../vendor/shunit2
+. "${TEST_DIR}/../../../vendor/shunit2"

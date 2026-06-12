@@ -57,6 +57,16 @@ skills/
 
 Each game directory ships as `skills/<game>/` with a `SKILL.md` pitch, its rulebook at `references/GAME.md`, and printables in `assets/`.
 
+## Tests
+
+If you just want to verify the repo's current automated checks locally, run:
+
+```sh
+make test
+```
+
+That's the single test entrypoint for this repo and is the same command CI uses.
+
 ## Status
 
 Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written, [Cannonball Rally](skills/cannonball-rally/references/GAME.md) is formalized against it — the format's first real proof — and the [dice roller](skills/gm/scripts/roll.sh) is built (real RNG, seedable, every roll logged; reproducible from a single seed with no on-disk state). Next: the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).

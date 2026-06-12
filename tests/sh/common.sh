@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Common test utilities for the gm dice-roller test suite.
-# Sourced by every unit test file; provides a single helper for loading the
-# script under test without triggering its main execution.
+# Common test utilities for shell-script test suites.
+# Sourced by test files; provides a helper for loading scripts under test
+# without triggering their main execution blocks.
 
-# Sources the script under test for in-process function testing.
+# Sources a script under test for in-process function testing.
 #
 # Relies on the script's entry-point guard: sourcing must NOT run main.
 #
