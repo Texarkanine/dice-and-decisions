@@ -27,3 +27,17 @@ L4 sub-run for milestone M4 of `lite-rpg-toolkit`: build the `gm` skill — the 
 * Insights
     - The journal needs no new machine format: declarations, rolls, and state already have pinned grammars (Turn Report template, roll.sh stderr line, GFM tables) — the skeleton just anchors them in a file. "One transcript, two audiences" is the same move GAME.md proved
     - A structured event log was rejected on principle: two formats for one fact is the drift disease the GAME.md pattern exists to cure
+
+## 2026-06-12 - PLAN (L3) - COMPLETE
+
+* Work completed
+    - Full L3 plan in `tasks.md`: component analysis, dependency map, invariants, 11 behaviors + 8 edge cases as the test plan, 7-step implementation plan, challenges & mitigations, pinned round-loop sequence diagram
+    - One open question resolved via creative (transcript journal format, high confidence)
+* Decisions made
+    - Three gm documents: lean `SKILL.md` router + `references/session-procedure.md` + `references/journal-format.md`; journal contract authored first (it's the gm→M6/M7 boundary)
+    - No new executable code → no new shunit2 tests; the milestone's test is the recorded human-played Cannonball Rally session validated against the behavior checklist (prose analog of tests-first: checklist written in the plan, session validates against it), `make test` as regression gate
+    - gm ships no `compatibility` disk requirement; journal strictly opportunistic
+    - Build sequenced so the operator session (step 6: validation + golden transcript) is the final build step, after authoring + self-validation walkthroughs (spec cross-check, Lemonade Stand genericity round, edge-case desk-check)
+* Insights
+    - The gm skill is the integration test of all three prior milestones — its build doubles as validation of the M1 format spec's "every section has a consumer" claim
+    - The plan's behavior checklist (B1–B11) is what QA and the golden transcript will both be audited against; writing it before any document exists is the prose equivalent of red tests

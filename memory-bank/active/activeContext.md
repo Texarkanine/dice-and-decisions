@@ -1,14 +1,29 @@
 # Active Context
 
 ## Current Task: m4-gm-skill
-**Phase:** COMPLEXITY-ANALYSIS - COMPLETE
+**Phase:** PLAN (L3) - COMPLETE
 
 ## What Was Done
 
-- Advanced L4 milestone list: M3 (dice roller) checked off, sub-run ephemeral state cleared and committed
-- Classified milestone M4 as **Level 3** (Intermediate Feature)
-- Rationale: a complete feature with several coupled components — mechanics applier, restated state table, turn-brief distillation, external-data hook resolution with fallback, and a transcript journal — plus a human-played validation session recorded as a golden transcript fixture. Multiple interlocking parts, but all within the architecture already established by the L4 plan (engine skill consuming GAME.md + roll.sh), so no architectural implications pushing it to L4.
+- Full L3 plan in `tasks.md`: component analysis (3 new gm documents + fixture + README/
+  systemPatterns updates), cross-module dependency map (gm consumes M1/M2/M3; M6/M7 consume
+  gm's journal contract), 11 session-observable behaviors + 8 edge cases as the test plan,
+  7-step implementation plan, challenges & mitigations
+- One open question identified and resolved via creative phase (high confidence):
+  transcript journal = structured Markdown transcript reusing the three pinned grammars
+  (Turn Report lines, roll.sh log lines, GFM state tables) as parse anchors; golden fixture
+  at `tests/fixtures/transcripts/cannonball-rally-golden.md`
+- No new technology; no new executable code — validation is the recorded human-played
+  Cannonball Rally session per the L4 prose-validation invariant, with `make test` as the
+  regression gate
+
+## Key Decisions
+
+- Journal contract authored before the session procedure (it's the gm→M6/M7 boundary)
+- gm ships no `compatibility` disk requirement — journal strictly opportunistic
+- Build step 6 (validation session + golden transcript) requires the operator at the table;
+  all authoring and self-validation precede it
 
 ## Next Step
 
-- Load the Level 3 workflow and execute its Plan phase
+- Preflight phase (autonomous) to validate the plan, then STOP for operator `/niko-build`
