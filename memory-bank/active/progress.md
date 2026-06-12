@@ -41,3 +41,17 @@ L4 sub-run for milestone M4 of `lite-rpg-toolkit`: build the `gm` skill — the 
 * Insights
     - The gm skill is the integration test of all three prior milestones — its build doubles as validation of the M1 format spec's "every section has a consumer" claim
     - The plan's behavior checklist (B1–B11) is what QA and the golden transcript will both be audited against; writing it before any document exists is the prose equivalent of red tests
+
+## 2026-06-12 - PREFLIGHT (L3) - COMPLETE (PASS)
+
+* Work completed
+    - Validated plan vs. codebase: TDD encoding (no new executable code; prose-validation invariant correctly applied, checklist-before-documents ordering explicit — PASS), convention compliance (agentskills layout, lowercase reference names, repo-level test data), dependency impact, conflict detection (`skills/gm/` holds only `scripts/roll.sh`; no overlap), completeness (all 5 milestone components + validation map to concrete steps and behaviors)
+    - Confirmed regression gate green pre-build (`make test`: 15 tests OK)
+    - Wrote `.preflight-status`: PASS
+* Decisions made
+    - Amendment (applied): `journal-format.md` ships a worked one-round example excerpt (Lemonade Stand) conforming to its own skeleton — the format spec's self-test discipline extended to the journal contract
+    - Amendment (applied): build step 7 also revisits `skills/cannonball-rally/SKILL.md`'s "until those engine skills are available" wording once gm is real
+    - Note (recorded): golden fixture keeps a stable curated name (`cannonball-rally-golden.md`) instead of the runtime timestamped name — downstream consumers need a stable path; the date lives in the session header
+* Insights
+    - `tests/fixtures/` is a new convention (tests/ currently holds only the shell harness); establishing it here means M7's dataset tooling inherits a home for non-shell test data
+    - The journal example excerpt doubles as the first existence proof of the format before the golden transcript exists — cheap insurance that the skeleton is actually writable

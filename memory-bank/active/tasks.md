@@ -186,6 +186,10 @@ the prose analog of tests-before-code.
     - Changes: the normative skeleton from the creative decision — file naming and
       location rule, session header fields, per-round parts in order, physical-dice line
       shape, standings, resume rule, "where disk exists" gating.
+    - *(Preflight amendment)* Include a worked one-round example excerpt (Lemonade Stand,
+      the spec's own illustration game) that conforms to the skeleton — the same self-test
+      discipline `game-format.md` uses (every normative format ships an example that
+      passes it).
     - Creative ref: `memory-bank/active/creative/creative-transcript-journal-format.md`
 3. **Author `references/session-procedure.md`** — the full GM procedure
     - Files: `skills/gm/references/session-procedure.md`
@@ -215,11 +219,17 @@ the prose analog of tests-before-code.
       dice, seeded); the session is journaled per the format; the transcript is saved as
       the golden fixture; defects surfaced in gm docs are fixed; any game/spec gap is
       fixed in the paper and noted for the milestone record.
+    - *(Preflight note)* The fixture keeps a stable curated name (`cannonball-rally-golden.md`)
+      rather than the runtime `<game>-<YYYYMMDD-HHmmss>.md` name — deliberate: downstream
+      consumers (M6/M7) need a stable path; the session header inside still carries the date.
 7. **Documentation + regression gate**
     - Files: `README.md`, `memory-bank/systemPatterns.md`
     - Changes: README layout tree (gm: SKILL.md + references), engine table and Status
       line updates; systemPatterns status note reconciled (gm real; state-table/turn-brief/
       journal patterns now implemented). Run `make test` (must be green).
+    - *(Preflight amendment)* Also revisit `skills/cannonball-rally/SKILL.md`'s "Until
+      those engine skills are available…" wording — with gm real, the sentence needs to
+      distinguish available engine skills from still-planned ones.
 
 ## Technology Validation
 
@@ -254,6 +264,6 @@ harness. Validation not required.
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete (n/a — no new technology)
-- [ ] Preflight
+- [x] Preflight (PASS — 2 amendments applied, 1 note recorded)
 - [ ] Build
 - [ ] QA
