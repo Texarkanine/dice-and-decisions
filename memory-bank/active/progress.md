@@ -206,3 +206,14 @@ L4 sub-run for milestone M2 of `lite-rpg-toolkit`: formalize Cannonball Rally as
     - L2 rationale: spec amendment (card/collection convention) + one-document content restructure; architectural decisions already made by operator (one file wins; cards within GAME.md; stage cards carry a slot/band field; no assets work)
 * Insights
     - The rework's riskiest seam is the spec's self-test discipline: a new convention needs a Lemonade Stand example, and section excerpts must stay verbatim substrings of Appendix A
+
+## 2026-06-11 - PLAN (L2 REWORK) - COMPLETE
+
+* Work completed
+    - 4-step plan in `tasks.md` with 9 documentary acceptance checks: spec amendment (collection convention, one-file principle, Perks-as-cards), vehicles → cards, stages → slot-structured cards, docs alignment
+* Decisions made
+    - The Detour becomes emergent: one generic rule (multi-card slot = racer's choice); no Detour-specific mechanics survive
+    - Suspect markings move to a fixed inline form `*(Action — Suspect)*` declared in the collection schema
+    - Appendix-first editing for the spec: excerpts re-derived verbatim from Appendix A, then mechanically checked
+* Insights
+    - Converting Lemonade Stand's Perks into cards is what makes the self-test prove the new convention — the toy game grows exactly as much as the format does
