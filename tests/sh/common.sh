@@ -32,3 +32,38 @@ source_script() {
 
 	return 0
 }
+
+# Creates a unique temporary file path and an empty file at that path.
+#
+# Uses mktemp when available; otherwise a POSIX fallback (PID + timestamp +
+# counter + noclobber create). No cleanup is required — files live in /tmp
+# until the host clears them.
+#
+# Globals:
+#   None
+# Arguments:
+#   $1 - Filename prefix (optional, default: lite-rpg)
+# Outputs:
+#   Absolute path to the new empty file on STDOUT
+# Returns:
+#   0 on success, 1 if no file could be created
+new_tmp_file() {
+	ntf_prefix="${1:-lite-rpg}"
+	ntf_base="${TMPDIR:-/tmp}"
+	ntf_ts=$(date +%s 2>/dev/null || echo 0)
+	ntf_i=0
+
+	if command -v mktemp >/dev/null 2>&1; then
+		mktemp "${ntf_base}/${ntf_prefix}.XXXXXX"
+		return $?
+	fi
+
+	while :; do
+		ntf_path="${ntf_base}/${ntf_prefix}.${ntf_ts}.$$.$ntf_i.tmp"
+		if ( set -C; : > "${ntf_path}" ) 2>/dev/null; then
+			echo "${ntf_path}"
+			return 0
+		fi
+		ntf_i=$(( ntf_i + 1 ))
+	done
+}

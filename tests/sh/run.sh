@@ -6,6 +6,9 @@
 #
 # Usage: sh tests/sh/run.sh
 
+# shellcheck disable=SC1091
+. "$(dirname -- "$0")/common.sh"
+
 # Runs all shell test suites and aggregates exit status.
 #
 # Globals:
@@ -20,7 +23,7 @@ run_all() {
 	ra_dir=$(cd -- "$(dirname -- "$0")" && pwd)
 	ra_status=0
 	ra_found=0
-	ra_list=$(mktemp)
+	ra_list=$(new_tmp_file run_sh_tests)
 
 	find "${ra_dir}/skills" -type f -name "*_test.sh" | sort > "${ra_list}"
 
@@ -30,8 +33,6 @@ run_all() {
 		echo "=== ${ra_suite} ==="
 		sh "${ra_suite}" || ra_status=1
 	done < "${ra_list}"
-
-	rm -f "${ra_list}"
 
 	if [ "${ra_found}" -eq 0 ]; then
 		echo "run.sh: no test suites found under ${ra_dir}/skills/" >&2

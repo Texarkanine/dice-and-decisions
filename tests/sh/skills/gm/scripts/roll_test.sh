@@ -77,8 +77,8 @@ test_hash_to_int_is_pinned() {
 # Seed reporting + replay: when --seed is omitted a seed is generated and
 # logged; re-running with that reported seed reproduces the original result.
 test_unseeded_reports_replayable_seed() {
-	tu_out=$(mktemp)
-	tu_err=$(mktemp)
+	tu_out=$(new_tmp_file roll_test_out)
+	tu_err=$(new_tmp_file roll_test_err)
 	sh "${ROLL_SH}" --label rep --sides 6 >"${tu_out}" 2>"${tu_err}"
 	tu_orig=$(cat "${tu_out}")
 	tu_seed=$(sed -n 's/.*seed=\([0-9][0-9]*\).*/\1/p' "${tu_err}")
@@ -87,7 +87,6 @@ test_unseeded_reports_replayable_seed() {
 		2>/dev/null)
 	assertEquals "reported seed replays the original roll" \
 		"${tu_orig}" "${tu_replay}"
-	rm -f "${tu_out}" "${tu_err}"
 	return 0
 }
 
@@ -112,15 +111,14 @@ test_distribution_covers_all_faces() {
 # CLI happy path: a single roll prints one in-range integer to stdout and
 # an exactly-formatted log line to stderr.
 test_cli_single_roll_stdout_and_log() {
-	ts_out=$(mktemp)
-	ts_err=$(mktemp)
+	ts_out=$(new_tmp_file roll_test_out)
+	ts_err=$(new_tmp_file roll_test_err)
 	sh "${ROLL_SH}" --seed 42 --sides 6 --label unit \
 		>"${ts_out}" 2>"${ts_err}"
 	assertEquals "exit 0 on happy path" 0 "$?"
 	assertEquals "stdout is the pinned face" "5" "$(cat "${ts_out}")"
 	assertEquals "stderr log matches exact grammar" \
 		"roll seed=42 label=unit die=d6 => 5" "$(cat "${ts_err}")"
-	rm -f "${ts_out}" "${ts_err}"
 	return 0
 }
 

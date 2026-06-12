@@ -17,6 +17,8 @@ jobs:
         with:
           scandir: '.'
           severity: error
+          ignore_paths: |
+            tests/sh/vendor
 
   tests:
     name: Unit Tests
