@@ -176,7 +176,7 @@ the prose analog of tests-before-code.
 
 ## Implementation Plan
 
-1. **Stub the skill documents** (interface stubbing, no content yet)
+1. ✅ **Stub the skill documents** (interface stubbing, no content yet)
     - Files: `skills/gm/SKILL.md`, `skills/gm/references/session-procedure.md`,
       `skills/gm/references/journal-format.md`
     - Changes: create with frontmatter/headings and one-line purpose statements only.
