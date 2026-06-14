@@ -31,9 +31,34 @@
 - Session seed: operator-supplied, else drawn via one unseeded roller call (adopt the
   reported seed, discard the face)
 
+## Validation Session (build step 6) — IN PROGRESS, operator-led
+
+- **Run 1 (seed `haiku1`, Claude Code, Haiku 4.5):** complete. Racers seated Motorcycle,
+  Ambulance, Sedan, Supercar (4 of 6 vehicles; 4x4 and SUV absent). Surfaced two mechanical
+  defects, both fixed and committed (`fix: clarify police-roll timing and reaction-as-choice`):
+  police checks now explicitly batch after all declarations; Reactions are explicitly the
+  racer's choice (Haiku had auto-jailed a racer via an unchosen Double Down).
+- Raw conversion of run 1 lives at `tests/fixtures/transcripts/cannonball-rally-haiku1-raw.md`
+  (via `scripts/jsonl-to-md.py`); it is NOT the golden transcript.
+- **Operator is now iterating:** balance tweaks (operator-owned, M2 content — see decisions)
+  + further Haiku runs until one cleanly exercises all mechanisms. Operator will point here
+  when a keeper run exists.
+
+## Golden Transcript Acceptance (operator decision, 2026-06-14)
+
+- The golden transcript must seat **every vehicle currently in the rally** — all 6: Ambulance,
+  Motorcycle, 4x4, SUV, 2-door Supercar, 4-door Sedan. That implies a **6-racer** session
+  (one per vehicle) for full vehicle coverage.
+- Reaction-gated mechanisms (Gun It, Blend In, Double Down) only fire on a pull-over, so full
+  *mechanism* coverage is dice-dependent — may need seed selection or be spread across the run.
+- **Balance is operator-owned and out of M4 scope.** The gm/journal work is validated against
+  procedure correctness, not rally balance. Balance tweaks (Route 66 police tier, desert base
+  time, Lights & Sirens, sedan dominance, the Detour) are deferred to a separate M2 rally pass;
+  the operator's uncommitted GAME.md/ODT edits belong to that effort, not this commit stream.
+
 ## Next Step
 
-- **Build step 6 (requires operator):** play the Cannonball Rally validation session — all
-  seats human-played, gm active, script dice, seeded; journal it; save as
-  `tests/fixtures/transcripts/cannonball-rally-golden.md`; fix any defects surfaced
-- Then build step 7: README + systemPatterns + cannonball-rally SKILL.md wording; `make test`
+- Await operator's keeper run; convert + munge it into conforming
+  `tests/fixtures/transcripts/cannonball-rally-golden.md` (validate against journal-format +
+  behaviors B1–B11 and the edge-case list before crowning it golden).
+- Then build step 7: README + systemPatterns + cannonball-rally SKILL.md wording; `make test`.
