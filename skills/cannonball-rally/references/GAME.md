@@ -94,7 +94,7 @@ Each card is one stage of the rally. The race runs slots in ascending order; whe
 **Slot:** 3
 **Weather City:** Springfield
 **Traffic:** Medium
-**Police:** Medium
+**Police:** Light
 **Roads:** Highway
 **Grade:** none
 **Bank:** none
@@ -122,6 +122,7 @@ Each card is one stage of the rally. The race runs slots in ascending order; whe
 #### Southwest Desert
 
 **Slot:** 5
+**Base Stage Time:** 3 hr
 **Weather City:** Flagstaff
 **Traffic:** Light
 **Police:** Light
@@ -174,8 +175,8 @@ A large, heavy box of a vehicle. Sirens and lights still work, but you aren't co
 | Applies to | Effect |
 | --- | --- |
 | Police rolls, while Lights & Sirens are OFF | +1 to the roll |
-| High-grade roads | +1 hr |
-| High-bank roads | +1 hr |
+| Medium or higher-grade roads | +0.5 hr |
+| Medium or higher-bank roads | +0.5 hr |
 
 **Lights & Sirens!** *(Action, Suspect)* — Switch them on: everyone gets out of the way. -1 hr this stage, and the *Traffic Penalty* is erased without a roll. Your lights-OFF police bonus does not apply this stage.
 
@@ -235,6 +236,7 @@ Low to the ground, aerodynamic curves, with a bright coat of paint and a loud en
 | Police rolls | -1 to the roll |
 | Highway stages | -0.5 hr |
 | Any banked road | -0.5 hr |
+| Weather: precipitation (rain, ice, etc.) | +0.5 hr |
 
 **Gun It** *(Reaction)* — When police would pull you over while speeding on a Highway stage, outrun them: roll >2 for a clean getaway — no *Pull-Over Penalty*. Fail and you still escape the police, but +1 hr fixing the rare part that broke past 200 mph, plus +1 hr more for every previous failed Gun It this race.
 
@@ -247,10 +249,12 @@ Dealerships fling these off the lot by the millions! Average height, average fue
 | Applies to | Effect |
 | --- | --- |
 | Inclement weather | +0.5 hr (not built for the rough stuff) |
+| High-grade roads | +0.5hr (undersized powertrain) |
+| High traffic | +0.5hr (nobody lets you merge or go) |
 | Police rolls | +1 to the roll |
 | Highway stages | -1 hr (no gas stops) |
 
-**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: roll >1 to avoid the *Pull-Over Penalty* — there are so many cars like yours they'll probably miss you.
+**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: Take a +1 bonus to your police roll and if you pass it, avoid the *Pull-Over Penalty* entirely — there are so many cars like yours they'll probably miss you. Fail the check though, and they'll be peeved: Take +0.5hr on the side of the road to talk your way out of jail!
 
 ## External Data Hooks
 
