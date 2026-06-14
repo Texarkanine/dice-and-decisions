@@ -22,7 +22,7 @@ An illegal coast-to-coast street race from New York City to Redondo Beach. Pick 
 
 1. **GM** announces the stage: its name, its traffic and police tiers, its road type, grade, and bank (all from its stage card), and today's weather — resolved via the *Stage Weather* hook, or by its fallback. State the standard time: *Base Stage Time*, plus the *Traffic Penalty* if the stage's traffic applies (see Resolution).
 2. **Each player**, in order of lowest total hours (first stage: setup order; tied racers act in setup order), declares their plan: cruise or speed, which stage they drive if this slot offers a choice, and any vehicle abilities they use. **GM** reminds each racer of their vehicle card's applicable effects before they decide.
-3. **Each player** resolves their declared ability rolls (see Resolution), then rolls their police check against the stage's police bar.
+3. Once every racer has declared — step 2 is complete for the whole field before any roll — **each player** resolves their declared ability rolls (see Resolution), then rolls their police check against the stage's police bar. Police checks come after all declarations, never interleaved with them.
 4. **GM** computes each racer's stage time (see Resolution for the modifier order), adds it to their total hours, and restates the full scoreboard: each racer's vehicle, total hours, and status, lowest hours first.
 5. **GM** checks the end condition: if every racer has completed the final slot's stage or is jailed, the race is over — go to Scoring & End State. Otherwise begin the next stage.
 
@@ -162,7 +162,7 @@ Each row is one kind of racing weather. *Roll* is used by the *Stage Weather* fa
 
 ### Vehicles
 
-Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or police rolls); *Effect* is what happens — hours add to stage time, roll modifiers add to the named roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** resolves at its trigger, separate from and ignoring the stage police bar. Abilities marked *Suspect* count as suspect things for the police check (see Resolution).
+Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or police rolls); *Effect* is what happens — hours add to stage time, roll modifiers add to the named roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** is the racer's option to use when its trigger occurs — never automatic, always the racer's call — and resolves at that trigger, separate from and ignoring the stage police bar. Abilities marked *Suspect* count as suspect things for the police check (see Resolution).
 
 **Card schema:** pitch sentence; effects table (`Applies to | Effect`); abilities (zero or more), each as `**Name** *(Type[, Suspect])* — effect`.
 
@@ -198,7 +198,7 @@ Two wheels and the rumble of freedom! Light, agile, fuel-efficient and exposed. 
 
 **Loud Pipes** *(Passive)* — -1 to your ability rolls if another motorcycle has already used an ability this stage.
 
-**Double Down** *(Reaction)* — When pulled over, flee once they've walked to your bike: roll even to escape as if you were never caught — no *Pull-Over Penalty*, and anything you were doing succeeds. Roll odd and it's jail: you are out of the rally.
+**Double Down** *(Reaction)* — When pulled over, you may choose to gun it once they've walked to your bike: roll even to escape as if you were never caught — no *Pull-Over Penalty*, and anything you were doing succeeds. Roll odd and it's jail: you are out of the rally. The downside is jail, so doubling down is always the racer's call — the GM never doubles down for you.
 
 #### 4x4
 

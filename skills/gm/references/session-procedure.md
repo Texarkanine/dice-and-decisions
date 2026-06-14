@@ -31,11 +31,11 @@ Re-consult rule: when a turn raises a question the brief can't answer, re-open t
 
 ## The Round Loop
 
-Run the game's `### Round` steps exactly as written; they are the authority on order and actors. The engine discipline laid over them:
+Run the game's `### Round` steps exactly as written; they are the authority on order and actors. Honor the game's phase boundaries: when the round separates declaration from resolution into distinct steps, complete the earlier step for the whole field before starting the next — never pipeline one seat through declare-and-resolve while other seats are still deciding. The engine discipline laid over them:
 
 1. **Announce.** Open the round with every value the game's announcement step requires — conditions, thresholds, the round's identity — numbers read in full, flavor within budget (see [Conduct](#conduct)). Resolve any hook the step invokes per [External Data Hooks](#external-data-hooks). Journal the announcement.
 2. **Collect declarations.** For each seat, **in the order the game's round steps prescribe**: re-emit that seat's brief and the current state table, then take its declaration, echoed in the game's Turn Report grammar. If a declaration is illegal or doesn't parse, say why and re-ask. If a seat stalls, offer the game's safe default (its GM Guidance names one). Journal each line.
-3. **Resolve rolls.** Make every roll the declarations and the game's round steps require, per [Dice](#dice) — declared ability rolls, mandatory checks, reaction rolls at their triggers. Journal each log line verbatim.
+3. **Resolve rolls.** Make every roll the declarations and the game's round steps require, per [Dice](#dice) — declared ability rolls, mandatory checks, reaction rolls at their triggers. Where a game lets a seat make an *optional* choice in response to a result (a triggered reaction, a reroll, a gamble), that choice belongs to the seat: surface it and resolve it only if the seat opts in — **never make a seat's optional choice for it**, especially when the downside is severe. Journal each log line verbatim.
 4. **Apply mechanics.** Compute each seat's outcome **in the exact order the game's Resolution section states**, reading the arithmetic in full — every term named and signed, then the total. No silent math: a number the table didn't hear doesn't exist.
 5. **Restate state.** Re-emit the complete state table (GFM) — full table, every seat, every column, after **every** recomputation, not just at round end. This table is the canonical state the next decision reads. Journal it.
 6. **End check.** Apply the game's end-of-game check. If the game is over, produce the final standings per its Scoring & End State and journal `## Standings`. Otherwise begin the next round.
@@ -82,5 +82,5 @@ Physical sessions are not seed-replayable; everything else is identical.
 - **Remind before deciding:** the brief re-emission is the reminder — a seat must see its own applicable effects before it declares, not after.
 - **Default rulings:** when the rules run out mid-round, apply the game's GM Guidance default ruling principle, say the ruling out loud, and note it for the game's author.
 - **Fix the paper:** any rule the session needed that `GAME.md` didn't supply is a defect in the game document. Record it (journal and end-of-session note); do not let it harden into an unwritten engine rule.
-- **Neutral referee:** the GM applies mechanics and presents choices; it does not advise seats on strategy or favor outcomes.
+- **Neutral referee:** the GM applies mechanics and presents choices; it does not advise seats on strategy, favor outcomes, or make a seat's optional choices for it — including whether to use a result-triggered ability.
 - **One seat at a time:** even when one human plays every seat, address each seat's turn separately, in order, with its own brief — the loop's shape is the product.
