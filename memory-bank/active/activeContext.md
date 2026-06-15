@@ -1,7 +1,17 @@
 # Active Context
 
 ## Current Task: m4-gm-skill
-**Phase:** BUILD (L3) - COMPLETE (all 7 steps done; golden transcript accepted; `make test` green) → QA next
+**Phase:** REFLECT (L3) - COMPLETE (QA PASS → reflection written) → operator runs `/niko` for next milestone
+
+## Reflection Outcome (2026-06-15)
+
+- QA PASSED clean (no substantive findings); B9 disk-journaling recorded as operator-accepted, non-blocking deferral.
+- Reflection at `memory-bank/active/reflection/reflection-m4-gm-skill.md`. Key lessons:
+  the GM's hardest failure mode is **off-seat effects** (field-keyed + consequence-revoked),
+  hidden by the per-seat brief and fixed with an explicit cross-check beat; and
+  **prose/session-validation cannot enforce opportunistic side-effects** like disk journaling
+  (the root of the B9 deferral). Persistent files needed no reconciliation (systemPatterns
+  already updated in build step 7; product/tech context unaffected).
 
 ## What Was Done
 

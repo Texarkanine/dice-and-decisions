@@ -71,3 +71,15 @@ L4 sub-run for milestone M4 of `lite-rpg-toolkit`: build the `gm` skill — the 
 * Insights
     - The journal's reuse of three already-pinned grammars (Turn Report line, `roll.sh` stderr line, GFM table) is what lets QA verify the format's integrity mechanically — the worked example is replayable, not folklore
     - The deferred B9 is a *behavior* gap (GMs keep the journal in chat), not a *format* gap; the skeleton itself is sound and proven by the example
+
+## 2026-06-15 - REFLECT (L3) - COMPLETE
+
+* Work completed
+    - Reviewed the full task lifecycle (plan → creative → build → QA) and wrote `memory-bank/active/reflection/reflection-m4-gm-skill.md`
+    - Reconciled persistent files: no updates needed (systemPatterns reconciled in build step 7; product/tech context unaffected by the gm work)
+    - Updated activeContext with the reflection outcome
+* Decisions made
+    - Recorded B9 (disk-journaling) as a behavior gap rooted in the limits of session-validation, not a build defect — consistent with the operator's deferral decision
+* Insights
+    - Technical: the GM's hardest failure mode is **off-seat effects** (field-keyed modifiers, consequence-revoked benefits) — hidden by the per-seat turn brief's isolation, fixed by an explicit cross-check beat; future per-seat-distilling roles should expect the same blind spot. Reusing pinned grammars made the journal format self-testing (QA verified the example by replay).
+    - Process: prose/session-validation catches mechanics defects but cannot enforce opportunistic side-effects (disk journaling) — nothing in the played loop forces them; budget a "validation session" step for N runs / one defect each when the deliverable is a referee
