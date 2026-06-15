@@ -47,10 +47,12 @@ skills/
 │   └── references/
 │       └── game-format.md    # the GAME.md format specification (skill itself: planned)
 ├── cannonball-rally/         # the first game: SKILL.md + references/GAME.md
-├── gm/                       # engine skills (planned)
+├── gm/                       # the referee engine skill (built)
+│   ├── SKILL.md
+│   ├── references/           # session-procedure.md, journal-format.md
 │   └── scripts/
 │       └── roll.sh           # the dice roller (real RNG, seedable, logged)
-├── player/
+├── player/                   # engine skills (planned)
 ├── table/
 └── playtest/
 ```
@@ -69,4 +71,4 @@ That's the single test entrypoint for this repo and is the same command CI uses.
 
 ## Status
 
-Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written, [Cannonball Rally](skills/cannonball-rally/references/GAME.md) is formalized against it — the format's first real proof — and the [dice roller](skills/gm/scripts/roll.sh) is built (real RNG, seedable, every roll logged; reproducible from a single seed with no on-disk state). Next: the engine skills in dependency order (`gm` → `player`/`table` → `playtest` → mixed-table play → plugin packaging).
+Pre-alpha. The [`GAME.md` format specification](skills/author/references/game-format.md) is written, [Cannonball Rally](skills/cannonball-rally/references/GAME.md) is formalized against it — the format's first real proof — the [dice roller](skills/gm/scripts/roll.sh) is built (real RNG, seedable, every roll logged; reproducible from a single seed with no on-disk state), and the [`gm` referee skill](skills/gm/SKILL.md) now runs a full session against the spec, validated by a golden transcript. Next: the remaining engine skills in dependency order (`player`/`table` → `playtest` → mixed-table play → plugin packaging).

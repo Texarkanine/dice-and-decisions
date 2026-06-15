@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m4-gm-skill
-**Phase:** BUILD (L3) - IN-PROGRESS (steps 1-6 of 7 complete; golden transcript accepted; step 7 next)
+**Phase:** BUILD (L3) - COMPLETE (all 7 steps done; golden transcript accepted; `make test` green) → QA next
 
 ## What Was Done
 
@@ -81,4 +81,7 @@
 
 ## Next Step
 
-- Build step 7: README + systemPatterns + cannonball-rally SKILL.md wording; `make test`.
+- BUILD complete. Proceed to QA (L3 post-implementation semantic review), then reflect/archive.
+- Step 7 landed: README layout tree (gm built) + status line; `skills/cannonball-rally/SKILL.md`
+  marks `gm` available and the rest planned; `systemPatterns.md` status note reconciled
+  (gm real; state-table/turn-brief implemented; disk-journaling behavior deferred). `make test` green (15/15).

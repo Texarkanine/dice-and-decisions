@@ -234,8 +234,8 @@ the prose analog of tests-before-code.
       (Ambulance, Motorcycle, 4x4, SUV, 2-door Supercar, 4-door Sedan) → a 6-racer session.
       Reaction abilities only fire on a pull-over, so full mechanism coverage is dice-gated.
       Run 1 (seed `haiku1`) covered 4 of 6 vehicles and is a shakedown, not the keeper.
-7. **Documentation + regression gate**
-    - Files: `README.md`, `memory-bank/systemPatterns.md`
+7. ✅ **Documentation + regression gate**
+    - Files: `README.md`, `memory-bank/systemPatterns.md`, `skills/cannonball-rally/SKILL.md`
     - Changes: README layout tree (gm: SKILL.md + references), engine table and Status
       line updates; systemPatterns status note reconciled (gm real; state-table/turn-brief/
       journal patterns now implemented). Run `make test` (must be green).

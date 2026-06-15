@@ -13,12 +13,12 @@ The complete rulebook is found at `references/GAME.md`. This single file is both
 
 To play, activate the engine skills against `references/GAME.md`:
 
-- **`table`** — Set up and run a full session (with humans, AI seats, or both).
-- **`gm`** — Referee: apply mechanics, restate the scoreboard, run the *Stage Weather* hook or its fallback.
-- **`player`** — Fill a racer's seat with a persona.
-- **`playtest`** — Run unattended AI-only rallies in batches for balance data.
+- **`gm`** *(available)* — Referee: apply mechanics, restate the scoreboard, run the *Stage Weather* hook or its fallback.
+- **`table`** *(planned)* — Set up and run a full session (with humans, AI seats, or both).
+- **`player`** *(planned)* — Fill a racer's seat with a persona.
+- **`playtest`** *(planned)* — Run unattended AI-only rallies in batches for balance data.
 
-Until those engine skills are available, the game is fully playable on paper: print `references/GAME.md`, grab pencils and one d6, and race.
+The `gm` skill can referee a session today. Until the rest land, the game is also fully playable on paper: print `references/GAME.md`, grab pencils and one d6, and race.
 
 ## Table Needs
 
