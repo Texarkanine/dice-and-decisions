@@ -460,7 +460,7 @@ A conforming `GAME.md` passes every item. Each item restates exactly one normati
 - [ ] Modifier values carry explicit signs (only `0` may be unsigned).
 - [ ] Every collection's intro contains a `**Card schema:**` line naming each card's required parts in order.
 - [ ] Every card is an H4 inside a collection and follows its collection's schema exactly.
-- [ ] Any usage limit on a card is stated explicitly; a card that states none is unlimited.
+- [ ] Any usage limit is stated explicitly in either the card or its collection intro; if neither does, the card is unlimited.
 - [ ] H4 headings appear only as cards inside collections.
 
 ### External Data Hooks (if present)
