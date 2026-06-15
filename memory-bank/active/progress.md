@@ -69,3 +69,15 @@ L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — 
 * Insights
     - The journal vs. chat-transcript gap matters: the journal strips table talk, so a perfectly good persona run *looks* like collapse in the journal — read the chat to judge persona behavior, the journal to judge mechanics
     - "Memory" and "persistent synced subagents" are orthogonal; the scary mechanism isn't required for memory, and stateless-now forecloses nothing — which is what made deferring memory a cheap, reversible call
+
+## 2026-06-15 - QA (L2) - COMPLETE → PASS
+
+* Work completed
+    - Semantic review of the three player docs + reconciled docs against the plan (KISS/DRY/YAGNI/Completeness/Regression/Integrity/Documentation)
+    - One trivial fix: re-wrapped an over-long line in `decision-procedure.md` to match the file's wrap style; `make test` green (15/15)
+    - grep confirmed no STUB/TODO/placeholder debris and no game-specific (rally) leak in the generic engine docs
+* Decisions made
+    - DRY: the repeated never-roll / seat-visible / attribution statements are deliberate bedrock-rule reinforcement (same style as gm), not redundancy to consolidate — left as-is
+    - YAGNI: five personas kept; each covers a distinct strategy region within the planned 3-5
+* Insights
+    - The only thing QA could *not* clear is B9's structural enforcement — and that's correct: it's a cross-skill boundary that no single skill can prove alone. QA cleanly separated "the contract is written and behaviorally honored" (PASS) from "the boundary is structurally enforced" (M6's job)

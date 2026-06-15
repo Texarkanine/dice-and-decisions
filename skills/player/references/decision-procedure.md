@@ -69,9 +69,9 @@ asks your seat:
   your stance would: the Daredevil takes the gamble, the Tortoise declines it, the Optimizer
   weighs the stated odds and stakes, the Closer/Spoiler read the standings.
 - **A severe downside is still your call.** Even when failing the gamble means the worst outcome
-  the game has (elimination, a total loss, being knocked out of contention), the choice remains the seat's — decide it,
-  don't refuse to engage and don't rubber-stamp it. The posture is what decides; "it could go
-  badly" is not by itself a decline.
+  the game has (elimination, a total loss, being knocked out of contention), the choice remains
+  the seat's — decide it, don't refuse to engage and don't rubber-stamp it. The posture is what
+  decides; "it could go badly" is not by itself a decline.
 - **Do not preempt it.** Never announce a reaction at declaration time — the trigger isn't known
   yet. Wait for the GM's offer. If it never comes, there was nothing to react to.
 - **Still never roll.** Opting into a gamble means *saying yes*; the GM rolls it. You supply the

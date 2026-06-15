@@ -1,0 +1,32 @@
+PASS
+
+Task: m5-player-skill
+Phase: QA (L2)
+Date: 2026-06-15
+
+Semantic review of the player skill (SKILL.md + decision-procedure.md + personas.md) and the
+reconciled docs against the L2 plan in tasks.md.
+
+- KISS: lean router + two references, mirroring the proven gm structure. No over-engineering.
+- DRY: never-roll / seat-visible / attribution restated across router and references and across
+  contexts (declaration, reaction, constraints) — judged deliberate reinforcement of bedrock
+  rules in the same style as the gm skill, not redundancy to consolidate.
+- YAGNI: five personas, all within the planned 3-5 and each a distinct coverage region (safe pole,
+  bold pole, EV middle, standings-reactive, adversarial). Nothing speculative.
+- Completeness: every plan requirement implemented (single declaration + table talk, brief+state
+  consumption, persona roster, two decision moments, never-roll, attribution, edge cases,
+  genericity). Stateless contract codified per the 2026-06-15 decision. No TODO/STUB/placeholder
+  debris (grep clean).
+- Regression: naming/frontmatter/file-structure conventions intact; gm edits additive; make test
+  green (15/15).
+- Integrity: no magic numbers / debug artifacts / hardcoded shortcuts (prose deliverable).
+- Documentation: systemPatterns + productContext + README + cannonball-rally SKILL all reconciled
+  alongside the change.
+
+Trivial fix applied: re-wrapped one over-long line in decision-procedure.md to match the file's
+wrap style (introduced by an earlier in-line edit). No substantive findings; nothing routed back.
+
+Carry-forward (not a defect): B9 (attribution / no GM ventriloquism) is validated as a written
+contract but cannot be *structurally enforced* without the table skill (M6). The soft-isolation
+validation sessions confirmed player behavior, not boundary isolation. This is the headline M6
+requirement, already recorded in activeContext/progress/systemPatterns.

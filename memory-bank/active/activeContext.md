@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m5-player-skill
-**Phase:** BUILD (L2) - COMPLETE → QA next
+**Phase:** QA (L2) - COMPLETE (PASS) → REFLECT next
 
 ## What Was Done
 - Authored the `player` skill (`SKILL.md` + `references/decision-procedure.md` +
@@ -42,4 +42,6 @@
   scope — an M7/playtest question, not a player-skill concern.
 
 ## Next Step
-- Proceed to QA (L2 semantic review of the player skill + reconciled docs).
+- Proceed to REFLECT (L2): capture lessons from M5 (stateless decision, soft- vs. structural
+  isolation, journal-vs-transcript gap), confirm persistent-file reconciliation, then archive and
+  advance the M5 milestone checkbox.
