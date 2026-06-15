@@ -40,3 +40,17 @@ L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — 
     - Confirmed the step-6d gm Conduct wording fix is in-scope: `skills/gm/` is a project deliverable (not vendored), and the change is an additive boundary clarification
 * Insights
     - The operator has an in-flight uncommitted balance edit to `skills/cannonball-rally/references/GAME.md` (Blend In reaction) belonging to the separate M2 rally pass — kept out of the M5 commit stream; stage specific paths, never `git add -A`
+
+## 2026-06-15 - BUILD (L2) - steps 1–6 COMPLETE, step 7 (validation session) PENDING
+
+* Work completed
+    - Authored `skills/player/` (SKILL.md router + decision-procedure.md + personas.md): consumes the gm turn brief + state table + a persona, returns one Turn Report declaration + one line of table talk; two decision moments (declaration + post-roll reaction beat); never rolls; seat-visible info only; attribution/no-ventriloquism
+    - Persona roster: five game-agnostic risk-axis postures (Tortoise, Daredevil, Optimizer, Closer, Spoiler) + voices + assignment modes; Tortoise = no-persona safe default
+    - Self-validation (step 5): spec cross-check, genericity grep (B10 clean), desk-check B1–B10/E1–E3, two-persona dry-run on a real golden brief
+    - Documentation reconciliation (step 6): new `systemPatterns.md` pattern recording the gm/player/table boundary + attribution acceptance test (closing the deleted-creative-doc gap) and player status flip; README tree+status; cannonball-rally SKILL.md; minimal gm Conduct/Non-Goals wording fix ("never authors a seat's declaration")
+    - `make test` green (15/15)
+* Decisions made
+    - Renamed the safe-default persona `Cruiser` → `Tortoise` (genericity defect: `Cruiser` echoed the rally's "cruise" move); generalized a "jail" example to non-rally terms — both found in step-5 self-validation
+    - Build is not declared complete until the operator-led validation session (step 7) runs — consistent with M4's lesson that a referee-adjacent prose skill is proven by played sessions, not author desk-checks
+* Insights
+    - Desk-checking one's own prose is weak proof for a decision-making skill; the meaningful test is a real harness producing attributable, persona-divergent declarations — which also makes B9 (no ventriloquism) checkable, exactly as the golden's acceptance criterion foreshadowed
