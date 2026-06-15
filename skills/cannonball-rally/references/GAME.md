@@ -178,9 +178,11 @@ A large, heavy box of a vehicle. Sirens and lights still work, but you aren't co
 | Medium or higher-grade roads | +0.5 hr |
 | Medium or higher-bank roads | +0.5 hr |
 
-**Lights & Sirens!** *(Action, Suspect)* — Switch them on: everyone gets out of the way. -1 hr this stage, and the *Traffic Penalty* is erased without a roll. Your lights-OFF police bonus does not apply this stage.
+**Lights & Sirens!** *(Action)* — Switch them on: everyone gets out of the way. -1 hr this stage, and the *Traffic Penalty* is erased without a roll. Your lights-OFF police bonus does not apply this stage.
 
 **Somethin's Up** *(Passive)* — -1 to each of your saving rolls against police for every additional ambulance in the stage.
+
+**You See, Officer...** *(Passive)* — +0.5hr penalty when pulled over by police to explain why you're not on official business.
 
 #### Motorcycle
 
@@ -212,9 +214,9 @@ Full-time four-wheel drive with sturdy bumpers and a lift kit. Road optional!
 | Highway stages | +0.5 hr (stopping for gas) |
 | High-bank roads | +0.5 hr |
 
-**Built for This** *(Action, Suspect)* — Roll to drive around traffic (beat the traffic tier). Success erases the *Traffic Penalty*.
+**Built for This** *(Action, Suspect)* — Roll to drive around traffic (beat the traffic tier). Success erases the *Traffic Penalty*. Failure is a fender-bender: +0.5 hr on top of the *Traffic Penalty*.
 
-**Cut Corners** *(Action, Suspect)* — On a Rural stage, cut across folks' land instead of sticking to the roads: -1 hr this stage.
+**Cut Corners** *(Action, Suspect)* — On any non-Urban stage, cut across folks' land instead of sticking to the roads: -1 hr this stage, -1 to your police save.
 
 #### SUV
 
