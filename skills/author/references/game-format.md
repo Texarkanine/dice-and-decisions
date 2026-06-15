@@ -254,6 +254,7 @@ decide how many customers show up. Most money when the week ends wins.
 - The collection's intro contains a normative `**Card schema:**` line naming each card's required parts, in order. Every card follows it exactly.
 - Each card is an H4 named for its instance. H4 headings appear in the document only as cards inside collections.
 - A card may contain bold-label fields, at most one table, and labeled prose entries — per its schema.
+- **Usage cadence.** A card's effect is usable whenever the conditions in its schema are met. A usage limit — once per game, *N* charges, a cooldown — applies *only* when the card or its collection intro states one; silence means no limit.
 - Prose elsewhere refers to the collection by its H3 name and to cards by name ("the Perks collection", "the Megaphone Perk").
 - Cards are content, like rows: they may be added, removed, or rebalanced without touching the rules text.
 
@@ -459,6 +460,7 @@ A conforming `GAME.md` passes every item. Each item restates exactly one normati
 - [ ] Modifier values carry explicit signs (only `0` may be unsigned).
 - [ ] Every collection's intro contains a `**Card schema:**` line naming each card's required parts in order.
 - [ ] Every card is an H4 inside a collection and follows its collection's schema exactly.
+- [ ] Any usage limit on a card is stated explicitly; a card that states none is unlimited.
 - [ ] H4 headings appear only as cards inside collections.
 
 ### External Data Hooks (if present)

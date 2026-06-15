@@ -59,7 +59,7 @@ A recycled or crashed session resumes from the journal alone:
 
 ## Worked Example
 
-One round of **Lemonade Stand** (the format spec's illustration game, two players, script dice) as it lands in `transcripts/lemonade-stand-20260612-100500.md`. The roll lines are real `roll.sh` output for seed `1209` — replay them yourself.
+One round of **Lemonade Stand** (the format spec's illustration game, two players, script dice). The roll lines are real `roll.sh` output for seed `1209` — replay them yourself.
 
 ````markdown
 # Lemonade Stand
