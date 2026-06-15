@@ -1,174 +1,282 @@
-# Task: Seedable dice-roller script
+# Task: m4-gm-skill
 
-* Task ID: m3-dice-roller-script
-* Complexity: Level 2
-* Type: Simple enhancement (first executable deliverable)
+* Task ID: m4-gm-skill
+* Complexity: Level 3
+* Type: feature (engine skill — primarily prose deliverable; no new executable code)
 
-Build the engine's randomness primitive: a small, seedable dice-roller script with
-real RNG, per-roll context logging, and reproducible-by-seed output, developed with
-full shell TDD (shunit2). This is the roll source mandated by L4 invariant 4 (models
-never roll dice) and the dice contract that the `gm` skill (M4) will consume.
+Build the `gm` skill — the engine's referee. Reads any conforming `GAME.md`, owns session
+state, announces conditions, applies mechanics, restates the state table after every
+recomputation, distills per-seat turn briefs, resolves external data hooks (with offline
+fallback), rolls via `scripts/roll.sh`, and journals the session transcript where disk
+exists. Validated by a human playing all seats of Cannonball Rally; that session is
+recorded as the golden transcript fixture for later milestones.
 
-## Key Design Decisions
+## Pinned Info
 
-- **Location:** `skills/gm/scripts/roll.sh`. The roller is the engine randomness
-  primitive owned by `gm` (its first consumer, M4) per `systemPatterns.md` ("the
-  engine bundles a tiny roller in `scripts/`"). M3 establishes `skills/gm/scripts/`
-  with the roller + tests only; M4 adds `gm/SKILL.md` and the rest. ⚑ *Consequence:*
-  `skills/gm/` exists with no `SKILL.md` during the M3→M4 window — harmless (not yet
-  an activatable skill), flagged for operator awareness.
-- **Language:** POSIX `sh` (`#!/bin/sh`), governed by `shell-posix-style.mdc`, for
-  maximum harness portability (invariant 2: validated in Claude Code; disk-free
-  sandboxes). shunit2 is POSIX-compatible.
-- **Reproducibility contract — the central design:** a roll is a *pure deterministic
-  function of `(seed, label, sides)`*: `face = (cksum("<seed>:<label>:<sides>") %
-  sides) + 1`. The per-roll **label** is simultaneously (a) the context that gets
-  logged and (b) the nonce that makes the roll reproducible. Same seed + same labels
-  → same rolls, with **no counter/disk state** — honoring the disk-free baseline and
-  conversation-as-working-memory pattern. This unifies "per-roll context logging" and
-  "reproducible seeds" into one mechanism. Labels must be unique per roll within a
-  session (the GM's naming convention: stage/actor/purpose).
-- **Seed handling:** `--seed` is optional. When omitted, a seed is drawn from
-  `/dev/urandom` (real entropy) and reported in the log, so any unseeded session is
-  replayable by re-supplying its reported seed.
-- **"Real RNG" reconciliation:** entropy for unseeded sessions comes from
-  `/dev/urandom`; given a seed, the roller is a deterministic PRNG (which *is* the
-  reproducibility requirement). The model never improvises — the script computes.
-- **Hash choice:** `cksum` (POSIX, always present, deterministic 32-bit CRC). Modulo
-  bias into small dice (d2–d100) is negligible; documented, not rejection-sampled.
+### One round through the gm
 
-## Interface
+The per-round flow every component participates in — the skill documents are organized
+around this loop, and the validation session must exhibit it. (Seat = the human playing
+all seats in M4; `table`/`player` take over routing in M6.)
 
+```mermaid
+sequenceDiagram
+    participant GM as gm
+    participant Seat as seat (human, all of them in M4)
+    participant Roll as roll.sh
+    participant J as journal (only where disk exists)
+
+    GM->>Seat: announce round conditions (hook or fallback, values in full)
+    GM->>J: append announcement
+    loop each seat, in the game's declared order
+        GM->>Seat: re-emit turn brief + current state table
+        Seat->>GM: declaration (turn-report grammar)
+        GM->>J: append declaration line
+    end
+    loop each roll the declarations require
+        GM->>Roll: --seed S --label stage-actor-purpose
+        Roll-->>GM: face (stdout) + pinned log line (stderr)
+        GM->>J: append roll log line verbatim
+    end
+    GM->>Seat: apply mechanics - math read in full, in Resolution order
+    GM->>Seat: restate full state table (GFM)
+    GM->>J: append resolution + state table
+    GM->>GM: end-of-game check
 ```
-roll.sh --label TEXT [--seed SEED] [--sides N] [--count N]
-```
 
-- `--label TEXT` — **required**; the per-roll context (also the reproducibility nonce)
-- `--seed SEED` — optional; if omitted, generated from `/dev/urandom` and logged
-- `--sides N` — optional, default `6`; positive integer
-- `--count N` — optional, default `1`; positive integer (for `NdS`; internal label
-  is salted per die as `<label>#<i>`)
-- **stdout:** face value(s), space-separated, single line (clean for capture)
-- **stderr:** one structured log line per roll, in an **exact, stable `key=value`
-  grammar** (a deliberate contract — the seed of M4's transcript-journal record):
-  `roll seed=<seed> label=<label> die=d<sides> => <result>`
+## Component Analysis
+
+### Affected Components
+
+- `skills/gm/SKILL.md` (new): the skill — activation pitch + lean session workflow,
+  progressive-disclosure pointers into references. Currently `skills/gm/` is a half-skill
+  (only `scripts/roll.sh`); this completes it.
+- `skills/gm/references/session-procedure.md` (new): the full GM procedure — session setup
+  (game load, seats, dice mode, seed declaration, initial state), turn-brief distillation
+  rules, the round loop, mechanics application discipline, hook resolution, human-reported
+  dice, conduct rules (narration budget, math in full).
+- `skills/gm/references/journal-format.md` (new): the transcript journal contract (from the
+  creative decision) — the gm→M6/M7 boundary artifact.
+- `skills/gm/scripts/roll.sh` (exists, unchanged): consumed as-is; its stderr grammar is
+  embedded verbatim in the journal.
+- `tests/fixtures/transcripts/cannonball-rally-golden.md` (new): the recorded human-played
+  validation session, in journal format.
+- `README.md`: gm no longer "planned" — layout tree and Status updates.
+- `memory-bank/systemPatterns.md`: status-note reconciliation (gm becomes real; restated
+  state table / turn brief / journal patterns become implemented facts).
+
+### Cross-Module Dependencies
+
+- gm ← `skills/author/references/game-format.md` (M1): every required GAME.md section must
+  have a consuming gm behavior (Core Procedure → loop; Resolution → mechanics; Parameters/
+  Content Tables → values; External Data Hooks → resolution; Turn Report → declaration
+  grammar; GM Guidance → conduct).
+- gm ← `skills/cannonball-rally/references/GAME.md` (M2): the validation game.
+- gm ← `skills/gm/scripts/roll.sh` (M3): dice + the pinned log grammar.
+- gm → M6 (`table`), M7 (`playtest`): the journal/golden-transcript format is their input
+  contract; the turn brief is what M6 re-emits per seat.
+
+### Boundary Changes
+
+- New public contract: the transcript journal format (`references/journal-format.md`).
+- New fixture directory convention: `tests/fixtures/` for non-shell test data.
+- No changes to existing interfaces (`roll.sh`, GAME.md format, the rally) are planned;
+  any spec/game gap the validation session surfaces is fixed in the paper (see Challenges).
+
+### Invariants & Constraints (must hold)
+
+1. Models never roll — every random number traces to a `roll.sh` log line or a declared
+   physical roll transcribed in the same line shape (`seed=physical`).
+2. Disk-free baseline — gm must run with no filesystem; the journal is opportunistic and
+   its absence changes nothing. No `compatibility` disk requirement in SKILL.md.
+3. Engine/content separation — nothing Cannonball-specific in `skills/gm/`; gm consumes
+   only what the format spec guarantees of a conforming GAME.md.
+4. Skills-only — agentskills.io layout (`SKILL.md` + `references/` + `scripts/`), no
+   harness-specific features.
+5. Conversation is the working memory — state lives in the restated table in-chat; the
+   journal mirrors, never substitutes.
+6. Paper-first parity — if the gm needs something the paper doesn't say, the paper gets
+   fixed, never the engine.
+
+## Open Questions
+
+- [x] **Transcript journal & golden transcript format** → Resolved: structured Markdown
+  transcript — normative skeleton (H1 session header; one H2 per round with announcement,
+  declarations in the game's Turn Report grammar, verbatim `roll.sh` log lines, per-seat
+  resolution arithmetic, restated GFM state table; final `## Standings`), reusing the three
+  already-pinned grammars as parse anchors; golden fixture at
+  `tests/fixtures/transcripts/cannonball-rally-golden.md`
+  (see `memory-bank/active/creative/creative-transcript-journal-format.md`)
 
 ## Test Plan (TDD)
 
-### Behaviors to Verify
+No new executable code → no new shunit2 tests. Per the L4 invariant ("prose deliverables
+are validated by their proving milestone — engine skills by recorded play sessions"), the
+test for this milestone **is** the recorded validation session, run against the behavior
+checklist below, with the existing shell suite as the regression gate. The checklist is
+written into the plan *first* (this section) and the session validates against it —
+the prose analog of tests-before-code.
 
-- Determinism: `roll_die <seed> <label> <sides>` called twice → identical result
-- Range: result ∈ [1, sides] for sides ∈ {2, 6, 20, 100}
-- Label independence: two distinct labels (same seed/sides) can differ (sanity)
-- Seed independence: two distinct seeds (same label/sides) can differ (sanity)
-- `hash_to_int` lock: known string → known fixed integer (pins the algorithm)
-- Seed reporting + replay: with `--seed` omitted, a seed is generated and appears in
-  the log; re-running with that reported seed reproduces the stdout result
-- Distribution sanity (deterministic, not random): with a fixed seed and labels
-  `1..N`, every face `1..sides` appears at least once for a tuned N (no flakiness —
-  the sequence is fully determined by the fixed seed)
-- CLI happy path: `--seed S --sides 6 --label X` → single integer 1–6 on stdout; log
-  line on stderr matches the **exact grammar** `roll seed=S label=X die=d6 => <result>`
-  (pins the log format as an M4-facing contract, not just a "contains" check)
-- Count: `--count 3` → three in-range values on stdout, deterministic per (seed,label)
-- Entry-point protection: sourcing `roll.sh` produces no output / does not run main
-- Validation (each → nonzero exit, stderr message, no stdout result):
-  `--sides 0`, `--sides -1`, `--sides abc`, `--count 0`, missing `--label`
+### Behaviors to Verify (session-observable, checked against the golden transcript)
+
+- B1 Setup: gm loads the named game's `references/GAME.md`, establishes seats, dice mode
+  (script vs physical), declares the session seed, and draws the initial state table per
+  the game's Setup steps.
+- B2 Turn brief: before each seat's decision, gm re-emits that seat's brief (decision
+  procedure + that seat's applicable modifiers/abilities + turn-report grammar) so the
+  context tail is always brief + state table → one decision.
+- B3 Announcement: each round opens with every announced value the game's Core Procedure
+  step requires (stage card fields, standard time), numbers read in full.
+- B4 Hook resolution: weather resolves via the *Stage Weather* hook when network exists
+  (deterministic interpretation) and via the fallback roll when not; at least the fallback
+  path appears in the golden transcript (hook path too if network is available at the table).
+- B5 Script-rolled dice: every roll is a `roll.sh` invocation with the session seed and a
+  unique `<stage>-<actor>-<purpose>` label; the stderr line lands verbatim in the journal;
+  the model never invents a number. Physical mode: human-reported faces transcribed in the
+  same line shape with `seed=physical`.
+- B6 Mechanics: stage time computed in the exact Resolution modifier order with the math
+  read in full; police check applies *Suspicion Step* per suspect act; threshold semantics
+  are beat-means-strictly-exceed; pulled-over consequences (erased penalties reapply).
+- B7 State restatement: the full scoreboard is re-emitted as one GFM table after every
+  recomputation, matching the journal's copy.
+- B8 End state: end condition checked each round; final standings per Scoring & End State
+  (jailed racers listed last as DNF, no hours).
+- B9 Journal: where disk exists, the transcript follows the journal-format skeleton
+  (header, per-round parts in order, standings) and supports the resume rule (each round
+  ends with a state table).
+- B10 Disk-free parity: with no filesystem, the session runs unchanged (verified by skill-
+  text inspection + a journal-skipped dry round).
+- B11 Genericity: `skills/gm/` contains nothing Cannonball-specific (verified by inspection
+  + the Lemonade Stand walkthrough, step 5 below).
+
+### Edge Cases (exercised in walkthroughs and/or the validation session)
+
+- Stalling seat → GM offers the game's safe default (GM Guidance).
+- No-roll action (Lights & Sirens!) → no roll.sh call, journal records the declaration only.
+- Reaction roll (Double Down / Gun It / Blend In) → resolves at trigger, ignores police bar.
+- Failed Double Down → jail → racer drops from the loop, listed DNF at standings.
+- Tie on total hours → act in setup order.
+- Slot with a stage choice (slot 5) → `via <stage>` declarations handled.
+- Hook interpretation ambiguity → tiebreak rule applied, ruling said out loud.
+- Nonconforming/missing GAME.md section → gm flags the paper as incomplete and stops
+  applying improvised rules ("fix the paper, never the engine").
 
 ### Test Infrastructure
 
-- Framework: **shunit2 v2.1.8**, vendored at `skills/gm/scripts/tests/vendor/shunit2`
-  (not installed system-wide; fetch validated — fetches and runs clean)
-- Test location: `skills/gm/scripts/tests/`
-- Conventions (per `shell-tdd.mdc`): functions are sourced (entry-point protected),
-  return codes not `exit`, parameterized I/O, `common.sh` helper sources the script
-  under test, every test ends `return 0`
-- Layout / new files:
-  - `skills/gm/scripts/tests/common.sh` — `source_script` helper
-  - `skills/gm/scripts/tests/vendor/shunit2` — vendored framework
-  - `skills/gm/scripts/tests/unit/roll_test.sh` — the suite
-  - `skills/gm/scripts/tests/run.sh` — runs all unit suites
+- Framework: shunit2 harness at `tests/sh/` (regression gate only; no new shell tests).
+- Command: `make test` — must stay green throughout.
+- New fixture home: `tests/fixtures/transcripts/` (created this milestone).
+- New test files: none.
+
+### Integration Tests
+
+- The validation session itself is the integration test: GAME.md (M1 format, M2 content) ×
+  `roll.sh` (M3) × the new gm procedure, end to end, human-verified, recorded as the
+  golden transcript.
 
 ## Implementation Plan
 
-1. **Vendor shunit2 + scaffold tests.**
-   - Files: `skills/gm/scripts/tests/vendor/shunit2`, `tests/common.sh`, `tests/run.sh`
-   - Changes: download shunit2 v2.1.8; `common.sh` provides `source_script`; `run.sh`
-     iterates `tests/unit/*_test.sh`.
-2. **Stub `roll.sh` interface + stub the test suite (no impl).**
-   - Files: `skills/gm/scripts/roll.sh`, `tests/unit/roll_test.sh`
-   - Changes: POSIX header + documented empty function signatures (`hash_to_int`,
-     `roll_die`, `generate_seed`, `validate_positive_int`, `log_roll`, `main`) with
-     entry-point guard; empty test cases for every behavior above.
-3. **Implement test bodies; run → all fail (red).**
-   - Files: `tests/unit/roll_test.sh`
-   - Changes: fill assertions; confirm they fail against the stubs.
-4. **Implement `hash_to_int` + `roll_die`; make determinism/range/lock tests pass.**
-   - Files: `skills/gm/scripts/roll.sh`
-   - Changes: `cksum`-based hash → `(n % sides) + 1`.
-5. **Implement `validate_positive_int`, `generate_seed`, `log_roll`, `main` (arg
-   parse, count loop with per-die label salt, seed default-from-urandom + report);
-   make CLI/validation/seed-replay/count tests pass.**
-   - Files: `skills/gm/scripts/roll.sh`
-6. **Refactor + lint; tune distribution-sanity N; full suite green; shellcheck clean.**
-   - Files: all of the above
-   - Changes: `shellcheck -s sh roll.sh`; final `tests/run.sh` green.
-7. **Documentation.**
-   - Files: `memory-bank/techContext.md` (Testing Process: shunit2 vendored, how to
-     run `tests/run.sh`), `memory-bank/systemPatterns.md` (Script-rolled dice pattern:
-     roller now real at `skills/gm/scripts/roll.sh`, (seed,label,sides) contract, and
-     the stderr log line documented as the seed of M4's transcript-journal record),
-     `README.md` (Repo layout tree: add `gm/scripts/roll.sh`; Status line: dice roller
-     done, next is the `gm` skill)
+1. ✅ **Stub the skill documents** (interface stubbing, no content yet)
+    - Files: `skills/gm/SKILL.md`, `skills/gm/references/session-procedure.md`,
+      `skills/gm/references/journal-format.md`
+    - Changes: create with frontmatter/headings and one-line purpose statements only.
+2. ✅ **Author `references/journal-format.md`** — the contract first, since the session
+   procedure references it
+    - Files: `skills/gm/references/journal-format.md`
+    - Changes: the normative skeleton from the creative decision — file naming and
+      location rule, session header fields, per-round parts in order, physical-dice line
+      shape, standings, resume rule, "where disk exists" gating.
+    - *(Preflight amendment)* Include a worked one-round example excerpt (Lemonade Stand,
+      the spec's own illustration game) that conforms to the skeleton — the same self-test
+      discipline `game-format.md` uses (every normative format ships an example that
+      passes it).
+    - Creative ref: `memory-bank/active/creative/creative-transcript-journal-format.md`
+3. ✅ **Author `references/session-procedure.md`** — the full GM procedure
+    - Files: `skills/gm/references/session-procedure.md`
+    - Changes: session setup (game load + conformance expectations, seats, dice mode, seed
+      declaration, initial state per the game's Setup); turn-brief distillation rules (what
+      a brief contains, when re-emitted, full-GAME.md re-consult rule); the round loop
+      (announce → per-seat brief + declaration → rolls → mechanics in the game's stated
+      order, math in full → state restatement → end check); hook resolution procedure
+      (source attempt, deterministic interpretation, fallback roll, say the ruling);
+      roll-label discipline (`<stage>-<actor>-<purpose>`, uniqueness, `#i` multi-die);
+      human-reported dice; conduct (narration budget, default rulings, note-for-author).
+4. ✅ **Author `skills/gm/SKILL.md`** — lean activation layer
+    - Files: `skills/gm/SKILL.md`
+    - Changes: frontmatter (name `gm`, description covering when to activate); body: role,
+      what it needs (a game's GAME.md path), session start steps, the loop in summary,
+      explicit non-goals (no seat routing/personas — that's `table`/`player`), pointers to
+      the two references; no `compatibility` disk requirement.
+5. ✅ **Self-validation walkthroughs** (fix gaps before the human session)
+    - Files: the three gm documents (revisions); no new files.
+    - Changes: (a) spec cross-check — walk `game-format.md`'s required sections and confirm
+      each has a consuming gm behavior; (b) genericity check — dry-run one Lemonade Stand
+      round on paper against the procedure (B11); (c) edge-case desk-check against the
+      list above.
+6. ✅ **Operator validation session + golden transcript** (requires the operator)
+    - Files: `tests/fixtures/transcripts/cannonball-rally-golden.md` (new — accepted `sonnet1`)
+    - Changes: the operator plays all seats of Cannonball Rally with gm active (script
+      dice, seeded); the session is journaled per the format; the transcript is saved as
+      the golden fixture; defects surfaced in gm docs are fixed; any game/spec gap is
+      fixed in the paper and noted for the milestone record.
+    - *(Result, 2026-06-15)* 8 runs (`haiku1`–`haiku7`, then `sonnet1`); each Haiku run
+      surfaced and fixed a defect (reaction-as-choice, save/bar/beat, field-keyed +
+      consequence-revoked cross-check, Light-traffic clarity, format drift, Usage-cadence
+      default for fabricated limits). Golden = `sonnet1`: all 6 vehicles, 48 real player
+      turns, every fix exercised, jail/DNF + tied finish. Accepted **as-is, provisionally**.
+    - *(Deferred defect)* No GM run journals rounds to disk (header only); behavior **B9**
+      is unverified by the golden. Punted to a later milestone (operator decision) — out of
+      M4 scope. See activeContext "Known Defect (deferred)".
+    - *(Preflight note)* The fixture keeps a stable curated name (`cannonball-rally-golden.md`)
+      rather than the runtime `<game>-<YYYYMMDD-HHmmss>.md` name — deliberate: downstream
+      consumers (M6/M7) need a stable path; the session header inside still carries the date.
+    - *(Operator acceptance, 2026-06-14)* The golden run must seat **all 6 vehicles**
+      (Ambulance, Motorcycle, 4x4, SUV, 2-door Supercar, 4-door Sedan) → a 6-racer session.
+      Reaction abilities only fire on a pull-over, so full mechanism coverage is dice-gated.
+      Run 1 (seed `haiku1`) covered 4 of 6 vehicles and is a shakedown, not the keeper.
+7. ✅ **Documentation + regression gate**
+    - Files: `README.md`, `memory-bank/systemPatterns.md`, `skills/cannonball-rally/SKILL.md`
+    - Changes: README layout tree (gm: SKILL.md + references), engine table and Status
+      line updates; systemPatterns status note reconciled (gm real; state-table/turn-brief/
+      journal patterns now implemented). Run `make test` (must be green).
+    - *(Preflight amendment)* Also revisit `skills/cannonball-rally/SKILL.md`'s "Until
+      those engine skills are available…" wording — with gm real, the sentence needs to
+      distinguish available engine skills from still-planned ones.
 
 ## Technology Validation
 
-- shunit2 v2.1.8 — not installed; **vendored**. PoC: fetched from
-  `raw.githubusercontent.com/kward/shunit2/v2.1.8/shunit2` and ran a trivial test
-  (`Ran 1 test. OK`, exit 0). ✅
-- `cksum` deterministic int confirmed (`"7:stage3-police-Dana:6"` → `2729685472`). ✅
-- `/dev/urandom` readable; `od` available for byte→int. ✅
-- `shellcheck` available (`/usr/bin/shellcheck`) for static analysis. ✅
-
-## Dependencies
-
-- POSIX `sh`, `cksum`, `od`, `/dev/urandom` (runtime — all present)
-- shunit2 (test-only, vendored), `shellcheck` (dev-only)
-- Upstream: M1 (format spec) + M2 (rally) complete; M4 (gm) consumes this roller
+No new technology — Markdown documents, the existing roll.sh, and the existing shunit2
+harness. Validation not required.
 
 ## Challenges & Mitigations
 
-- **shunit2 absent:** vendor v2.1.8 in-repo (validated). Mitigated.
-- **cksum modulo bias:** negligible for small dice; documented, not rejection-sampled.
-- **Distribution test flakiness:** none — tests are seed-deterministic; tune N so all
-  faces appear and the result is permanently fixed.
-- **POSIX vs bash conveniences:** write strict POSIX `sh`; lint `shellcheck -s sh`.
-- **`/dev/urandom` missing in some sandbox:** affects only unseeded mode; fall back to
-  a `date`/`$$`-derived seed with a stderr warning, still reported for replay.
-- **`skills/gm/` half-skill window:** documented decision; M4 completes the skill.
-
-## Preflight Amendments (2026-06-12)
-
-- **[convention, low — applied]** Renamed `roll.bash` → `roll.sh`: the script is POSIX
-  `sh` (`#!/bin/sh`), so the `.bash` extension and a bash entry-point guard were
-  inconsistent. `roll.sh` matches the POSIX choice, the shell-tdd examples, and the
-  POSIX entry-point idiom `[ "${0##*/}" = "roll.sh" ]`.
-- **[completeness, low — applied]** Made the `README.md` update concrete: add
-  `gm/scripts/roll.sh` to the Repo layout tree and advance the Status line (the README
-  already advertises the bundled roller and tracks per-skill status).
-- **[advisory — applied, within L2/scope]** Elevated the stderr log line to an exact,
-  pinned `key=value` grammar and a format-matching test, and documented it as the seed
-  of M4's transcript-journal record. The log is the roller's second interface (after
-  stdout); pinning it now makes M4's parser a contract, not a guess.
-- **[dependency, informational — carried]** `skills/gm/` exists without a `SKILL.md`
-  during the M3→M4 window; harmless, completed by M4. No action.
+- **Operator-in-the-loop validation (step 6)**: the build cannot finish autonomously — the
+  golden transcript requires a human playing all seats. Mitigation: sequence all authoring
+  and self-validation first so the operator session is the last build step; treat the
+  session as part of build (defects found = build work), with QA following it.
+- **Scope creep into `table`/`player` territory**: gm is validated by one human playing
+  all seats — no seat routing, no personas, no scribe protocol. Mitigation: explicit
+  non-goals in SKILL.md; anything multi-seat-orchestration is M6+.
+- **Journal becoming a covert disk requirement**: Mitigation: "where disk exists" gating in
+  both references; B10 disk-free parity check; no `compatibility` field.
+- **Session surfaces paper gaps** (expected — formalizing the rally surfaced six): fixes go
+  in the game/spec documents, never as gm-side improvisation. Mitigation: the fix-the-paper
+  rule is written into the procedure; gaps and their fixes recorded in progress.md.
+- **Roll-label collisions over a long session** would break replay. Mitigation: prescribed
+  label grammar + uniqueness rule in the procedure; the golden transcript is the existence
+  proof (its labels can be audited mechanically).
+- **SKILL.md token bloat**: the gm is the most complex engine role. Mitigation: progressive
+  disclosure — SKILL.md stays a lean router; the procedure and journal contract live in
+  references loaded on demand.
 
 ## Status
 
-- [x] Initialization complete
+- [x] Component analysis complete
+- [x] Open questions resolved (1/1, high confidence)
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
-- [x] Technology validation complete
-- [x] Preflight
+- [x] Technology validation complete (n/a — no new technology)
+- [x] Preflight (PASS — 2 amendments applied, 1 note recorded)
 - [x] Build
-- [x] QA
+- [x] QA (PASS — 2026-06-15; all in-scope work complete & clean; B9 disk-journaling
+  noted as operator-accepted deferral, out of M4 scope)

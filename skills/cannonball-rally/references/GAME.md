@@ -22,16 +22,17 @@ An illegal coast-to-coast street race from New York City to Redondo Beach. Pick 
 
 1. **GM** announces the stage: its name, its traffic and police tiers, its road type, grade, and bank (all from its stage card), and today's weather — resolved via the *Stage Weather* hook, or by its fallback. State the standard time: *Base Stage Time*, plus the *Traffic Penalty* if the stage's traffic applies (see Resolution).
 2. **Each player**, in order of lowest total hours (first stage: setup order; tied racers act in setup order), declares their plan: cruise or speed, which stage they drive if this slot offers a choice, and any vehicle abilities they use. **GM** reminds each racer of their vehicle card's applicable effects before they decide.
-3. **Each player** resolves their declared ability rolls (see Resolution), then rolls their police check against the stage's police bar.
-4. **GM** computes each racer's stage time (see Resolution for the modifier order), adds it to their total hours, and restates the full scoreboard: each racer's vehicle, total hours, and status, lowest hours first.
-5. **GM** checks the end condition: if every racer has completed the final slot's stage or is jailed, the race is over — go to Scoring & End State. Otherwise begin the next stage.
+3. Once every racer has declared — step 2 is complete for the whole field before any roll — **each player** resolves their declared ability rolls (see Resolution), then makes their police save against the stage's police bar. Police saves come after all declarations, never interleaved with them.
+4. **GM** offers reactions: for each racer the police check pulled over, the **GM** names any *Reaction* on that racer's vehicle card and asks whether they use it — a Reaction is the racer's choice, never automatic. Resolve each reaction the racer opts into now (its roll, if any, and its effect — a successful getaway erases the *Pull-Over Penalty* as the card states). A racer who declines, or has no applicable reaction, keeps the pull-over as rolled.
+5. **GM** computes each racer's stage time (see Resolution for the modifier order), adds it to their total hours, and restates the full scoreboard: each racer's vehicle, total hours, and status, lowest hours first.
+6. **GM** checks the end condition: if every racer has completed the final slot's stage or is jailed, the race is over — go to Scoring & End State. Otherwise begin the next stage.
 
 ## Resolution
 
-- **Randomizer operation:** one d6. Players roll only when an action or reaction calls for a roll — with one exception: **every racer rolls the police check every stage** (step 3 of the Round). The GM never rolls for the map: stage conditions are fixed thresholds, and the only GM roll is the *Stage Weather* fallback when the hook is offline. A racer with nothing to contend with simply says "I cruise" and takes their computed time, rolling nothing but the police check.
+- **Randomizer operation:** one d6. Players roll only when an action or reaction calls for a roll — with one exception: **every racer makes a police save every stage** (step 3 of the Round). The GM never rolls for the map: stage conditions are fixed thresholds, and the only GM roll is the *Stage Weather* fallback when the hook is offline. A racer with nothing to contend with simply says "I cruise" and takes their computed time, rolling nothing but the police save.
 - **Threshold checks:** a roll succeeds only if it **beats** (strictly exceeds) its threshold. Ties lose. Tier thresholds come from the Obstacle Tiers table; since you cannot roll a 0, no check ever has a zero chance of failure.
-- **The police check:** the whole Cannonball is illegal — police scrutiny is passive and constant. Each racer's police bar for a stage is the stage's police tier value, plus *Suspicion Step* for **each** suspect thing they did this stage: speeding, and any ability marked *Suspect* on their vehicle card. Vehicle police modifiers (vehicle card) apply to the racer's roll. Beat the bar to fly under the radar; fail and you are pulled over: add the *Pull-Over Penalty* to your stage time, and any penalties your actions had erased this stage apply after all — you got caught doing it. Being pulled over is detention, not jail: your buddy bails you out and you race on.
-- **Speeding:** declared with your plan in step 2. Subtract the *Speeding Bonus* from your stage time. Speeding is suspect (it raises your police bar by *Suspicion Step*).
+- **The police check:** the whole Cannonball is illegal — police scrutiny is passive and constant. The **police bar** for a stage is just the stage's police tier value — nothing moves it. Each racer makes a **police save**: roll the d6, then apply every bonus and penalty earned this stage — *Suspicion Step* off the save for **each** suspect thing they did (speeding, and any ability marked *Suspect* on their vehicle card), plus their vehicle's police-save modifiers. **Beat the bar** (strictly — a tie is a pull-over) to fly under the radar; fail and you are pulled over. A pulled-over racer is first offered any *Reaction* their vehicle card allows (step 4 of the Round); without one — or declining it — they add the *Pull-Over Penalty* to their stage time, any penalties their actions had erased this stage apply after all, and any *Suspect* ability they used this stage loses its benefits too (time savings, traffic erasure, and the like) — they got caught doing it. Being pulled over is detention, not jail: your buddy bails you out and you race on.
+- **Speeding:** declared with your plan in step 2. Subtract the *Speeding Bonus* from your stage time. Speeding is suspect: it lowers your police save by *Suspicion Step*.
 - **Traffic:** if the stage's traffic tier is Medium or Heavy, every racer adds the *Traffic Penalty* to their stage time unless they get around it. Getting around traffic takes an ability that says it can (vehicle cards) and — where that ability calls for a roll — beating the stage's traffic tier: the heavier the traffic, the harder it is to get around, but success erases the *Traffic Penalty* entirely.
 - **Weather:** weather has no penalty of its own. It matters only where a vehicle card names it (the Weather table's *Counts as* column says which conditions qualify), and through GM ambient rulings (see GM Guidance).
 - **Stage time and modifier order:** a racer's stage time is computed additively, in this order: *Base Stage Time*; vehicle road modifiers (type, grade, bank); vehicle weather modifiers; *Traffic Penalty* (if it applies and was not erased); *Speeding Bonus* (if speeding); ability time effects; *Pull-Over Penalty* and other police consequences. Addition makes the order cosmetic; it is fixed so totals are always read out the same way.
@@ -55,8 +56,8 @@ An illegal coast-to-coast street race from New York City to Redondo Beach. Pick 
 | Speeding Bonus | 0.5 hr | Hours subtracted from stage time when speeding |
 | Traffic Penalty | 0.5 hr | Hours added when stage traffic applies and is not gotten around |
 | Pull-Over Penalty | 1 hr | Hours added when pulled over by police |
-| Suspicion Step | 1 | Police-bar increase per suspect action in a stage |
-| Forecast Offset | 2 hr | Hours of forecast look-ahead per stage order for the *Stage Weather* hook |
+| Suspicion Step | 1 | Police-save penalty per suspect action in a stage |
+| Forecast Offset | 6 hr | Hours of forecast look-ahead per stage order for the *Stage Weather* hook |
 | Ambient Magnitude | 0.5 hr | Standard size of a GM ambient ruling (weather flavor, construction) |
 | Risk Magnitude | 1 hr | Standard size of a player-initiated risk's payoff or cost |
 
@@ -93,7 +94,7 @@ Each card is one stage of the rally. The race runs slots in ascending order; whe
 **Slot:** 3
 **Weather City:** Springfield
 **Traffic:** Medium
-**Police:** Medium
+**Police:** Light
 **Roads:** Highway
 **Grade:** none
 **Bank:** none
@@ -121,6 +122,7 @@ Each card is one stage of the rally. The race runs slots in ascending order; whe
 #### Southwest Desert
 
 **Slot:** 5
+**Base Stage Time:** 3 hr
 **Weather City:** Flagstaff
 **Traffic:** Light
 **Police:** Light
@@ -162,7 +164,7 @@ Each row is one kind of racing weather. *Roll* is used by the *Stage Weather* fa
 
 ### Vehicles
 
-Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or police rolls); *Effect* is what happens — hours add to stage time, roll modifiers add to the named roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** resolves at its trigger, separate from and ignoring the stage police bar. Abilities marked *Suspect* count as suspect things for the police check (see Resolution).
+Each card is one vehicle a racer may pick at setup — the racer's character sheet. Pick freely; duplicates are allowed and have their own interactions. In effects tables, *Applies to* names the condition (a road property, a weather category from the Weather table's *Counts as* column, or the police save); *Effect* is what happens — hours add to stage time, police-save modifiers add to your police-save roll, and signed values always carry their sign. Ability types: an **Action** is declared with your plan in step 2 of the Round; a **Passive** is always on; a **Reaction** is the racer's option to use when its trigger occurs — never automatic, always the racer's call — and resolves at that trigger by its own stated criterion, not as an additional police save against the stage bar unless the card says so. Abilities marked *Suspect* count as suspect things for the police check (see Resolution).
 
 **Card schema:** pitch sentence; effects table (`Applies to | Effect`); abilities (zero or more), each as `**Name** *(Type[, Suspect])* — effect`.
 
@@ -172,13 +174,15 @@ A large, heavy box of a vehicle. Sirens and lights still work, but you aren't co
 
 | Applies to | Effect |
 | --- | --- |
-| Police rolls, while Lights & Sirens are OFF | +1 to the roll |
-| High-grade roads | +1 hr |
-| High-bank roads | +1 hr |
+| Police save, while Lights & Sirens are OFF | +1 |
+| Medium or higher-grade roads | +0.5 hr |
+| Medium or higher-bank roads | +0.5 hr |
 
-**Lights & Sirens!** *(Action, Suspect)* — Switch them on: everyone gets out of the way. -1 hr this stage, and the *Traffic Penalty* is erased without a roll. Your lights-OFF police bonus does not apply this stage.
+**Lights & Sirens!** *(Action)* — Switch them on: everyone gets out of the way. -1 hr this stage, and the *Traffic Penalty* is erased without a roll. Your lights-OFF police bonus does not apply this stage.
 
-**Somethin's Up** *(Passive)* — -1 to each of your rolls for every additional ambulance in the stage.
+**Somethin's Up** *(Passive)* — -1 to each of your saving rolls against police for every additional ambulance in the stage.
+
+**You See, Officer...** *(Passive)* — +0.5hr penalty when pulled over by police to explain why you're not on official business.
 
 #### Motorcycle
 
@@ -188,17 +192,17 @@ Two wheels and the rumble of freedom! Light, agile, fuel-efficient and exposed. 
 | --- | --- |
 | Precipitation or ice | +0.5 hr |
 | Traffic penalties | Halved for you |
-| Police rolls | -1 to the roll |
+| Police save | -1 |
 
-**Split the Lanes** *(Action)* — Roll to get around traffic (beat the traffic tier). Success erases the *Traffic Penalty*; failure is a fender-bender: +0.5 hr instead of the *Traffic Penalty*.
+**Split the Lanes** *(Action)* — Roll to get around traffic (beat the traffic tier). Success erases the *Traffic Penalty*; failure is a fender-bender: +0.5 hr on top of the *Traffic Penalty*.
 
 **Hooliganism** *(Action, Suspect)* — Roll to drive around any on-road obstacle (beat its tier). Success erases that obstacle's penalty.
 
-**Biker Gang** *(Passive)* — Two or more motorcycles may collude and declare the same ability together; all succeed if at least one of them rolls a success. Cannot be combined with Double Down.
+**Biker Gang** *(Passive)* — Two or more motorcycles may collude and declare the same ability together; they each roll and all succeed if at least one of them rolls a success. Cannot be combined with Double Down.
 
-**Loud Pipes** *(Passive)* — -1 to your ability rolls if another motorcycle has already used an ability this stage.
+**Loud Pipes** *(Passive)* — -1 to your ability rolls if another motorcycle has already used an ability this stage. Does not apply to abilities used by a Biker Gang.
 
-**Double Down** *(Reaction)* — When pulled over, flee once they've walked to your bike: roll even to escape as if you were never caught — no *Pull-Over Penalty*, and anything you were doing succeeds. Roll odd and it's jail: you are out of the rally.
+**Double Down** *(Reaction)* — When pulled over, you may choose to peel out once they've walked to your bike: roll even to escape as if you were never caught — no *Pull-Over Penalty*, and anything you were doing succeeds. Roll odd and it's jail: you are out of the rally. The downside is jail, so doubling down is always the racer's call — the GM never doubles down for you.
 
 #### 4x4
 
@@ -210,9 +214,9 @@ Full-time four-wheel drive with sturdy bumpers and a lift kit. Road optional!
 | Highway stages | +0.5 hr (stopping for gas) |
 | High-bank roads | +0.5 hr |
 
-**Built for This** *(Action, Suspect)* — Roll to drive around traffic (beat the traffic tier). Success erases the *Traffic Penalty*.
+**Built for This** *(Action, Suspect)* — Roll to drive around traffic (beat the traffic tier). Success erases the *Traffic Penalty*. Failure is a fender-bender: +0.5 hr on top of the *Traffic Penalty*.
 
-**Cut Corners** *(Action, Suspect)* — On a Rural stage, cut across folks' land instead of sticking to the roads: -1 hr this stage.
+**Cut Corners** *(Action, Suspect)* — On any non-Urban stage, cut across folks' land instead of sticking to the roads: -1 hr this stage, -1 to your police save.
 
 #### SUV
 
@@ -231,9 +235,10 @@ Low to the ground, aerodynamic curves, with a bright coat of paint and a loud en
 
 | Applies to | Effect |
 | --- | --- |
-| Police rolls | -1 to the roll |
+| Police save | -1 |
 | Highway stages | -0.5 hr |
 | Any banked road | -0.5 hr |
+| Weather: precipitation (rain, ice, etc.) | +0.5 hr |
 
 **Gun It** *(Reaction)* — When police would pull you over while speeding on a Highway stage, outrun them: roll >2 for a clean getaway — no *Pull-Over Penalty*. Fail and you still escape the police, but +1 hr fixing the rare part that broke past 200 mph, plus +1 hr more for every previous failed Gun It this race.
 
@@ -246,10 +251,12 @@ Dealerships fling these off the lot by the millions! Average height, average fue
 | Applies to | Effect |
 | --- | --- |
 | Inclement weather | +0.5 hr (not built for the rough stuff) |
-| Police rolls | +1 to the roll |
+| High-grade roads | +0.5hr (undersized powertrain) |
+| High traffic | +0.5hr (nobody lets you merge or go) |
+| Police save | +1 |
 | Highway stages | -1 hr (no gas stops) |
 
-**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: roll >1 to avoid the *Pull-Over Penalty* — there are so many cars like yours they'll probably miss you.
+**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: Take a +1 bonus to your police save and if you pass it, avoid the *Pull-Over Penalty* entirely — there are so many cars like yours they'll probably miss you. Fail the check though, and they'll be peeved: Take an *additional* +0.5hr on the side of the road on top of the *Pull-Over Penalty* to talk your way out of jail!
 
 ## External Data Hooks
 
