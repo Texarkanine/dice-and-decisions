@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m4-gm-skill
-**Phase:** BUILD (L3) - IN-PROGRESS (steps 1-5 of 7 complete; awaiting operator validation session)
+**Phase:** BUILD (L3) - IN-PROGRESS (steps 1-6 of 7 complete; golden transcript accepted; step 7 next)
 
 ## What Was Done
 
@@ -31,18 +31,41 @@
 - Session seed: operator-supplied, else drawn via one unseeded roller call (adopt the
   reported seed, discard the face)
 
-## Validation Session (build step 6) — IN PROGRESS, operator-led
+## Validation Session (build step 6) — COMPLETE, operator-led
 
-- **Run 1 (seed `haiku1`, Claude Code, Haiku 4.5):** complete. Racers seated Motorcycle,
-  Ambulance, Sedan, Supercar (4 of 6 vehicles; 4x4 and SUV absent). Surfaced two mechanical
-  defects, both fixed and committed (`fix: clarify police-roll timing and reaction-as-choice`):
-  police checks now explicitly batch after all declarations; Reactions are explicitly the
-  racer's choice (Haiku had auto-jailed a racer via an unchosen Double Down).
-- Raw conversion of run 1 lives at `tests/fixtures/transcripts/cannonball-rally-haiku1-raw.md`
-  (via `scripts/jsonl-to-md.py`); it is NOT the golden transcript.
-- **Operator is now iterating:** balance tweaks (operator-owned, M2 content — see decisions)
-  + further Haiku runs until one cleanly exercises all mechanisms. Operator will point here
-  when a keeper run exists.
+- **Iterated across 8 runs** (seeds `haiku1`–`haiku7` on Claude Haiku 4.5, then `sonnet1` on
+  Sonnet 4.6). Each Haiku run surfaced a defect; every fix landed as a committed gm-doc or
+  GAME.md change. The arc, in order:
+  - Reaction-as-choice (Haiku auto-applied Double Down / Blend In) → procedure step "Offer
+    result-triggered choices" + GAME.md reaction wording.
+  - Police-modifier misrouting (applied to the DC) → `save`/`bar`/`beat` vocabulary, modifiers
+    one-sided onto the player's save (`57b36a3`).
+  - Field-keyed misses (Biker Gang per-rider rolls, Somethin's Up) + consequence-revoked
+    benefits (Suspect ability negated on pull-over) → the "Apply mechanics" cross-check beat
+    (`5f78efb`) + GAME.md fixes (`411f510`).
+  - Light-traffic penalty misapplied → GAME.md "Medium or Heavy" clarity fix.
+  - Output-format drift / brief decay → turn-brief shape pinned, scoreboard de-duped,
+    dice-batching guidance (`2831ea1`).
+  - Fabricated "Gun It cooldown" (model invented scarcity the paper didn't write) → format-spec
+    **Usage cadence** default: silence means no usage limit (`9695a2c`).
+- Raw playtest conversions retained at `tests/fixtures/transcripts/cannonball-rally-haiku{1-7}-raw.md`
+  (+ `haiku-bs`) via `scripts/jsonl-to-md.py`. These are NOT the golden.
+- **Golden accepted (`sonnet1`):** `tests/fixtures/transcripts/cannonball-rally-golden.md`.
+  Seats **all 6 vehicles** (Alex/Ambulance, Blake/Motorcycle, Casey/4x4, Drew/SUV,
+  Ellis/Supercar, Frankie/Sedan), 48 real player turns (no GM ventriloquism), and exercises
+  every committed fix correctly — incl. the subtle Suspect-vs-non-Suspect revoke and a
+  tied-finish tiebreaker. Coverage spread: a reaction-saved pull-over, a jail/DNF (Blake's
+  Double Down), a top tie. Accepted **as-is, provisionally** ("for now").
+
+## Known Defect (deferred) — disk journaling never happens
+
+- The `sonnet1` GM wrote only the journal **header** to `transcripts/…140000.md`, then ran the
+  whole session in chat and falsely signed off "Session log saved". **No GM run has ever
+  journaled rounds to disk** — the chat is treated as the journal. Behavior **B9** (journal
+  follows the journal-format skeleton on disk where disk exists) is therefore unverified by the
+  golden. Procedure enforcement of this is weak.
+- **Deferred to a later milestone** (operator decision, 2026-06-15) — out of M4 scope; create a
+  new milestone if needed. The golden stands as-is; the record of play is complete in chat form.
 
 ## Golden Transcript Acceptance (operator decision, 2026-06-14)
 
@@ -58,7 +81,4 @@
 
 ## Next Step
 
-- Await operator's keeper run; convert + munge it into conforming
-  `tests/fixtures/transcripts/cannonball-rally-golden.md` (validate against journal-format +
-  behaviors B1–B11 and the edge-case list before crowning it golden).
-- Then build step 7: README + systemPatterns + cannonball-rally SKILL.md wording; `make test`.
+- Build step 7: README + systemPatterns + cannonball-rally SKILL.md wording; `make test`.

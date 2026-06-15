@@ -213,12 +213,20 @@ the prose analog of tests-before-code.
       each has a consuming gm behavior; (b) genericity check — dry-run one Lemonade Stand
       round on paper against the procedure (B11); (c) edge-case desk-check against the
       list above.
-6. **Operator validation session + golden transcript** (requires the operator)
-    - Files: `tests/fixtures/transcripts/cannonball-rally-golden.md` (new)
+6. ✅ **Operator validation session + golden transcript** (requires the operator)
+    - Files: `tests/fixtures/transcripts/cannonball-rally-golden.md` (new — accepted `sonnet1`)
     - Changes: the operator plays all seats of Cannonball Rally with gm active (script
       dice, seeded); the session is journaled per the format; the transcript is saved as
       the golden fixture; defects surfaced in gm docs are fixed; any game/spec gap is
       fixed in the paper and noted for the milestone record.
+    - *(Result, 2026-06-15)* 8 runs (`haiku1`–`haiku7`, then `sonnet1`); each Haiku run
+      surfaced and fixed a defect (reaction-as-choice, save/bar/beat, field-keyed +
+      consequence-revoked cross-check, Light-traffic clarity, format drift, Usage-cadence
+      default for fabricated limits). Golden = `sonnet1`: all 6 vehicles, 48 real player
+      turns, every fix exercised, jail/DNF + tied finish. Accepted **as-is, provisionally**.
+    - *(Deferred defect)* No GM run journals rounds to disk (header only); behavior **B9**
+      is unverified by the golden. Punted to a later milestone (operator decision) — out of
+      M4 scope. See activeContext "Known Defect (deferred)".
     - *(Preflight note)* The fixture keeps a stable curated name (`cannonball-rally-golden.md`)
       rather than the runtime `<game>-<YYYYMMDD-HHmmss>.md` name — deliberate: downstream
       consumers (M6/M7) need a stable path; the session header inside still carries the date.
