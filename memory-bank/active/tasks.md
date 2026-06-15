@@ -178,6 +178,6 @@ scripts; `roll.sh` belongs to the gm, and the player never rolls.)
 - [x] Test planning complete (TDD)
 - [x] Implementation plan complete
 - [x] Technology validation complete
-- [ ] Preflight
+- [x] Preflight (PASS, 1 advisory)
 - [ ] Build
 - [ ] QA

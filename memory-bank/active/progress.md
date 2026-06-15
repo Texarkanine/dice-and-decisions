@@ -29,3 +29,14 @@ L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — 
 * Insights
     - No new executable code → no new shunit2 tests; the prose-validation discipline (behavior checklist before documents, recorded play session as the proving step, `make test` as regression gate) is inherited directly from M4's gm build
     - The gm↔player↔table interface needs nothing invented: the Turn Report line and the per-seat turn brief are already-pinned grammars; M5 is the cash-in of an M4 decision
+
+## 2026-06-15 - PREFLIGHT (L2) - COMPLETE (PASS)
+
+* Work completed
+    - Validated the plan vs. codebase: TDD prose-analog encoding (checklist-before-documents, same as M4 — PASS), convention compliance (agentskills layout, naming, no compatibility field), dependency impact (M1+M4 contracts complete, doc touchpoints enumerated), conflict detection (no skills/player/ exists; gm wording tweak is additive), completeness (all four milestone components mapped)
+    - Wrote `.preflight-status`: PASS with one advisory
+* Decisions made
+    - Advisory (non-blocking, no amendment): author personas as positions on an explicit risk axis so M7's persona sweep has a coverage dimension — already substantially in the plan; not expanded, to avoid creep into M7 / out-of-scope persona depth
+    - Confirmed the step-6d gm Conduct wording fix is in-scope: `skills/gm/` is a project deliverable (not vendored), and the change is an additive boundary clarification
+* Insights
+    - The operator has an in-flight uncommitted balance edit to `skills/cannonball-rally/references/GAME.md` (Blend In reaction) belonging to the separate M2 rally pass — kept out of the M5 commit stream; stage specific paths, never `git add -A`

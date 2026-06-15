@@ -1,0 +1,27 @@
+PASS
+
+Task: m5-player-skill (L2)
+Date: 2026-06-15
+
+Validated the player-skill plan against codebase reality.
+
+- TDD plan encoding (prose analog): behavior checklist B1-B10 + E1-E3 written before any
+  document; step 1 stubs empty bodies and confirms the checklist is committed first; step 5
+  desk-checks the docs against it. Same encoding preflight PASSED for the M4 gm skill
+  (no new executable code -> no new shunit2 tests; recorded play session is the proving step).
+- Convention compliance: skills/player/ = SKILL.md + references/ (kebab dir, uppercase
+  SKILL.md, lowercase references, no compatibility field, lean router + progressive
+  disclosure) matches the agentskills layout and the gm precedent.
+- Dependency impact: consumes M1 (Turn Report grammar) + M4 (turn brief, state table,
+  reaction offer), both complete; doc-reconciliation touchpoints enumerated (systemPatterns,
+  README, cannonball-rally SKILL.md, minimal gm Conduct wording).
+- Conflict detection: no skills/player/ exists (no overlap); the step-6d gm wording tweak is
+  an additive clarification to a project (non-vendored) deliverable, not a contract break.
+- Completeness: all four milestone components (single-decision output, table talk,
+  brief+state consumption, persona roster) map to concrete steps + behaviors.
+
+Advisory (non-blocking): when authoring personas, express each posture as a position on an
+explicit risk axis (cautious <-> aggressive) rather than ad-hoc flavor, so M7's eventual
+persona sweep has a real coverage dimension to vary. Already substantially in the plan
+(step 2 "spanning the risk axis"); recorded as advisory, no amendment, to avoid creeping into
+M7's concerns or the out-of-scope "persona depth".
