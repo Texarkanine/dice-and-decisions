@@ -81,3 +81,15 @@ L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — 
     - YAGNI: five personas kept; each covers a distinct strategy region within the planned 3-5
 * Insights
     - The only thing QA could *not* clear is B9's structural enforcement — and that's correct: it's a cross-skill boundary that no single skill can prove alone. QA cleanly separated "the contract is written and behaviorally honored" (PASS) from "the boundary is structurally enforced" (M6's job)
+
+## 2026-06-15 - REFLECT (L2) - COMPLETE
+
+* Work completed
+    - Wrote `reflection/reflection-m5-player-skill.md` (requirements vs outcome, plan accuracy, build/QA observations, insights, million-dollar question)
+    - Reconcile-persistent scan: productContext + systemPatterns already reconciled during this task; techContext unaffected (no per-skill list, stack/conventions still accurate) — no further edits
+* Key reflection takeaways
+    - Player needed no new interface: Turn Report line + turn brief already are the gm↔player contract
+    - Soft isolation has a hard attribution ceiling → B9 structural enforcement is M6's headline job
+    - Read chat for voice, journal for mechanics (the journal strips table talk → false negatives)
+    - Million-dollar: M5 built the right half (a stateless seat); the latent elegance is the `table` enforcing the isolation the seat already assumes (M6)
+* Next: Reflect→Archive is operator-gated (STOP). Operator runs /niko to archive M5 and advance to M6.

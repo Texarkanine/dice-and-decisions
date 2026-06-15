@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Task: m5-player-skill
-**Phase:** QA (L2) - COMPLETE (PASS) → REFLECT next
+**Phase:** REFLECT (L2) - COMPLETE → ARCHIVE next (operator-initiated)
 
 ## What Was Done
 - Authored the `player` skill (`SKILL.md` + `references/decision-procedure.md` +
@@ -42,6 +42,7 @@
   scope — an M7/playtest question, not a player-skill concern.
 
 ## Next Step
-- Proceed to REFLECT (L2): capture lessons from M5 (stateless decision, soft- vs. structural
-  isolation, journal-vs-transcript gap), confirm persistent-file reconciliation, then archive and
-  advance the M5 milestone checkbox.
+- Reflection written (`reflection/reflection-m5-player-skill.md`); persistent files already
+  reconciled (productContext + systemPatterns this task; techContext unaffected). Reflect→Archive
+  is operator-gated: **STOP and wait** for the operator to run `/niko` (L4 sub-run) to archive M5
+  and advance to M6 (`table` skill — the structural-isolation milestone B9 carries forward to).
