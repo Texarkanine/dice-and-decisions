@@ -277,5 +277,6 @@ harness. Validation not required.
 - [x] Implementation plan complete
 - [x] Technology validation complete (n/a — no new technology)
 - [x] Preflight (PASS — 2 amendments applied, 1 note recorded)
-- [ ] Build
-- [ ] QA
+- [x] Build
+- [x] QA (PASS — 2026-06-15; all in-scope work complete & clean; B9 disk-journaling
+  noted as operator-accepted deferral, out of M4 scope)

@@ -55,3 +55,19 @@ L4 sub-run for milestone M4 of `lite-rpg-toolkit`: build the `gm` skill — the 
 * Insights
     - `tests/fixtures/` is a new convention (tests/ currently holds only the shell harness); establishing it here means M7's dataset tooling inherits a home for non-shell test data
     - The journal example excerpt doubles as the first existence proof of the format before the golden transcript exists — cheap insurance that the skeleton is actually writable
+
+## 2026-06-15 - QA (L3) - COMPLETE (PASS)
+
+* Work completed
+    - Semantic review of the three gm documents + step-7 docs against the plan, applying KISS/DRY/YAGNI/Completeness/Regression/Integrity/Documentation constraints
+    - Verified regression gate green (`make test`: 15/15)
+    - Genericity check (B11): only illustrative game pointers in `skills/gm/`, no embedded rally mechanics
+    - Integrity check: the journal worked example reproduces exactly (seed 1209 → faces 4, 6, 3 for `day1-gm-weather`/`-ana-customers`/`-ben-customers`)
+    - Confirmed documentation reconciliation (README, `systemPatterns.md` status note, `cannonball-rally/SKILL.md`) and absence of TODO/placeholder/debug debris
+    - Wrote `.qa-validation-status`: PASS
+* Decisions made
+    - PASS: all in-scope work is complete, clean, and integrates as a natural extension of the engine architecture
+    - B9 (disk-journaling conforming to the skeleton) recorded as a **non-blocking noted finding** — the golden is a chat conversion with the round structure embedded and a false "Session log saved" line; this is the operator-accepted deferral (out of M4 scope), not an incomplete in-scope implementation
+* Insights
+    - The journal's reuse of three already-pinned grammars (Turn Report line, `roll.sh` stderr line, GFM table) is what lets QA verify the format's integrity mechanically — the worked example is replayable, not folklore
+    - The deferred B9 is a *behavior* gap (GMs keep the journal in chat), not a *format* gap; the skeleton itself is sound and proven by the example
