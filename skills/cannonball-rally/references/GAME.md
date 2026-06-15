@@ -256,7 +256,7 @@ Dealerships fling these off the lot by the millions! Average height, average fue
 | Police save | +1 |
 | Highway stages | -1 hr (no gas stops) |
 
-**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: Take a +1 bonus to your police save and if you pass it, avoid the *Pull-Over Penalty* entirely — there are so many cars like yours they'll probably miss you. Fail the check though, and they'll be peeved: Take an *additional* +0.5hr on the side of the road on top of the *Pull-Over Penalty* to talk your way out of jail!
+**Blend In** *(Reaction)* — When police would pull you over and the stage's traffic is Medium or Heavy, duck off the main road and act nonchalant: Roll a new police save with a +1 bonus and if you pass it, avoid the *Pull-Over Penalty* entirely — there are so many cars like yours they'll probably miss you. Fail the check though, and they'll be peeved: Take an *additional* +0.5hr on the side of the road on top of the *Pull-Over Penalty* to talk your way out of jail!
 
 ## External Data Hooks
 
