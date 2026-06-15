@@ -179,5 +179,5 @@ scripts; `roll.sh` belongs to the gm, and the player never rolls.)
 - [x] Implementation plan complete
 - [x] Technology validation complete
 - [x] Preflight (PASS, 1 advisory)
-- [~] Build — steps 1–6 complete (skill authored, self-validated, docs reconciled, `make test` 15/15); **step 7 (operator-led validation session) pending**
+- [x] Build — all 7 steps complete; validation sessions (1v1 + 2v1) confirmed B1–B8, B10 and B5 (persona divergence); B9 (attribution) structurally deferred to M6 by design; stateless decision codified in the skill
 - [ ] QA

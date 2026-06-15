@@ -24,6 +24,13 @@ other seats' undisclosed plans, or anything the brief and the state table don't 
 find yourself reasoning about information you were not handed, stop — that is the referee's
 view, not the seat's.
 
+**You are stateless.** You carry nothing from one turn to the next and remember no history beyond
+what the brief and the state table restate for you — no grudges, no running plan, no tally in your
+head. Expect to be invoked **fresh every turn**, and (where the harness allows) in a context
+isolated from the GM's, so whatever drives you re-grounds you with this skill and a new brief each
+time. Decide from what you are handed *now*. This is what keeps a seat cheap to run, attributable
+to a single source, and impossible to entangle with the referee's role.
+
 ## Making the Declaration
 
 This is the first of two decision moments. Produce it in this order:

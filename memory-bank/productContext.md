@@ -2,6 +2,8 @@
 
 A toolkit for playing, playtesting, and publishing **lite RPGs** — tabletop games that *feel* like RPGs but run entirely on decisions and dice. No improv, no voices, no rules-lawyering: players are presented with choices, they choose, the GM applies the mechanics. The toolkit lets AI agents fill any seat at the table — player, GM, or the whole table at once — without ever making the games *require* a computer. Every game remains printable and playable with paper, pencils, and a d6.
 
+The two motivations are one loop: you **balance** a game so you can **play** it. A balanced game is one worth bringing friends to, and AI seats exist to fill the empty chairs so there is always a full table — solo, or humans plus a few AI players. Playtesting protects play; it is not the end in itself. And those AI seats only need to fill a chair *well*: a credible, **beatable** opponent that never works to make the game un-fun — not a sapient rival. The deep, scheming social play is expected to come from the **humans** at the table, not from the AI.
+
 ## Target Audience
 
 1. **Lite RPG authors** (primary; the project owner is the first user). They need to formalize games that live in notebooks and heads, and to *balance* them with data instead of vibes. The founding question: does Cannonball Rally's 2hr base stage time sit in the sweet spot where risk-taking can beat "beige plays it safe" but doesn't dominate it?
@@ -50,4 +52,6 @@ A toolkit for playing, playtesting, and publishing **lite RPGs** — tabletop ga
 
 ## Deliberately Out of Scope (for now)
 
-Persona depth and provenance; spectator/log-viewer niceties; networked multi-device tables; non-d6 dice and cards as randomizers (the format should not preclude them, but nothing is built for them); localization; marketplace/distribution details beyond "it will be a plugin."
+**Persona depth, memory, and provenance.** AI players are deliberately **stateless** (decided 2026-06-15): each decision is a fresh function of the turn brief, the visible state table, and a one-line persona posture — no memory of past rounds, no grudges, no evolving rivalries. The pull toward memoryful NPCs is real and *partly rules-grounded* (the motorcycle's *Biker Gang* / *Loud Pipes* abilities encode an iterated cooperate-then-betray game that reputation-memory would enrich), and "memory" would **not** require persistent synced subagents — it could be a small, **paper-trackable** memory field threaded through the durable transcript and fed to an otherwise-stateless player. But memory serves *play richness*, not the balance signal (a grudge-holding seat samples a mood, not a strategy); it is exactly the **persona depth** we are choosing to defer; and staying stateless **forecloses nothing** (memory is an additive input later, same fresh-each-turn invocation). Revisit only if the future game library proves heavily political/interactive — otherwise the social scheming is the humans' job, not the AI's.
+
+Also out for now: spectator/log-viewer niceties; networked multi-device tables; non-d6 dice and cards as randomizers (the format should not preclude them, but nothing is built for them); localization; marketplace/distribution details beyond "it will be a plugin."

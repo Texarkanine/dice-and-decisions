@@ -1,48 +1,45 @@
 # Active Context
 
 ## Current Task: m5-player-skill
-**Phase:** BUILD (L2) - steps 1–6 COMPLETE; step 7 (operator-led validation session) PENDING
+**Phase:** BUILD (L2) - COMPLETE → QA next
 
 ## What Was Done
-- Authored the `player` skill (three documents):
-  - `skills/player/SKILL.md` — lean router: role (the strategic seat / referee's opposite),
-    what it needs (turn brief + state table + persona), output contract (one Turn Report line +
-    one line of table talk), hard rules (never roll; seat-visible only; stay inside the brief;
-    author only your own seat), non-goals, file pointers. No `compatibility` field.
-  - `skills/player/references/decision-procedure.md` — the two decision moments (up-front
-    declaration + the post-roll reaction beat), information hygiene, never-roll, conform-to-brief,
-    defer-to-paper, attribution/no-ventriloquism, edge cases E1–E3.
-  - `skills/player/references/personas.md` — the shipped roster of five game-agnostic
-    risk-axis postures (Tortoise, Daredevil, Optimizer, Closer, Spoiler) + voice cues + assignment
-    modes (assigned / randomized / custom); Tortoise is the no-persona safe default.
-- Self-validation (build step 5): spec cross-check (every brief element + Turn Report slot has a
-  consuming behavior), genericity grep (B10 — clean; only illustrative seat examples in the
-  description), desk-check of B1–B10 + E1–E3, and a two-persona dry-run against a real golden
-  brief (Tortoise cruises / Daredevil speeds — divergent, conforming, no rolls).
-- Documentation reconciliation (build step 6): recorded the gm/player/table boundary contract
-  (+ attribution acceptance test) as a new pattern in `systemPatterns.md` and flipped the player
-  status note; README layout tree + status line + the cannonball-rally SKILL.md mark `player`
-  built; tightened the gm's Conduct/Non-Goals to "never authors a seat's declaration".
-- `make test` green (15/15) before and after.
+- Authored the `player` skill (`SKILL.md` + `references/decision-procedure.md` +
+  `references/personas.md`): consumes the gm's turn brief + state table + a persona, returns one
+  Turn Report declaration + one line of table talk; two decision moments (declaration + post-roll
+  reaction beat); never rolls; seat-visible info only; attribution/no-ventriloquism.
+- Persona roster: five game-agnostic risk-axis postures (Tortoise, Daredevil, Optimizer, Closer,
+  Spoiler) + voices + assignment modes.
+- Documentation reconciliation: gm/player/table boundary + attribution test recorded in
+  `systemPatterns.md`; README + cannonball-rally SKILL flipped to "player built"; gm Conduct
+  tightened to "never authors a seat's declaration".
+- **Codified the stateless decision** in `decision-procedure.md` ("You are stateless… invoked fresh
+  every turn") — sets up M6's per-turn invocation expectation.
+- **Reconciled `productContext.md`** with the operator's clarifications (below).
+- `make test` green (15/15).
 
-## Defects Found & Fixed (build step 5)
-- Persona name `Cruiser` echoed the rally's literal "cruise vs. speed" choice (genericity leak) →
-  renamed to `Tortoise` across all three docs.
-- `decision-procedure.md` listed "jail" as an example catastrophic outcome (rally echo) →
-  generalized to "elimination, a total loss, being knocked out of contention".
+## Validation Sessions (build step 7) — operator-led, COMPLETE
+- Three Composer-2.5 sessions: a 4-seat journal, a **1v1** (`transcripts/cannonball-1v1.md`,
+  Daredevil supercar vs. human sedan), and a **2v1** (`transcripts/cannonball-2v1.md`, Daredevil
+  supercar + Optimizer ambulance vs. human sedan).
+- Confirmed at the behavior level: B1, B2, B4, B6 (Gun It opt-in framed as the seat's choice),
+  B7, E2 (stage choice), B10 — and crucially **B5**: in the 2v1 the Daredevil (speed + hard line +
+  Gun It gamble) and the Optimizer (cruise + Lights & Sirens EV play + easy route) **diverged**,
+  attributable and in distinct voices.
+- **B9 (attribution) is NOT provable by these runs and structurally can't be until M6**: with no
+  `table` and no subagent, one model ran the GM *and* the AI seats inline (it even narrated the AI
+  moves in GM parentheticals). Output was persona-true but not independently sourced. This is the
+  accepted soft-isolation limitation; the real fix is M6's fresh-each-turn invocation.
 
-## Key Decisions
-- Persona roster is five postures on one **risk axis** (variance accepted for payoff), shallow by
-  mandate; coverage shows over a session, not every turn (identical safe-only briefs collapse
-  postures, by design).
-- The minimal gm-side wording fix landed (the only edit reaching into the gm skill): both
-  `skills/gm/SKILL.md` and `session-procedure.md` now say the GM never authors a seat's declaration.
-- The operator's in-flight `skills/cannonball-rally/references/GAME.md` balance edit (Blend In)
-  was kept out of every M5 commit — it belongs to the separate M2 rally pass.
+## Key Decisions (operator, 2026-06-15)
+- **Stay fully stateless for now; do not flesh out personality/memory.** AI players fill a seat,
+  must be beatable, must not work to make play un-fun, need not be sapient — deep social play comes
+  from the humans. (Memory reframe + Biker-Gang motivation + non-foreclosure recorded in
+  `productContext.md` "Deliberately Out of Scope".)
+- **Founding purpose is dual:** balance-testing exists *in service of play* (balance a game so it's
+  worth playing; AI seats fill empty chairs for a full table). Recorded in `productContext.md`.
+- Balance of the rally itself (the sedan's competitiveness) remains operator-owned, out of M5
+  scope — an M7/playtest question, not a player-skill concern.
 
-## Next Step (operator-led)
-- **Build step 7 — validation session.** Run a Cannonball Rally session with the `player` skill
-  filling seats under distinct personas (a real harness, not one context ventriloquizing all
-  seats), and audit it against B1–B10 / E1–E3 — especially **B5** (two personas, same brief,
-  divergent declarations) and **B9** (every declaration attributable; no GM ventriloquism). The
-  resulting transcript may seed an M6/M7 fixture. Then mark Build complete and proceed to QA.
+## Next Step
+- Proceed to QA (L2 semantic review of the player skill + reconciled docs).

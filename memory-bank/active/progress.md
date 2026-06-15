@@ -54,3 +54,18 @@ L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — 
     - Build is not declared complete until the operator-led validation session (step 7) runs — consistent with M4's lesson that a referee-adjacent prose skill is proven by played sessions, not author desk-checks
 * Insights
     - Desk-checking one's own prose is weak proof for a decision-making skill; the meaningful test is a real harness producing attributable, persona-divergent declarations — which also makes B9 (no ventriloquism) checkable, exactly as the golden's acceptance criterion foreshadowed
+
+## 2026-06-15 - BUILD (L2) - COMPLETE
+
+* Work completed
+    - All 7 plan steps done; codified the stateless decision in `decision-procedure.md` ("invoked fresh every turn")
+    - Operator-led validation across three Composer-2.5 sessions (4-seat journal, 1v1, 2v1); 2v1 demonstrated B5 (Daredevil vs. Optimizer diverged, attributable, distinct voices); B1/B2/B4/B6/B7/E2/B10 confirmed
+    - Reconciled `productContext.md`: dual founding purpose (balance in service of play) + enriched the stateless/persona-depth deferral (memory reframe, Biker-Gang motivation, non-foreclosure)
+    - `make test` green (15/15)
+* Decisions made
+    - Operator: stay fully stateless, defer persona depth/memory; AI players fill a seat (beatable, not un-fun, not sapient), deep social play is the humans' job
+    - Operator: founding purpose is dual — balance-testing serves play, not the reverse
+    - B9 (attribution / no GM ventriloquism) is structurally deferred to M6: it cannot be enforced without a `table` routing decisions to isolated/fresh player invocations. These soft-isolation runs validated player *behavior*, not the *boundary* — an accepted limitation, the headline M6 requirement
+* Insights
+    - The journal vs. chat-transcript gap matters: the journal strips table talk, so a perfectly good persona run *looks* like collapse in the journal — read the chat to judge persona behavior, the journal to judge mechanics
+    - "Memory" and "persistent synced subagents" are orthogonal; the scary mechanism isn't required for memory, and stateless-now forecloses nothing — which is what made deferring memory a cheap, reversible call
