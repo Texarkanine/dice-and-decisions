@@ -1,1 +1,4 @@
 .~lock.*#
+
+# Runtime session journals (gm writes these to the working dir; in-repo home is tests/fixtures/transcripts/)
+transcripts/
