@@ -1,85 +1,95 @@
 # Progress
 
-L4 sub-run for milestone M4 of `lite-rpg-toolkit`: build the `gm` skill — the engine's game-master role. Components: mechanics applier (applies GAME.md rules to declared actions), restated state table, turn-brief distillation, external-data hook resolution with offline fallback, and a transcript journal where disk exists (declared via skill `compatibility`). Validated by a human playing all seats of Cannonball Rally, with that session recorded as a golden transcript fixture for later milestones. Depends on M1 (GAME.md format spec), M2 (Cannonball Rally GAME.md), and M3 (`roll.sh`), all complete; M4 is itself a dependency of M6 (table skill).
+L4 sub-run for milestone M5 of `lite-rpg-toolkit`: build the `player` skill — the engine's player-seat role. It produces a structured single-decision output (one declaration per turn, in the game's Turn Report grammar) plus in-character table talk, consuming the turn brief and restated state table emitted by the `gm` skill. It ships with the persona roster (the play-style archetypes used to differentiate AI seats). Depends on M1 (GAME.md format spec) and the gm-side contracts established in M4 (turn brief + state table shapes), all complete; M5 is itself a dependency of M6 (`table` skill, solo mode).
 
-**Complexity:** Level 3
+**Complexity:** Level 2
 
-## 2026-06-12 - COMPLEXITY-ANALYSIS - COMPLETE
-
-* Work completed
-    - Advanced L4 milestone list: M3 checked off, sub-run ephemeral state cleared and committed
-    - Classified milestone M4 as Level 3 (Intermediate Feature)
-* Decisions made
-    - L3 rationale: complete feature with several coupled components (mechanics applier, state table, turn-brief distillation, hook resolution, transcript journal) plus a human-validated golden transcript; works within the established engine architecture, so no architectural implications warranting L4
-* Insights
-    - M4 is the first consumer of all three prior milestones: it reads GAME.md per the M1 spec, runs Cannonball Rally from M2, and rolls via M3's `roll.sh` — its build doubles as integration validation of those contracts
-    - The golden transcript fixture produced here is itself a contract: later milestones (playtest harness, table modes) will consume it, so its format deserves deliberate design during planning
-    - The roller's stderr log grammar was pinned in M3 explicitly as "the seed of M4's transcript-journal record" — the journal design should start from that grammar
-
-## 2026-06-12 - CREATIVE (transcript journal format) - COMPLETE
+## 2026-06-15 - COMPLEXITY-ANALYSIS - COMPLETE
 
 * Work completed
-    - Architecture exploration of the transcript journal / golden transcript format (the gm→M7 contract); decision documented in `memory-bank/active/creative/creative-transcript-journal-format.md`
+    - Advanced L4 milestone list: M4 (`gm` skill) checked off, sub-run ephemeral state cleared
+    - Classified milestone M5 as Level 2 (Simple Enhancement)
 * Decisions made
-    - **Structured Markdown transcript** (one file per session, append-only): H1 session header (game, date, seed, dice mode, seats); one H2 per round containing announcement, declarations (game's Turn Report grammar), rolls (verbatim `roll.sh` log lines; `seed=physical` for human-reported dice), per-seat resolution arithmetic, and the restated GFM state table; final `## Standings`
-    - Resume rule: last complete round's state table is the resume point; incomplete trailing round replays from its announcement (rolls reproduce from the seed)
-    - Journal location at runtime: `transcripts/` under the working directory, only where disk exists; golden fixture in-repo at `tests/fixtures/transcripts/cannonball-rally-golden.md`
+    - L2 rationale: a single new skill with a contained decision interface. It is not a bug fix; it is a self-contained feature consuming already-pinned contracts (the Turn Report grammar from M1, plus the turn-brief and state-table shapes the `gm` skill emits in M4). No architectural implications and no multi-component coupling, so it does not rise to L3.
 * Insights
-    - The journal needs no new machine format: declarations, rolls, and state already have pinned grammars (Turn Report template, roll.sh stderr line, GFM tables) — the skeleton just anchors them in a file. "One transcript, two audiences" is the same move GAME.md proved
-    - A structured event log was rejected on principle: two formats for one fact is the drift disease the GAME.md pattern exists to cure
+    - M5 is the mirror of the gm's per-seat distillation: where `gm` emits the turn brief + state table, `player` consumes them and returns exactly one declaration. The two halves close the decision loop that M6's `table` orchestrator will drive.
+    - The persona roster is the new design surface here — the rest of the interface (input = turn brief + state table; output = one Turn Report declaration) is already fixed by upstream contracts, which keeps the skill contained.
 
-## 2026-06-12 - PLAN (L3) - COMPLETE
+## 2026-06-15 - PLAN (L2) - COMPLETE
 
 * Work completed
-    - Full L3 plan in `tasks.md`: component analysis, dependency map, invariants, 11 behaviors + 8 edge cases as the test plan, 7-step implementation plan, challenges & mitigations, pinned round-loop sequence diagram
-    - One open question resolved via creative (transcript journal format, high confidence)
+    - Full L2 plan in `tasks.md`: deliverable `skills/player/` (SKILL.md router + decision-procedure.md + personas.md), a 10-behavior + 3-edge-case checklist (prose TDD analog per L4 invariant #8), 7-step implementation plan, technology validation (none), dependencies, and challenges
+    - Grounded the player I/O contract against the codebase (gm turn brief + state table in; one Turn Report line + table talk out) and against real golden-transcript declaration rounds
+    - Recovered the deleted M4 creative record (gm/player/table boundary, Option B) from git `HEAD~1` — it pins the player contract and the attribution/no-ventriloquism acceptance test
 * Decisions made
-    - Three gm documents: lean `SKILL.md` router + `references/session-procedure.md` + `references/journal-format.md`; journal contract authored first (it's the gm→M6/M7 boundary)
-    - No new executable code → no new shunit2 tests; the milestone's test is the recorded human-played Cannonball Rally session validated against the behavior checklist (prose analog of tests-first: checklist written in the plan, session validates against it), `make test` as regression gate
-    - gm ships no `compatibility` disk requirement; journal strictly opportunistic
-    - Build sequenced so the operator session (step 6: validation + golden transcript) is the final build step, after authoring + self-validation walkthroughs (spec cross-check, Lemonade Stand genericity round, edge-case desk-check)
+    - Persona roster is shallow-by-mandate (persona depth out of scope): game-agnostic strategy-coverage archetypes on the risk axis
+    - Player has two decision moments: up-front declaration + the gm's post-roll result-triggered reaction offer
+    - Plan step 6 records the boundary contract into `systemPatterns.md` (closing the gap from the deleted creative doc) and includes a minimal gm-side wording fix ("does not author a seat's declaration") — the only edit reaching into the gm skill, flagged as boundary-justified
+    - Stays L2: single skill, contained interface, boundary architecture already decided
 * Insights
-    - The gm skill is the integration test of all three prior milestones — its build doubles as validation of the M1 format spec's "every section has a consumer" claim
-    - The plan's behavior checklist (B1–B11) is what QA and the golden transcript will both be audited against; writing it before any document exists is the prose equivalent of red tests
+    - No new executable code → no new shunit2 tests; the prose-validation discipline (behavior checklist before documents, recorded play session as the proving step, `make test` as regression gate) is inherited directly from M4's gm build
+    - The gm↔player↔table interface needs nothing invented: the Turn Report line and the per-seat turn brief are already-pinned grammars; M5 is the cash-in of an M4 decision
 
-## 2026-06-12 - PREFLIGHT (L3) - COMPLETE (PASS)
+## 2026-06-15 - PREFLIGHT (L2) - COMPLETE (PASS)
 
 * Work completed
-    - Validated plan vs. codebase: TDD encoding (no new executable code; prose-validation invariant correctly applied, checklist-before-documents ordering explicit — PASS), convention compliance (agentskills layout, lowercase reference names, repo-level test data), dependency impact, conflict detection (`skills/gm/` holds only `scripts/roll.sh`; no overlap), completeness (all 5 milestone components + validation map to concrete steps and behaviors)
-    - Confirmed regression gate green pre-build (`make test`: 15 tests OK)
-    - Wrote `.preflight-status`: PASS
+    - Validated the plan vs. codebase: TDD prose-analog encoding (checklist-before-documents, same as M4 — PASS), convention compliance (agentskills layout, naming, no compatibility field), dependency impact (M1+M4 contracts complete, doc touchpoints enumerated), conflict detection (no skills/player/ exists; gm wording tweak is additive), completeness (all four milestone components mapped)
+    - Wrote `.preflight-status`: PASS with one advisory
 * Decisions made
-    - Amendment (applied): `journal-format.md` ships a worked one-round example excerpt (Lemonade Stand) conforming to its own skeleton — the format spec's self-test discipline extended to the journal contract
-    - Amendment (applied): build step 7 also revisits `skills/cannonball-rally/SKILL.md`'s "until those engine skills are available" wording once gm is real
-    - Note (recorded): golden fixture keeps a stable curated name (`cannonball-rally-golden.md`) instead of the runtime timestamped name — downstream consumers need a stable path; the date lives in the session header
+    - Advisory (non-blocking, no amendment): author personas as positions on an explicit risk axis so M7's persona sweep has a coverage dimension — already substantially in the plan; not expanded, to avoid creep into M7 / out-of-scope persona depth
+    - Confirmed the step-6d gm Conduct wording fix is in-scope: `skills/gm/` is a project deliverable (not vendored), and the change is an additive boundary clarification
 * Insights
-    - `tests/fixtures/` is a new convention (tests/ currently holds only the shell harness); establishing it here means M7's dataset tooling inherits a home for non-shell test data
-    - The journal example excerpt doubles as the first existence proof of the format before the golden transcript exists — cheap insurance that the skeleton is actually writable
+    - The operator has an in-flight uncommitted balance edit to `skills/cannonball-rally/references/GAME.md` (Blend In reaction) belonging to the separate M2 rally pass — kept out of the M5 commit stream; stage specific paths, never `git add -A`
 
-## 2026-06-15 - QA (L3) - COMPLETE (PASS)
+## 2026-06-15 - BUILD (L2) - steps 1–6 COMPLETE, step 7 (validation session) PENDING
 
 * Work completed
-    - Semantic review of the three gm documents + step-7 docs against the plan, applying KISS/DRY/YAGNI/Completeness/Regression/Integrity/Documentation constraints
-    - Verified regression gate green (`make test`: 15/15)
-    - Genericity check (B11): only illustrative game pointers in `skills/gm/`, no embedded rally mechanics
-    - Integrity check: the journal worked example reproduces exactly (seed 1209 → faces 4, 6, 3 for `day1-gm-weather`/`-ana-customers`/`-ben-customers`)
-    - Confirmed documentation reconciliation (README, `systemPatterns.md` status note, `cannonball-rally/SKILL.md`) and absence of TODO/placeholder/debug debris
-    - Wrote `.qa-validation-status`: PASS
+    - Authored `skills/player/` (SKILL.md router + decision-procedure.md + personas.md): consumes the gm turn brief + state table + a persona, returns one Turn Report declaration + one line of table talk; two decision moments (declaration + post-roll reaction beat); never rolls; seat-visible info only; attribution/no-ventriloquism
+    - Persona roster: five game-agnostic risk-axis postures (Tortoise, Daredevil, Optimizer, Closer, Spoiler) + voices + assignment modes; Tortoise = no-persona safe default
+    - Self-validation (step 5): spec cross-check, genericity grep (B10 clean), desk-check B1–B10/E1–E3, two-persona dry-run on a real golden brief
+    - Documentation reconciliation (step 6): new `systemPatterns.md` pattern recording the gm/player/table boundary + attribution acceptance test (closing the deleted-creative-doc gap) and player status flip; README tree+status; cannonball-rally SKILL.md; minimal gm Conduct/Non-Goals wording fix ("never authors a seat's declaration")
+    - `make test` green (15/15)
 * Decisions made
-    - PASS: all in-scope work is complete, clean, and integrates as a natural extension of the engine architecture
-    - B9 (disk-journaling conforming to the skeleton) recorded as a **non-blocking noted finding** — the golden is a chat conversion with the round structure embedded and a false "Session log saved" line; this is the operator-accepted deferral (out of M4 scope), not an incomplete in-scope implementation
+    - Renamed the safe-default persona `Cruiser` → `Tortoise` (genericity defect: `Cruiser` echoed the rally's "cruise" move); generalized a "jail" example to non-rally terms — both found in step-5 self-validation
+    - Build is not declared complete until the operator-led validation session (step 7) runs — consistent with M4's lesson that a referee-adjacent prose skill is proven by played sessions, not author desk-checks
 * Insights
-    - The journal's reuse of three already-pinned grammars (Turn Report line, `roll.sh` stderr line, GFM table) is what lets QA verify the format's integrity mechanically — the worked example is replayable, not folklore
-    - The deferred B9 is a *behavior* gap (GMs keep the journal in chat), not a *format* gap; the skeleton itself is sound and proven by the example
+    - Desk-checking one's own prose is weak proof for a decision-making skill; the meaningful test is a real harness producing attributable, persona-divergent declarations — which also makes B9 (no ventriloquism) checkable, exactly as the golden's acceptance criterion foreshadowed
 
-## 2026-06-15 - REFLECT (L3) - COMPLETE
+## 2026-06-15 - BUILD (L2) - COMPLETE
 
 * Work completed
-    - Reviewed the full task lifecycle (plan → creative → build → QA) and wrote `memory-bank/active/reflection/reflection-m4-gm-skill.md`
-    - Reconciled persistent files: no updates needed (systemPatterns reconciled in build step 7; product/tech context unaffected by the gm work)
-    - Updated activeContext with the reflection outcome
+    - All 7 plan steps done; codified the stateless decision in `decision-procedure.md` ("invoked fresh every turn")
+    - Operator-led validation across three Composer-2.5 sessions (4-seat journal, 1v1, 2v1); 2v1 demonstrated B5 (Daredevil vs. Optimizer diverged, attributable, distinct voices); B1/B2/B4/B6/B7/E2/B10 confirmed
+    - Reconciled `productContext.md`: dual founding purpose (balance in service of play) + enriched the stateless/persona-depth deferral (memory reframe, Biker-Gang motivation, non-foreclosure)
+    - `make test` green (15/15)
 * Decisions made
-    - Recorded B9 (disk-journaling) as a behavior gap rooted in the limits of session-validation, not a build defect — consistent with the operator's deferral decision
+    - Operator: stay fully stateless, defer persona depth/memory; AI players fill a seat (beatable, not un-fun, not sapient), deep social play is the humans' job
+    - Operator: founding purpose is dual — balance-testing serves play, not the reverse
+    - B9 (attribution / no GM ventriloquism) is structurally deferred to M6: it cannot be enforced without a `table` routing decisions to isolated/fresh player invocations. These soft-isolation runs validated player *behavior*, not the *boundary* — an accepted limitation, the headline M6 requirement
 * Insights
-    - Technical: the GM's hardest failure mode is **off-seat effects** (field-keyed modifiers, consequence-revoked benefits) — hidden by the per-seat turn brief's isolation, fixed by an explicit cross-check beat; future per-seat-distilling roles should expect the same blind spot. Reusing pinned grammars made the journal format self-testing (QA verified the example by replay).
-    - Process: prose/session-validation catches mechanics defects but cannot enforce opportunistic side-effects (disk journaling) — nothing in the played loop forces them; budget a "validation session" step for N runs / one defect each when the deliverable is a referee
+    - The journal vs. chat-transcript gap matters: the journal strips table talk, so a perfectly good persona run *looks* like collapse in the journal — read the chat to judge persona behavior, the journal to judge mechanics
+    - "Memory" and "persistent synced subagents" are orthogonal; the scary mechanism isn't required for memory, and stateless-now forecloses nothing — which is what made deferring memory a cheap, reversible call
+
+## 2026-06-15 - QA (L2) - COMPLETE → PASS
+
+* Work completed
+    - Semantic review of the three player docs + reconciled docs against the plan (KISS/DRY/YAGNI/Completeness/Regression/Integrity/Documentation)
+    - One trivial fix: re-wrapped an over-long line in `decision-procedure.md` to match the file's wrap style; `make test` green (15/15)
+    - grep confirmed no STUB/TODO/placeholder debris and no game-specific (rally) leak in the generic engine docs
+* Decisions made
+    - DRY: the repeated never-roll / seat-visible / attribution statements are deliberate bedrock-rule reinforcement (same style as gm), not redundancy to consolidate — left as-is
+    - YAGNI: five personas kept; each covers a distinct strategy region within the planned 3-5
+* Insights
+    - The only thing QA could *not* clear is B9's structural enforcement — and that's correct: it's a cross-skill boundary that no single skill can prove alone. QA cleanly separated "the contract is written and behaviorally honored" (PASS) from "the boundary is structurally enforced" (M6's job)
+
+## 2026-06-15 - REFLECT (L2) - COMPLETE
+
+* Work completed
+    - Wrote `reflection/reflection-m5-player-skill.md` (requirements vs outcome, plan accuracy, build/QA observations, insights, million-dollar question)
+    - Reconcile-persistent scan: productContext + systemPatterns already reconciled during this task; techContext unaffected (no per-skill list, stack/conventions still accurate) — no further edits
+* Key reflection takeaways
+    - Player needed no new interface: Turn Report line + turn brief already are the gm↔player contract
+    - Soft isolation has a hard attribution ceiling → B9 structural enforcement is M6's headline job
+    - Read chat for voice, journal for mechanics (the journal strips table talk → false negatives)
+    - Million-dollar: M5 built the right half (a stateless seat); the latent elegance is the `table` enforcing the isolation the seat already assumes (M6)
+* Next: Reflect→Archive is operator-gated (STOP). Operator runs /niko to archive M5 and advance to M6.

@@ -33,7 +33,7 @@ Where the session is journaled, the transcript follows `references/journal-forma
 
 ## Non-Goals
 
-The GM referees; it does not cast the table. Seat routing, AI player personas, and multi-seat orchestration belong to the `table` and `player` skills; unattended batch play belongs to `playtest`. When those are in play, they call on the GM — not the other way around.
+The GM referees; it does not cast the table. Seat routing, AI player personas, and multi-seat orchestration belong to the `table` and `player` skills; unattended batch play belongs to `playtest`. When those are in play, they call on the GM — not the other way around. The GM presents each seat's brief and collects its declaration, but it **never authors that declaration** — a seat's choice comes from the seat (a `player` persona or a human), never the GM's chair.
 
 ## Files
 
